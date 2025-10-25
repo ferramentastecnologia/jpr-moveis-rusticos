@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proteção Veicular - Economia e Segurança para seu Veículo</title>
+    <title>ShieldCar Blumenau - Proteção Veicular | Economia e Segurança</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Meta Pixel Code -->
     <script>
@@ -31,83 +34,375 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+        :root {
+            --primary-green: #AFC41A;
+            --primary-yellow: #B3BC11;
+            --dark-gray: #1D2829;
+            --light-gray: #F2F2F2;
+            --white: #FFFFFF;
         }
 
-        .container {
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--dark-gray);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .header-container {
             max-width: 1200px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
         }
 
-        .content {
-            color: white;
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-green);
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        .content h1 {
-            font-size: 3rem;
+        .logo span {
+            color: var(--dark-gray);
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--dark-gray);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-green);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--primary-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--dark-gray) 0%, #2d3f41 100%);
+            color: var(--white);
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".1" fill="%23AFC41A"/></svg>') no-repeat bottom;
+            background-size: cover;
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
             margin-bottom: 20px;
             line-height: 1.2;
+            text-transform: uppercase;
         }
 
-        .content h2 {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
+        .hero .highlight {
+            color: var(--primary-green);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
             opacity: 0.9;
         }
 
-        .benefits {
-            list-style: none;
-            margin-top: 30px;
+        .cta-button {
+            display: inline-block;
+            background: var(--primary-yellow);
+            color: var(--dark-gray);
+            padding: 15px 40px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(175, 196, 26, 0.3);
         }
 
-        .benefits li {
-            padding: 15px 0;
-            font-size: 1.1rem;
+        .cta-button:hover {
+            background: var(--primary-green);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(175, 196, 26, 0.5);
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            padding: 80px 20px;
+            background: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 60px;
+            color: var(--dark-gray);
+            text-transform: uppercase;
+        }
+
+        .benefits-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .benefit-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid var(--light-gray);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-color: var(--primary-green);
+        }
+
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-green);
+            border-radius: 50%;
             display: flex;
             align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2.5rem;
+            color: var(--white);
         }
 
-        .benefits li:before {
-            content: "✓";
-            margin-right: 15px;
-            font-size: 1.5rem;
-            color: #4ade80;
+        .benefit-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--dark-gray);
         }
 
-        .form-container {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        .benefit-card p {
+            color: #666;
+            line-height: 1.8;
         }
 
-        .form-container h3 {
-            color: #333;
-            font-size: 1.8rem;
+        /* Statistics Section */
+        .stats-section {
+            background: var(--primary-green);
+            color: var(--white);
+            padding: 60px 20px;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-item {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            display: block;
             margin-bottom: 10px;
         }
 
-        .form-container p {
-            color: #666;
+        .stat-label {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 80px 20px;
+            background: var(--light-gray);
+        }
+
+        .testimonials-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .testimonial {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 15px;
             margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .author-info h4 {
+            color: var(--dark-gray);
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* Form Section */
+        .form-section {
+            padding: 80px 20px;
+            background: var(--white);
+        }
+
+        .form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--light-gray);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .form-container h3 {
+            color: var(--dark-gray);
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .form-container > p {
+            color: #666;
+            margin-bottom: 40px;
+            text-align: center;
+            font-size: 1.1rem;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: #333;
+            color: var(--dark-gray);
             font-weight: 600;
         }
 
@@ -115,16 +410,30 @@
         .form-group select {
             width: 100%;
             padding: 15px;
-            border: 2px solid #e5e7eb;
+            border: 2px solid #ddd;
             border-radius: 10px;
             font-size: 1rem;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
+            background: var(--white);
+            font-family: 'Open Sans', sans-serif;
         }
 
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(175, 196, 26, 0.1);
+        }
+
+        .form-group select:disabled {
+            background: #f5f5f5;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .form-group select.loading {
+            background: var(--white) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="none" stroke="%23AFC41A" stroke-width="4" stroke-dasharray="31.4 31.4" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" dur="1s" repeatCount="indefinite" from="0 25 25" to="360 25 25"/></circle></svg>') no-repeat right 15px center;
+            background-size: 20px;
         }
 
         .form-group.error input,
@@ -146,71 +455,279 @@
         .submit-btn {
             width: 100%;
             padding: 18px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: var(--primary-yellow);
+            color: var(--dark-gray);
             border: none;
             border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(179, 188, 17, 0.3);
         }
 
         .submit-btn:hover {
+            background: var(--primary-green);
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 6px 20px rgba(175, 196, 26, 0.4);
         }
 
         .submit-btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
+            transform: none;
         }
 
         .success-message {
             display: none;
-            background: #4ade80;
+            background: #10b981;
             color: white;
             padding: 20px;
             border-radius: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             text-align: center;
+            font-weight: 600;
+            animation: slideDown 0.5s ease-out;
         }
 
         .success-message.show {
             display: block;
         }
 
+        /* Footer */
+        footer {
+            background: var(--dark-gray);
+            color: var(--white);
+            padding: 60px 20px 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            color: var(--primary-green);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-green);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background: var(--primary-green);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
+            .header-container {
+                flex-direction: column;
+                gap: 20px;
             }
 
-            .content h1 {
+            nav {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .hero h1 {
                 font-size: 2rem;
             }
 
-            .form-container {
-                padding: 25px;
+            .hero p {
+                font-size: 1.1rem;
             }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .form-container {
+                padding: 30px 20px;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Scroll animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="content">
-            <h1>Proteja seu Veículo com Economia</h1>
-            <h2>Cooperativa de Proteção Veicular - A melhor alternativa ao seguro tradicional</h2>
-
-            <ul class="benefits">
-                <li>Economia de até 50% comparado ao seguro tradicional</li>
-                <li>Cobertura completa para roubo, furto e colisão</li>
-                <li>Assistência 24 horas em todo território nacional</li>
-                <li>Sem análise de perfil ou pontuação</li>
-                <li>Proteção solidária e transparente</li>
-            </ul>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">Shield<span>Car</span></div>
+            <nav>
+                <a href="#beneficios">Benefícios</a>
+                <a href="#depoimentos">Depoimentos</a>
+                <a href="#cotacao">Cotação</a>
+            </nav>
         </div>
+    </header>
 
-        <div class="form-container">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Proteção <span class="highlight">Completa</span> para seu Veículo</h1>
+            <p>A melhor alternativa ao seguro tradicional em Blumenau/SC. Economia de até 50% com cobertura total e assistência 24h.</p>
+            <a href="#cotacao" class="cta-button">Solicite sua Cotação</a>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="beneficios" class="benefits-section">
+        <h2 class="section-title animate-on-scroll">Por que escolher a ShieldCar?</h2>
+        <div class="benefits-grid">
+            <div class="benefit-card animate-on-scroll">
+                <div class="benefit-icon">💰</div>
+                <h3>Economia Real</h3>
+                <p>Até 50% mais barato que seguros tradicionais, sem comprometer a qualidade da proteção.</p>
+            </div>
+            <div class="benefit-card animate-on-scroll">
+                <div class="benefit-icon">🛡️</div>
+                <h3>Cobertura Completa</h3>
+                <p>Proteção contra roubo, furto, colisão e assistência completa para seu veículo.</p>
+            </div>
+            <div class="benefit-card animate-on-scroll">
+                <div class="benefit-icon">⏰</div>
+                <h3>Assistência 24h</h3>
+                <p>Suporte disponível 24 horas por dia, 7 dias por semana, em todo território nacional.</p>
+            </div>
+            <div class="benefit-card animate-on-scroll">
+                <div class="benefit-icon">✓</div>
+                <h3>Sem Burocracia</h3>
+                <p>Aprovação rápida, sem análise de perfil ou pontuação. Proteção acessível para todos.</p>
+            </div>
+            <div class="benefit-card animate-on-scroll">
+                <div class="benefit-icon">🤝</div>
+                <h3>Cooperativa</h3>
+                <p>Sistema solidário e transparente, onde todos se ajudam mutuamente.</p>
+            </div>
+            <div class="benefit-card animate-on-scroll">
+                <div class="benefit-icon">📱</div>
+                <h3>Atendimento Local</h3>
+                <p>Equipe dedicada em Blumenau/SC para atender você com agilidade e proximidade.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stat-item">
+                <span class="stat-number" data-target="5000">0</span>
+                <span class="stat-label">Clientes Protegidos</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="15">0</span>
+                <span class="stat-label">Anos de Experiência</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="50">0</span>
+                <span class="stat-label">Cidades Atendidas</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="98">0</span>
+                <span class="stat-label">% Satisfação</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="depoimentos" class="testimonials-section">
+        <h2 class="section-title animate-on-scroll">O que nossos clientes dizem</h2>
+        <div class="testimonials-container">
+            <div class="testimonial animate-on-scroll">
+                <p class="testimonial-text">"Excelente atendimento! Economizei quase 60% comparado ao meu seguro anterior e a cobertura é completa. Recomendo!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">MC</div>
+                    <div class="author-info">
+                        <h4>Maria Clara Silva</h4>
+                        <p>Honda Civic - Blumenau/SC</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial animate-on-scroll">
+                <p class="testimonial-text">"Quando meu carro foi roubado, fui atendido rapidamente e sem burocracia. A ShieldCar cumpriu tudo que prometeu!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">RS</div>
+                    <div class="author-info">
+                        <h4>Ricardo Santos</h4>
+                        <p>Toyota Corolla - Blumenau/SC</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial animate-on-scroll">
+                <p class="testimonial-text">"Melhor custo-benefício! Estou protegido pagando muito menos. A assistência 24h já me salvou várias vezes."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">AF</div>
+                    <div class="author-info">
+                        <h4>Ana Fernandes</h4>
+                        <p>Volkswagen Gol - Blumenau/SC</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section id="cotacao" class="form-section">
+        <div class="form-container animate-on-scroll">
             <div class="success-message" id="successMessage">
                 ✓ Cadastro realizado com sucesso! Em breve nossa equipe entrará em contato.
             </div>
@@ -238,31 +755,97 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="placa">Placa do Veículo *</label>
+                    <input type="text" id="placa" name="placa" required placeholder="ABC1234" maxlength="7">
+                    <span class="error-message">Por favor, insira uma placa válida (ABC1234)</span>
+                </div>
+
+                <div class="form-group">
                     <label for="veiculo">Tipo de Veículo *</label>
                     <select id="veiculo" name="veiculo" required>
                         <option value="">Selecione...</option>
-                        <option value="Carro">Carro</option>
-                        <option value="Moto">Moto</option>
-                        <option value="Caminhonete">Caminhonete</option>
-                        <option value="Van/Utilitário">Van/Utilitário</option>
+                        <option value="carros">Carro/Utilitário</option>
+                        <option value="motos">Moto</option>
+                        <option value="caminhoes">Caminhão/Micro-ônibus</option>
                     </select>
                     <span class="error-message">Por favor, selecione o tipo de veículo</span>
                 </div>
 
                 <div class="form-group">
-                    <label for="marca">Marca do Veículo</label>
-                    <input type="text" id="marca" name="marca" placeholder="Ex: Fiat, Volkswagen, Honda">
+                    <label for="marca">Marca do Veículo *</label>
+                    <select id="marca" name="marca" required disabled>
+                        <option value="">Primeiro selecione o tipo de veículo</option>
+                    </select>
+                    <span class="error-message">Por favor, selecione a marca do veículo</span>
                 </div>
 
                 <div class="form-group">
-                    <label for="modelo">Modelo do Veículo</label>
-                    <input type="text" id="modelo" name="modelo" placeholder="Ex: Gol, Civic, Onix">
+                    <label for="modelo">Modelo do Veículo *</label>
+                    <select id="modelo" name="modelo" required disabled>
+                        <option value="">Primeiro selecione a marca</option>
+                    </select>
+                    <span class="error-message">Por favor, selecione o modelo do veículo</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="ano">Ano do Modelo *</label>
+                    <select id="ano" name="ano" required disabled>
+                        <option value="">Primeiro selecione o modelo</option>
+                    </select>
+                    <span class="error-message">Por favor, selecione o ano do veículo</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="estado">Estado *</label>
+                    <select id="estado" name="estado" required>
+                        <option value="">Selecione...</option>
+                        <option value="AC">Acre</option>
+                        <option value="AL">Alagoas</option>
+                        <option value="AP">Amapá</option>
+                        <option value="AM">Amazonas</option>
+                        <option value="BA">Bahia</option>
+                        <option value="CE">Ceará</option>
+                        <option value="DF">Distrito Federal</option>
+                        <option value="ES">Espírito Santo</option>
+                        <option value="GO">Goiás</option>
+                        <option value="MA">Maranhão</option>
+                        <option value="MT">Mato Grosso</option>
+                        <option value="MS">Mato Grosso do Sul</option>
+                        <option value="MG">Minas Gerais</option>
+                        <option value="PA">Pará</option>
+                        <option value="PB">Paraíba</option>
+                        <option value="PR">Paraná</option>
+                        <option value="PE">Pernambuco</option>
+                        <option value="PI">Piauí</option>
+                        <option value="RJ">Rio de Janeiro</option>
+                        <option value="RN">Rio Grande do Norte</option>
+                        <option value="RS">Rio Grande do Sul</option>
+                        <option value="RO">Rondônia</option>
+                        <option value="RR">Roraima</option>
+                        <option value="SC" selected>Santa Catarina</option>
+                        <option value="SP">São Paulo</option>
+                        <option value="SE">Sergipe</option>
+                        <option value="TO">Tocantins</option>
+                    </select>
+                    <span class="error-message">Por favor, selecione o estado</span>
                 </div>
 
                 <div class="form-group">
                     <label for="cidade">Cidade *</label>
-                    <input type="text" id="cidade" name="cidade" required>
+                    <input type="text" id="cidade" name="cidade" required value="Blumenau">
                     <span class="error-message">Por favor, insira sua cidade</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="veiculo_trabalho">
+                        <input type="checkbox" id="veiculo_trabalho" name="veiculo_trabalho" style="width: auto; margin-right: 10px;">
+                        Veículo de trabalho (Táxi/Uber)?
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="observacoes">Observações</label>
+                    <textarea id="observacoes" name="observacoes" rows="3" placeholder="Informações adicionais (opcional)" style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem; font-family: 'Open Sans', sans-serif; resize: vertical;"></textarea>
                 </div>
 
                 <button type="submit" class="submit-btn" id="submitBtn">
@@ -270,15 +853,48 @@
                 </button>
             </form>
         </div>
-    </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>ShieldCar Blumenau</h4>
+                <p>Proteção Veicular completa com economia e transparência.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link">📘</a>
+                    <a href="#" class="social-link">📷</a>
+                    <a href="#" class="social-link">💬</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Links Rápidos</h4>
+                <a href="#beneficios">Benefícios</a>
+                <a href="#depoimentos">Depoimentos</a>
+                <a href="#cotacao">Cotação</a>
+                <a href="https://shieldcar.com.br" target="_blank">Site Matriz</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contato</h4>
+                <p>Blumenau - Santa Catarina</p>
+                <p>WhatsApp: (47) 99999-9999</p>
+                <p>contato@shieldcarblumenau.com.br</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 ShieldCar Blumenau - Todos os direitos reservados. | Proteção Veicular</p>
+        </div>
+    </footer>
 
     <script>
+    // Configuration
     const CONFIG = {
         hubspotPortalId: '50536787',
-        hubspotFormId: '0a12dcbf-0c77-4ae3-86c8-fe7604dd4b85',
+        hubspotFormId: '528f0f6e-026b-424d-8c9c-ad1506083856',
         metaPixelId: '1581222786653125'
     };
 
+    // Validators
     const Validator = {
         email: (email) => {
             const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -290,9 +906,19 @@
         },
         nome: (nome) => {
             return nome.trim().length >= 3 && nome.trim().includes(' ');
+        },
+        placa: (placa) => {
+            // Aceita formato antigo (ABC1234) e Mercosul (ABC1D23)
+            const regex = /^[A-Z]{3}[0-9][A-Z0-9][0-9]{2}$/;
+            return regex.test(placa.toUpperCase());
+        },
+        ano: (ano) => {
+            // Removido - agora é select, não precisa validação especial
+            return true;
         }
     };
 
+    // Utilities
     function formatarTelefone(value) {
         const cleaned = value.replace(/\D/g, '');
         let formatted = cleaned;
@@ -314,11 +940,12 @@
         };
     }
 
+    // HubSpot Integration
     async function enviarParaHubSpot(formData) {
         const url = `https://api.hsforms.com/submissions/v3/integration/submit/${CONFIG.hubspotPortalId}/${CONFIG.hubspotFormId}`;
-        
+
         const utmParams = getUTMParams();
-        
+
         const hubspotData = {
             fields: [
                 { name: 'firstname', value: formData.nome.split(' ')[0] },
@@ -326,9 +953,14 @@
                 { name: 'email', value: formData.email },
                 { name: 'phone', value: formData.telefone },
                 { name: 'city', value: formData.cidade },
+                { name: 'state', value: formData.estado },
+                { name: 'placa_veiculo', value: formData.placa },
                 { name: 'tipo_veiculo', value: formData.veiculo },
-                { name: 'marca_veiculo', value: formData.marca || '' },
-                { name: 'modelo_veiculo', value: formData.modelo || '' }
+                { name: 'marca_veiculo', value: formData.marca },
+                { name: 'modelo_veiculo', value: formData.modelo },
+                { name: 'ano_veiculo', value: formData.ano },
+                { name: 'veiculo_trabalho', value: formData.veiculoTrabalho ? 'Sim' : 'Não' },
+                { name: 'observacoes', value: formData.observacoes || '' }
             ],
             context: {
                 pageUri: window.location.href,
@@ -365,6 +997,7 @@
         }
     }
 
+    // Meta Pixel Tracking
     function trackMetaConversion(leadData) {
         if (typeof fbq !== 'undefined') {
             fbq('track', 'Lead', {
@@ -377,6 +1010,7 @@
         }
     }
 
+    // Local Storage
     function salvarLeadLocal(leadData) {
         try {
             const leads = JSON.parse(localStorage.getItem('leads') || '[]');
@@ -391,6 +1025,7 @@
         }
     }
 
+    // Form Validation
     function validarCampo(input) {
         const formGroup = input.closest('.form-group');
         let isValid = true;
@@ -403,6 +1038,10 @@
             isValid = false;
         } else if (input.id === 'nome' && !Validator.nome(input.value)) {
             isValid = false;
+        } else if (input.id === 'placa' && input.value && !Validator.placa(input.value)) {
+            isValid = false;
+        } else if (input.id === 'ano' && input.value && !Validator.ano(input.value)) {
+            isValid = false;
         }
 
         if (isValid) {
@@ -414,17 +1053,273 @@
         return isValid;
     }
 
+    // Formatar placa
+    function formatarPlaca(value) {
+        return value.toUpperCase().replace(/[^A-Z0-9]/g, '').substring(0, 7);
+    }
+
+    // API FIPE Integration
+    const FIPE_API_BASE = 'https://parallelum.com.br/fipe/api/v1';
+
+    // Cache para armazenar dados já carregados
+    const fipeCache = {
+        marcas: {},
+        modelos: {},
+        anos: {}
+    };
+
+    async function carregarMarcas(tipoVeiculo) {
+        const marcaSelect = document.getElementById('marca');
+        const modeloSelect = document.getElementById('modelo');
+        const anoSelect = document.getElementById('ano');
+
+        // Resetar campos dependentes
+        resetarSelect(modeloSelect, 'Primeiro selecione a marca');
+        resetarSelect(anoSelect, 'Primeiro selecione o modelo');
+        modeloSelect.disabled = true;
+        anoSelect.disabled = true;
+
+        if (!tipoVeiculo) {
+            resetarSelect(marcaSelect, 'Primeiro selecione o tipo de veículo');
+            marcaSelect.disabled = true;
+            return;
+        }
+
+        // Verificar cache
+        if (fipeCache.marcas[tipoVeiculo]) {
+            popularSelect(marcaSelect, fipeCache.marcas[tipoVeiculo], 'Selecione a marca');
+            marcaSelect.disabled = false;
+            return;
+        }
+
+        try {
+            marcaSelect.classList.add('loading');
+            marcaSelect.disabled = true;
+
+            const response = await fetch(`${FIPE_API_BASE}/${tipoVeiculo}/marcas`);
+            if (!response.ok) throw new Error('Erro ao carregar marcas');
+
+            const marcas = await response.json();
+            fipeCache.marcas[tipoVeiculo] = marcas;
+
+            popularSelect(marcaSelect, marcas, 'Selecione a marca');
+            marcaSelect.disabled = false;
+
+        } catch (error) {
+            console.error('Erro ao carregar marcas:', error);
+            resetarSelect(marcaSelect, 'Erro ao carregar marcas. Tente novamente.');
+            marcaSelect.disabled = false;
+        } finally {
+            marcaSelect.classList.remove('loading');
+        }
+    }
+
+    async function carregarModelos(tipoVeiculo, codigoMarca) {
+        const modeloSelect = document.getElementById('modelo');
+        const anoSelect = document.getElementById('ano');
+
+        // Resetar campo de ano
+        resetarSelect(anoSelect, 'Primeiro selecione o modelo');
+        anoSelect.disabled = true;
+
+        if (!tipoVeiculo || !codigoMarca) {
+            resetarSelect(modeloSelect, 'Primeiro selecione a marca');
+            modeloSelect.disabled = true;
+            return;
+        }
+
+        const cacheKey = `${tipoVeiculo}-${codigoMarca}`;
+
+        // Verificar cache
+        if (fipeCache.modelos[cacheKey]) {
+            popularSelect(modeloSelect, fipeCache.modelos[cacheKey], 'Selecione o modelo');
+            modeloSelect.disabled = false;
+            return;
+        }
+
+        try {
+            modeloSelect.classList.add('loading');
+            modeloSelect.disabled = true;
+
+            const response = await fetch(`${FIPE_API_BASE}/${tipoVeiculo}/marcas/${codigoMarca}/modelos`);
+            if (!response.ok) throw new Error('Erro ao carregar modelos');
+
+            const data = await response.json();
+            const modelos = data.modelos || [];
+            fipeCache.modelos[cacheKey] = modelos;
+
+            popularSelect(modeloSelect, modelos, 'Selecione o modelo');
+            modeloSelect.disabled = false;
+
+        } catch (error) {
+            console.error('Erro ao carregar modelos:', error);
+            resetarSelect(modeloSelect, 'Erro ao carregar modelos. Tente novamente.');
+            modeloSelect.disabled = false;
+        } finally {
+            modeloSelect.classList.remove('loading');
+        }
+    }
+
+    async function carregarAnos(tipoVeiculo, codigoMarca, codigoModelo) {
+        const anoSelect = document.getElementById('ano');
+
+        if (!tipoVeiculo || !codigoMarca || !codigoModelo) {
+            resetarSelect(anoSelect, 'Primeiro selecione a marca e o modelo');
+            anoSelect.disabled = true;
+            return;
+        }
+
+        const cacheKey = `${tipoVeiculo}-${codigoMarca}-${codigoModelo}`;
+
+        // Verificar cache
+        if (fipeCache.anos[cacheKey]) {
+            popularSelect(anoSelect, fipeCache.anos[cacheKey], 'Selecione o ano', true);
+            anoSelect.disabled = false;
+            return;
+        }
+
+        try {
+            anoSelect.classList.add('loading');
+            anoSelect.disabled = true;
+
+            const response = await fetch(`${FIPE_API_BASE}/${tipoVeiculo}/marcas/${codigoMarca}/modelos/${codigoModelo}/anos`);
+            if (!response.ok) throw new Error('Erro ao carregar anos');
+
+            const anos = await response.json();
+            fipeCache.anos[cacheKey] = anos;
+
+            popularSelect(anoSelect, anos, 'Selecione o ano', true);
+            anoSelect.disabled = false;
+
+        } catch (error) {
+            console.error('Erro ao carregar anos:', error);
+            resetarSelect(anoSelect, 'Erro ao carregar anos. Tente novamente.');
+            anoSelect.disabled = false;
+        } finally {
+            anoSelect.classList.remove('loading');
+        }
+    }
+
+    function popularSelect(selectElement, opcoes, placeholder, usarNome = false) {
+        selectElement.innerHTML = `<option value="">${placeholder}</option>`;
+
+        opcoes.forEach(opcao => {
+            const option = document.createElement('option');
+            option.value = opcao.codigo;
+            option.textContent = usarNome ? opcao.nome : opcao.nome;
+            option.dataset.nome = opcao.nome;
+            selectElement.appendChild(option);
+        });
+    }
+
+    function resetarSelect(selectElement, placeholder) {
+        selectElement.innerHTML = `<option value="">${placeholder}</option>`;
+    }
+
+    // Animated Counter
+    function animateCounter(element) {
+        const target = parseInt(element.dataset.target);
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+
+        const timer = setInterval(() => {
+            current += step;
+            if (current >= target) {
+                element.textContent = target + (element.dataset.suffix || '');
+                clearInterval(timer);
+            } else {
+                element.textContent = Math.floor(current);
+            }
+        }, 16);
+    }
+
+    // Scroll Animations
+    function handleScrollAnimations() {
+        const elements = document.querySelectorAll('.animate-on-scroll');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        elements.forEach(el => observer.observe(el));
+    }
+
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Initialize
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.getElementById('leadForm');
         const telefoneInput = document.getElementById('telefone');
         const submitBtn = document.getElementById('submitBtn');
         const successMessage = document.getElementById('successMessage');
 
+        // Phone formatting
         telefoneInput.addEventListener('input', function(e) {
             this.value = formatarTelefone(this.value);
         });
 
-        const inputs = form.querySelectorAll('input, select');
+        // Placa formatting
+        const placaInput = document.getElementById('placa');
+        placaInput.addEventListener('input', function(e) {
+            this.value = formatarPlaca(this.value);
+        });
+
+        // Eventos dos selects FIPE
+        const veiculoSelect = document.getElementById('veiculo');
+        const marcaSelect = document.getElementById('marca');
+        const modeloSelect = document.getElementById('modelo');
+        const anoSelect = document.getElementById('ano');
+
+        veiculoSelect.addEventListener('change', function() {
+            carregarMarcas(this.value);
+        });
+
+        marcaSelect.addEventListener('change', function() {
+            const tipoVeiculo = veiculoSelect.value;
+            const codigoMarca = this.value;
+
+            if (codigoMarca) {
+                carregarModelos(tipoVeiculo, codigoMarca);
+            } else {
+                resetarSelect(modeloSelect, 'Primeiro selecione a marca');
+                modeloSelect.disabled = true;
+                resetarSelect(anoSelect, 'Primeiro selecione o modelo');
+                anoSelect.disabled = true;
+            }
+        });
+
+        modeloSelect.addEventListener('change', function() {
+            const tipoVeiculo = veiculoSelect.value;
+            const codigoMarca = marcaSelect.value;
+            const codigoModelo = this.value;
+
+            if (codigoModelo) {
+                carregarAnos(tipoVeiculo, codigoMarca, codigoModelo);
+            } else {
+                resetarSelect(anoSelect, 'Primeiro selecione o modelo');
+                anoSelect.disabled = true;
+            }
+        });
+
+        // Form validation
+        const inputs = form.querySelectorAll('input, select, textarea');
         inputs.forEach(input => {
             input.addEventListener('blur', function() {
                 validarCampo(this);
@@ -437,6 +1332,7 @@
             });
         });
 
+        // Form submission
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
 
@@ -454,25 +1350,46 @@
             submitBtn.disabled = true;
             submitBtn.textContent = 'Enviando...';
 
+            // Função auxiliar para pegar texto selecionado
+            const getSelectedText = (selectId) => {
+                const select = document.getElementById(selectId);
+                const option = select.options[select.selectedIndex];
+                return option.dataset.nome || option.text;
+            };
+
+            // Mapear tipo de veículo para nome amigável
+            const tipoVeiculoMap = {
+                'carros': 'Carro/Utilitário',
+                'motos': 'Moto',
+                'caminhoes': 'Caminhão/Micro-ônibus'
+            };
+
             const formData = {
                 nome: document.getElementById('nome').value,
                 email: document.getElementById('email').value,
                 telefone: document.getElementById('telefone').value,
-                veiculo: document.getElementById('veiculo').value,
-                marca: document.getElementById('marca').value,
-                modelo: document.getElementById('modelo').value,
-                cidade: document.getElementById('cidade').value
+                placa: document.getElementById('placa').value,
+                veiculo: tipoVeiculoMap[document.getElementById('veiculo').value] || document.getElementById('veiculo').value,
+                marca: getSelectedText('marca'),
+                modelo: getSelectedText('modelo'),
+                ano: getSelectedText('ano'),
+                estado: document.getElementById('estado').value,
+                cidade: document.getElementById('cidade').value,
+                veiculoTrabalho: document.getElementById('veiculo_trabalho').checked,
+                observacoes: document.getElementById('observacoes').value
             };
 
             try {
                 salvarLeadLocal(formData);
                 await enviarParaHubSpot(formData);
                 console.log('✓ Lead enviado para HubSpot com sucesso');
-                
+
                 trackMetaConversion(formData);
-                
+
                 successMessage.classList.add('show');
                 form.reset();
+                document.getElementById('estado').value = 'SC';
+                document.getElementById('cidade').value = 'Blumenau';
                 successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
             } catch (error) {
@@ -483,6 +1400,26 @@
                 submitBtn.textContent = 'Solicitar Cotação Gratuita';
             }
         });
+
+        // Counter animation on scroll
+        let countersAnimated = false;
+        const statsSection = document.querySelector('.stats-section');
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !countersAnimated) {
+                    document.querySelectorAll('.stat-number').forEach(animateCounter);
+                    countersAnimated = true;
+                }
+            });
+        }, { threshold: 0.5 });
+
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // Scroll animations
+        handleScrollAnimations();
 
         console.log('✓ Sistema de captação de leads inicializado');
         console.log('UTM Parameters:', getUTMParams());

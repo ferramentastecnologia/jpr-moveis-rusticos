@@ -1,0 +1,117 @@
+{
+  "name": "HubSpot Lead > WhatsApp Notificação",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "hubspot-lead",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook - HubSpot Lead",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "webhookId": "hubspot-lead-webhook"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\"status\": \"success\", \"message\": \"Lead recebido\"}",
+        "options": {}
+      },
+      "id": "webhook-response",
+      "name": "Responder HubSpot",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extrair dados do lead\nconst lead = $input.item.json;\n\n// Extrair campos\nconst nome = lead.firstname || 'Não informado';\nconst email = lead.email || 'Não informado';\nconst telefone = lead.phone || 'Não informado';\nconst placa = lead.placa_veiculo || 'Não informado';\nconst tipo = lead.tipo_veiculo || 'Não informado';\nconst marca = lead.marca_veiculo || 'Não informado';\nconst modelo = lead.modelo_veiculo || 'Não informado';\nconst ano = lead.ano_veiculo || 'Não informado';\nconst cidade = lead.city || 'Não informado';\nconst estado = lead.state || 'Não informado';\n\n// Formatar mensagem WhatsApp\nconst mensagem = `🚗 *NOVO LEAD - ShieldCar Blumenau*\\n\\n` +\n  `👤 *Cliente:* ${nome}\\n` +\n  `📧 *E-mail:* ${email}\\n` +\n  `📱 *Telefone:* ${telefone}\\n\\n` +\n  `🚙 *Veículo:*\\n` +\n  `• Tipo: ${tipo}\\n` +\n  `• Marca: ${marca}\\n` +\n  `• Modelo: ${modelo}\\n` +\n  `• Ano: ${ano}\\n` +\n  `• Placa: ${placa}\\n\\n` +\n  `📍 *Localização:* ${cidade}/${estado}\\n\\n` +\n  `⏰ Recebido em: ${new Date().toLocaleString('pt-BR')}`;\n\nreturn {\n  json: {\n    mensagem: mensagem,\n    telefone: '5547992752697',\n    lead: lead\n  }\n};"
+      },
+      "id": "processar-lead",
+      "name": "Processar Lead",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8080/message/sendText/shieldcar",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "shieldcar_evolution_2024_secure_key_12345"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "={{ $json.telefone }}"
+            },
+            {
+              "name": "text",
+              "value": "={{ $json.mensagem }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "enviar-whatsapp",
+      "name": "Enviar WhatsApp (Evolution API)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [900, 300]
+    }
+  ],
+  "connections": {
+    "Webhook - HubSpot Lead": {
+      "main": [
+        [
+          {
+            "node": "Responder HubSpot",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Processar Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Processar Lead": {
+      "main": [
+        [
+          {
+            "node": "Enviar WhatsApp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-25T00:00:00.000Z",
+  "versionId": "1"
+}
