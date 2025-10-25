@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proteção Veicular - Economia e Segurança para seu Veículo</title>
+
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1581222786653125');
+    fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=1581222786653125&ev=PageView&noscript=1"/>
+    </noscript>
+    <!-- End Meta Pixel Code -->
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .content {
+            color: white;
+        }
+
+        .content h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .content h2 {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .benefits {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .benefits li {
+            padding: 15px 0;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .benefits li:before {
+            content: "✓";
+            margin-right: 15px;
+            font-size: 1.5rem;
+            color: #4ade80;
+        }
+
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-container h3 {
+            color: #333;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .form-container p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group.error input,
+        .form-group.error select {
+            border-color: #ef4444;
+        }
+
+        .error-message {
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .success-message {
+            display: none;
+            background: #4ade80;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .content h1 {
+                font-size: 2rem;
+            }
+
+            .form-container {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <h1>Proteja seu Veículo com Economia</h1>
+            <h2>Cooperativa de Proteção Veicular - A melhor alternativa ao seguro tradicional</h2>
+
+            <ul class="benefits">
+                <li>Economia de até 50% comparado ao seguro tradicional</li>
+                <li>Cobertura completa para roubo, furto e colisão</li>
+                <li>Assistência 24 horas em todo território nacional</li>
+                <li>Sem análise de perfil ou pontuação</li>
+                <li>Proteção solidária e transparente</li>
+            </ul>
+        </div>
+
+        <div class="form-container">
+            <div class="success-message" id="successMessage">
+                ✓ Cadastro realizado com sucesso! Em breve nossa equipe entrará em contato.
+            </div>
+
+            <h3>Faça sua Cotação Gratuita</h3>
+            <p>Preencha o formulário e receba uma proposta personalizada</p>
+
+            <form id="leadForm">
+                <div class="form-group">
+                    <label for="nome">Nome Completo *</label>
+                    <input type="text" id="nome" name="nome" required>
+                    <span class="error-message">Por favor, insira seu nome completo</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-mail *</label>
+                    <input type="email" id="email" name="email" required>
+                    <span class="error-message">Por favor, insira um e-mail válido</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefone">Telefone/WhatsApp *</label>
+                    <input type="tel" id="telefone" name="telefone" required placeholder="(00) 00000-0000">
+                    <span class="error-message">Por favor, insira um telefone válido</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="veiculo">Tipo de Veículo *</label>
+                    <select id="veiculo" name="veiculo" required>
+                        <option value="">Selecione...</option>
+                        <option value="Carro">Carro</option>
+                        <option value="Moto">Moto</option>
+                        <option value="Caminhonete">Caminhonete</option>
+                        <option value="Van/Utilitário">Van/Utilitário</option>
+                    </select>
+                    <span class="error-message">Por favor, selecione o tipo de veículo</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="marca">Marca do Veículo</label>
+                    <input type="text" id="marca" name="marca" placeholder="Ex: Fiat, Volkswagen, Honda">
+                </div>
+
+                <div class="form-group">
+                    <label for="modelo">Modelo do Veículo</label>
+                    <input type="text" id="modelo" name="modelo" placeholder="Ex: Gol, Civic, Onix">
+                </div>
+
+                <div class="form-group">
+                    <label for="cidade">Cidade *</label>
+                    <input type="text" id="cidade" name="cidade" required>
+                    <span class="error-message">Por favor, insira sua cidade</span>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    Solicitar Cotação Gratuita
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    const CONFIG = {
+        hubspotPortalId: '50536787',
+        hubspotFormId: '0a12dcbf-0c77-4ae3-86c8-fe7604dd4b85',
+        metaPixelId: '1581222786653125'
+    };
+
+    const Validator = {
+        email: (email) => {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return regex.test(email);
+        },
+        telefone: (telefone) => {
+            const cleaned = telefone.replace(/\D/g, '');
+            return cleaned.length >= 10 && cleaned.length <= 11;
+        },
+        nome: (nome) => {
+            return nome.trim().length >= 3 && nome.trim().includes(' ');
+        }
+    };
+
+    function formatarTelefone(value) {
+        const cleaned = value.replace(/\D/g, '');
+        let formatted = cleaned;
+        if (cleaned.length <= 10) {
+            formatted = cleaned.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+        } else {
+            formatted = cleaned.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+        }
+        return formatted;
+    }
+
+    function getUTMParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return {
+            utm_source: urlParams.get('utm_source') || '',
+            utm_medium: urlParams.get('utm_medium') || '',
+            utm_campaign: urlParams.get('utm_campaign') || '',
+            utm_content: urlParams.get('utm_content') || ''
+        };
+    }
+
+    async function enviarParaHubSpot(formData) {
+        const url = `https://api.hsforms.com/submissions/v3/integration/submit/${CONFIG.hubspotPortalId}/${CONFIG.hubspotFormId}`;
+        
+        const utmParams = getUTMParams();
+        
+        const hubspotData = {
+            fields: [
+                { name: 'firstname', value: formData.nome.split(' ')[0] },
+                { name: 'lastname', value: formData.nome.split(' ').slice(1).join(' ') || formData.nome.split(' ')[0] },
+                { name: 'email', value: formData.email },
+                { name: 'phone', value: formData.telefone },
+                { name: 'city', value: formData.cidade },
+                { name: 'tipo_veiculo', value: formData.veiculo },
+                { name: 'marca_veiculo', value: formData.marca || '' },
+                { name: 'modelo_veiculo', value: formData.modelo || '' }
+            ],
+            context: {
+                pageUri: window.location.href,
+                pageName: document.title
+            }
+        };
+
+        if (utmParams.utm_source) {
+            hubspotData.fields.push({ name: 'utm_source', value: utmParams.utm_source });
+            hubspotData.fields.push({ name: 'utm_medium', value: utmParams.utm_medium });
+            hubspotData.fields.push({ name: 'utm_campaign', value: utmParams.utm_campaign });
+            hubspotData.fields.push({ name: 'utm_content', value: utmParams.utm_content });
+        }
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(hubspotData)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Erro HubSpot:', errorData);
+                throw new Error(`Erro HTTP: ${response.status}`);
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error('Erro ao enviar:', error);
+            throw error;
+        }
+    }
+
+    function trackMetaConversion(leadData) {
+        if (typeof fbq !== 'undefined') {
+            fbq('track', 'Lead', {
+                content_name: 'Cotação Proteção Veicular',
+                content_category: leadData.veiculo,
+                value: 0,
+                currency: 'BRL'
+            });
+            console.log('✓ Conversão registrada no Meta Pixel');
+        }
+    }
+
+    function salvarLeadLocal(leadData) {
+        try {
+            const leads = JSON.parse(localStorage.getItem('leads') || '[]');
+            leads.push({
+                ...leadData,
+                timestamp: new Date().toISOString()
+            });
+            localStorage.setItem('leads', JSON.stringify(leads));
+            console.log('✓ Lead salvo localmente');
+        } catch (error) {
+            console.error('Erro ao salvar localmente:', error);
+        }
+    }
+
+    function validarCampo(input) {
+        const formGroup = input.closest('.form-group');
+        let isValid = true;
+
+        if (input.hasAttribute('required') && !input.value.trim()) {
+            isValid = false;
+        } else if (input.type === 'email' && !Validator.email(input.value)) {
+            isValid = false;
+        } else if (input.id === 'telefone' && !Validator.telefone(input.value)) {
+            isValid = false;
+        } else if (input.id === 'nome' && !Validator.nome(input.value)) {
+            isValid = false;
+        }
+
+        if (isValid) {
+            formGroup.classList.remove('error');
+        } else {
+            formGroup.classList.add('error');
+        }
+
+        return isValid;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('leadForm');
+        const telefoneInput = document.getElementById('telefone');
+        const submitBtn = document.getElementById('submitBtn');
+        const successMessage = document.getElementById('successMessage');
+
+        telefoneInput.addEventListener('input', function(e) {
+            this.value = formatarTelefone(this.value);
+        });
+
+        const inputs = form.querySelectorAll('input, select');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                validarCampo(this);
+            });
+
+            input.addEventListener('input', function() {
+                if (this.closest('.form-group').classList.contains('error')) {
+                    validarCampo(this);
+                }
+            });
+        });
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            let formIsValid = true;
+            inputs.forEach(input => {
+                if (!validarCampo(input)) {
+                    formIsValid = false;
+                }
+            });
+
+            if (!formIsValid) {
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Enviando...';
+
+            const formData = {
+                nome: document.getElementById('nome').value,
+                email: document.getElementById('email').value,
+                telefone: document.getElementById('telefone').value,
+                veiculo: document.getElementById('veiculo').value,
+                marca: document.getElementById('marca').value,
+                modelo: document.getElementById('modelo').value,
+                cidade: document.getElementById('cidade').value
+            };
+
+            try {
+                salvarLeadLocal(formData);
+                await enviarParaHubSpot(formData);
+                console.log('✓ Lead enviado para HubSpot com sucesso');
+                
+                trackMetaConversion(formData);
+                
+                successMessage.classList.add('show');
+                form.reset();
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Ocorreu um erro ao enviar seus dados. Por favor, tente novamente ou entre em contato pelo WhatsApp: (47) 99999-9999');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Solicitar Cotação Gratuita';
+            }
+        });
+
+        console.log('✓ Sistema de captação de leads inicializado');
+        console.log('UTM Parameters:', getUTMParams());
+    });
+    </script>
+</body>
+</html>
