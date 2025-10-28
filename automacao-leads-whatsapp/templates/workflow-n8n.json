@@ -1,0 +1,119 @@
+{
+  "name": "Lead Capture > WhatsApp",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "hubspot-lead",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "webhook-node",
+      "name": "Webhook Lead",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "hubspot-lead"
+    },
+    {
+      "parameters": {
+        "functionCode": "const body = $input.item.json.body;\n\nconst formatPhone = (phone) => {\n  return phone.replace(/\\D/g, '');\n};\n\nconst formatDate = () => {\n  const now = new Date();\n  return now.toLocaleString('pt-BR', {\n    day: '2-digit',\n    month: '2-digit',\n    year: 'numeric',\n    hour: '2-digit',\n    minute: '2-digit'\n  });\n};\n\nreturn {\n  json: {\n    nome: body.nome || 'Não informado',\n    email: body.email || 'Não informado',\n    telefone: formatPhone(body.telefone || ''),\n    cidade: body.cidade || 'Não informado',\n    estado: body.estado || 'Não informado',\n    veiculo: body.veiculo || 'Não informado',\n    valorFipe: body.valorFipe || 'Não informado',\n    dataHora: formatDate(),\n    whatsappMessage: `🎯 *Novo Lead Capturado!*\\n\\n👤 *Nome:* ${body.nome || 'Não informado'}\\n📱 *Telefone:* ${body.telefone || 'Não informado'}\\n📧 *Email:* ${body.email || 'Não informado'}\\n📍 *Cidade:* ${body.cidade || 'Não informado'} - ${body.estado || 'Não informado'}\\n🚗 *Veículo:* ${body.veiculo || 'Não informado'}\\n💰 *Valor FIPE:* ${body.valorFipe || 'Não informado'}\\n\\n⏰ *Recebido em:* ${formatDate()}\\n\\n✅ _Entre em contato o quanto antes!_`\n  }\n};\n"
+      },
+      "id": "format-node",
+      "name": "Formatar Dados",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:8080/message/sendText/INSTANCE_NAME",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "SUA_API_KEY_AQUI"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "=GROUP_ID_AQUI"
+            },
+            {
+              "name": "text",
+              "value": "={{$json.whatsappMessage}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "whatsapp-node",
+      "name": "Enviar WhatsApp",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\"success\": true, \"message\": \"Lead recebido com sucesso!\"}",
+        "options": {}
+      },
+      "id": "response-node",
+      "name": "Responder",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [850, 300]
+    }
+  ],
+  "connections": {
+    "Webhook Lead": {
+      "main": [
+        [
+          {
+            "node": "Formatar Dados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formatar Dados": {
+      "main": [
+        [
+          {
+            "node": "Enviar WhatsApp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar WhatsApp": {
+      "main": [
+        [
+          {
+            "node": "Responder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {},
+  "id": "lead-capture-whatsapp"
+}

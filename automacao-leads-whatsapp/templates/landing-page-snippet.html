@@ -1,0 +1,94 @@
+<!--
+  Template de Integração para Landing Page
+  Adicione este código no seu formulário HTML
+-->
+
+<!-- Formulário de Captura de Leads -->
+<form id="leadForm" onsubmit="handleSubmit(event)">
+    <input type="text" name="nome" placeholder="Nome completo" required>
+    <input type="email" name="email" placeholder="E-mail" required>
+    <input type="tel" name="telefone" placeholder="WhatsApp" required>
+    <input type="text" name="cidade" placeholder="Cidade">
+    <input type="text" name="estado" placeholder="Estado">
+    <button type="submit">Enviar</button>
+</form>
+
+<script>
+// Configuração do Webhook
+const WEBHOOK_URL = 'https://SEU-TUNNEL.loca.lt/webhook/hubspot-lead';
+
+// Handler do formulário
+async function handleSubmit(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+        // Enviar para o webhook
+        const response = await fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+            // Sucesso - Redirecionar para página de obrigado
+            window.location.href = '/obrigado.html';
+        } else {
+            throw new Error('Erro ao enviar formulário');
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao enviar. Tente novamente.');
+    }
+}
+
+// Opcional: Integração com HubSpot
+async function sendToHubSpot(data) {
+    const HUBSPOT_PORTAL_ID = 'SEU_PORTAL_ID';
+    const HUBSPOT_FORM_ID = 'SEU_FORM_ID';
+
+    const hubspotUrl = `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_ID}`;
+
+    const hubspotData = {
+        fields: Object.keys(data).map(key => ({
+            name: key,
+            value: data[key]
+        })),
+        context: {
+            pageUri: window.location.href,
+            pageName: document.title
+        }
+    };
+
+    await fetch(hubspotUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(hubspotData)
+    });
+}
+</script>
+
+<!-- Meta Pixel (opcional) -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', 'SEU_PIXEL_ID');
+fbq('track', 'PageView');
+
+// Rastrear conversão
+document.getElementById('leadForm').addEventListener('submit', function() {
+    fbq('track', 'Lead');
+});
+</script>
