@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpha Assessoria - Dashboard de Grupos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>🍽️ Alpha Assessoria</h1>
+                    <p class="tagline">Dashboard de Grupos WhatsApp</p>
+                </div>
+                <div class="header-actions">
+                    <div class="status-indicator" id="statusIndicator">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Verificando...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+
+            <!-- Estatísticas -->
+            <section class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-content">
+                            <div class="stat-label">Total de Grupos</div>
+                            <div class="stat-value" id="totalGrupos">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-content">
+                            <div class="stat-label">Criados Hoje</div>
+                            <div class="stat-value" id="gruposHoje">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-content">
+                            <div class="stat-label">Esta Semana</div>
+                            <div class="stat-value" id="gruposSemana">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-content">
+                            <div class="stat-label">Time Configurado</div>
+                            <div class="stat-value" id="totalTime">0</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ações Rápidas -->
+            <section class="actions-section">
+                <div class="section-header">
+                    <h2>Ações Rápidas</h2>
+                </div>
+                <div class="actions-grid">
+                    <button class="action-btn action-btn-primary" onclick="abrirModalCriar()">
+                        <span class="action-icon">➕</span>
+                        <span class="action-text">Criar Novo Grupo</span>
+                    </button>
+                    <button class="action-btn" onclick="abrirConfiguracoes()">
+                        <span class="action-icon">⚙️</span>
+                        <span class="action-text">Configurar Time</span>
+                    </button>
+                    <button class="action-btn" onclick="carregarGrupos()">
+                        <span class="action-icon">🔄</span>
+                        <span class="action-text">Atualizar Lista</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Lista de Grupos -->
+            <section class="grupos-section">
+                <div class="section-header">
+                    <h2>Grupos Criados</h2>
+                    <div class="section-actions">
+                        <input type="text" id="searchInput" placeholder="Buscar cliente..." class="search-input" onkeyup="filtrarGrupos()">
+                    </div>
+                </div>
+                <div id="gruposLista" class="grupos-lista">
+                    <div class="loading">Carregando grupos...</div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Modal: Criar Grupo -->
+    <div id="modalCriar" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Criar Novo Grupo</h2>
+                <button class="modal-close" onclick="fecharModalCriar()">&times;</button>
+            </div>
+            <form id="formCriarGrupo" onsubmit="criarGrupo(event)">
+                <div class="form-group">
+                    <label for="nomeCliente">Nome do Restaurante *</label>
+                    <input type="text" id="nomeCliente" required placeholder="Ex: Pizzaria Bella Italia">
+                    <small>Nome que aparecerá no grupo WhatsApp</small>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="usarTimepadrao" checked onchange="toggleTimePersonalizado()">
+                        Usar time operacional padrão
+                    </label>
+                    <small>Coordenador + equipe configurados nas configurações</small>
+                </div>
+
+                <div id="timePersonalizado" class="time-personalizado" style="display: none;">
+                    <div class="form-group">
+                        <label for="coordenadorCustom">Coordenador</label>
+                        <input type="tel" id="coordenadorCustom" placeholder="5547999999999">
+                    </div>
+                    <div class="form-group">
+                        <label for="equipeCustom">Equipe (separar por vírgula)</label>
+                        <input type="text" id="equipeCustom" placeholder="5547991111111,5547992222222">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="personalizarMensagem" onchange="toggleMensagemPersonalizada()">
+                        Personalizar mensagem de boas-vindas
+                    </label>
+                </div>
+
+                <div id="mensagemPersonalizada" class="mensagem-personalizada" style="display: none;">
+                    <div class="form-group">
+                        <label for="mensagemCustom">Mensagem de Boas-Vindas</label>
+                        <textarea id="mensagemCustom" rows="8" placeholder="Digite a mensagem personalizada..."></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="fecharModalCriar()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" id="btnCriar">
+                        <span class="btn-text">Criar Grupo</span>
+                        <span class="btn-loading" style="display:none;">Criando...</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Configurações -->
+    <div id="modalConfig" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Configurações do Time</h2>
+                <button class="modal-close" onclick="fecharConfiguracoes()">&times;</button>
+            </div>
+            <form id="formConfig" onsubmit="salvarConfiguracoes(event)">
+                <div class="form-group">
+                    <label for="coordenadorConfig">Coordenador Principal *</label>
+                    <input type="tel" id="coordenadorConfig" required placeholder="5547999999999">
+                    <small>Número que será adicionado em TODOS os grupos</small>
+                </div>
+
+                <div class="form-group">
+                    <label>Membros da Equipe Operacional</label>
+                    <div id="equipeInputs">
+                        <input type="tel" class="equipe-input" placeholder="5547999999999">
+                    </div>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="adicionarMembroInput()">+ Adicionar Membro</button>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="fecharConfiguracoes()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Salvar Configurações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast de Notificação -->
+    <div id="toast" class="toast"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
