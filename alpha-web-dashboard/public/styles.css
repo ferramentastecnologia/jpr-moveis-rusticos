@@ -1,5 +1,6 @@
 /* ============================================
    ALPHA ASSESSORIA - DASHBOARD STYLES
+   Identidade Visual: Preto & Dourado
    ============================================ */
 
 * {
@@ -9,25 +10,28 @@
 }
 
 :root {
-    --primary-color: #eea904;
-    --secondary-color: #ffb91a;
-    --success-color: #2ECC71;
-    --danger-color: #E74C3C;
-    --dark-color: #0C0C0C;
-    --light-color: #f5f5f5;
-    --border-color: #d4d4d4;
-    --shadow: 0 2px 10px rgba(0,0,0,0.15);
-    --shadow-hover: 0 4px 20px rgba(238,169,4,0.3);
+    /* Cores Alpha - Gold & Black */
     --gold: #eea904;
-    --gold-light: #ffb91a;
+    --gold-light: #ffc933;
     --gold-dark: #d99704;
+    --gold-glow: rgba(238, 169, 4, 0.3);
+
+    --black: #0C0C0C;
+    --black-light: #1a1a1a;
+    --black-lighter: #2a2a2a;
+
+    --success: #2ECC71;
+    --danger: #E74C3C;
+
+    --shadow-gold: 0 4px 20px rgba(238, 169, 4, 0.4);
+    --shadow-black: 0 2px 15px rgba(0, 0, 0, 0.5);
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #0C0C0C 0%, #1a1a1a 50%, #0C0C0C 100%);
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    background: radial-gradient(circle at top, #1a1a1a 0%, #0C0C0C 50%, #000000 100%);
     min-height: 100vh;
-    color: #333;
+    color: #f5f5f5;
 }
 
 .container {
@@ -37,14 +41,15 @@ body {
 }
 
 /* ============================================
-   HEADER
+   HEADER - Preto com logo e gold
    ============================================ */
 
 .header {
-    background: white;
-    box-shadow: var(--shadow);
+    background: linear-gradient(135deg, var(--black) 0%, var(--black-light) 100%);
+    box-shadow: 0 4px 20px rgba(238, 169, 4, 0.2), 0 0 40px rgba(238, 169, 4, 0.1);
     padding: 20px 0;
     margin-bottom: 30px;
+    border-bottom: 2px solid var(--gold);
 }
 
 .header-content {
@@ -53,50 +58,72 @@ body {
     align-items: center;
 }
 
-.logo h1 {
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo-img {
+    height: 60px;
+    width: auto;
+    filter: drop-shadow(0 0 10px rgba(238, 169, 4, 0.5));
+}
+
+.logo-text h1 {
     font-size: 28px;
     color: var(--gold);
     margin-bottom: 5px;
     font-weight: 700;
+    text-shadow: 0 0 20px rgba(238, 169, 4, 0.5);
 }
 
 .tagline {
     font-size: 14px;
-    color: #7f8c8d;
+    color: var(--gold-light);
 }
 
 .status-indicator {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 16px;
-    background: var(--light-color);
-    border-radius: 20px;
+    padding: 12px 20px;
+    background: var(--black-lighter);
+    border-radius: 25px;
+    border: 1px solid var(--gold-dark);
 }
 
 .status-dot {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: #95a5a6;
+    background: #666;
     animation: pulse 2s infinite;
+    box-shadow: 0 0 10px currentColor;
 }
 
 .status-dot.online {
-    background: var(--success-color);
+    background: var(--success);
+    box-shadow: 0 0 15px var(--success);
 }
 
 .status-dot.offline {
-    background: var(--danger-color);
+    background: var(--danger);
+    box-shadow: 0 0 15px var(--danger);
+}
+
+.status-text {
+    color: var(--gold-light);
+    font-weight: 500;
 }
 
 @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.1); }
 }
 
 /* ============================================
-   STATS SECTION
+   STATS - Cards pretos com números dourados
    ============================================ */
 
 .stats-section {
@@ -110,23 +137,38 @@ body {
 }
 
 .stat-card {
-    background: white;
-    border-radius: 12px;
-    padding: 24px;
-    box-shadow: var(--shadow);
+    background: linear-gradient(135deg, var(--black-light) 0%, var(--black) 100%);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: var(--shadow-black);
     display: flex;
     align-items: center;
     gap: 20px;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: all 0.3s ease;
+    border: 1px solid var(--black-lighter);
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light));
 }
 
 .stat-card:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow-hover);
+    box-shadow: var(--shadow-gold);
+    border-color: var(--gold);
 }
 
 .stat-icon {
     font-size: 48px;
+    filter: grayscale(0.3) brightness(1.2);
 }
 
 .stat-content {
@@ -135,18 +177,23 @@ body {
 
 .stat-label {
     font-size: 14px;
-    color: #7f8c8d;
+    color: #999;
     margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .stat-value {
-    font-size: 32px;
-    font-weight: bold;
-    color: var(--gold);
+    font-size: 36px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 /* ============================================
-   ACTIONS SECTION
+   ACTIONS - Botões dourados chamativos
    ============================================ */
 
 .actions-section {
@@ -161,66 +208,97 @@ body {
 }
 
 .section-header h2 {
-    color: white;
-    font-size: 24px;
+    color: var(--gold);
+    font-size: 28px;
+    font-weight: 700;
+    text-shadow: 0 0 20px var(--gold-glow);
 }
 
 .actions-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
 }
 
 .action-btn {
-    background: white;
-    border: none;
-    border-radius: 12px;
-    padding: 20px;
+    background: var(--black-light);
+    border: 2px solid var(--gold-dark);
+    border-radius: 16px;
+    padding: 24px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 15px;
     cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-black);
+    color: var(--gold-light);
+    font-weight: 600;
 }
 
 .action-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-hover);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: var(--shadow-gold);
+    border-color: var(--gold);
+    background: var(--black-lighter);
 }
 
 .action-btn-primary {
     background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 50%, var(--gold-light) 100%);
-    color: #0C0C0C;
-    font-weight: 600;
+    color: var(--black);
+    border: none;
+    font-weight: 700;
+    box-shadow: 0 8px 25px rgba(238, 169, 4, 0.4);
+    animation: goldPulse 3s infinite;
+}
+
+.action-btn-primary:hover {
+    box-shadow: 0 12px 35px rgba(238, 169, 4, 0.6);
+    transform: translateY(-8px) scale(1.05);
+}
+
+@keyframes goldPulse {
+    0%, 100% { box-shadow: 0 8px 25px rgba(238, 169, 4, 0.4); }
+    50% { box-shadow: 0 12px 40px rgba(238, 169, 4, 0.6); }
 }
 
 .action-icon {
-    font-size: 24px;
+    font-size: 28px;
 }
 
 .action-text {
     font-size: 16px;
-    font-weight: 600;
 }
 
 /* ============================================
-   GRUPOS SECTION
+   GRUPOS - Lista preta com destaques gold
    ============================================ */
 
 .grupos-section {
-    background: white;
-    border-radius: 12px;
+    background: var(--black-light);
+    border-radius: 16px;
     padding: 30px;
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-black);
+    border: 1px solid var(--gold-dark);
 }
 
 .search-input {
-    padding: 10px 16px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
+    padding: 12px 18px;
+    border: 2px solid var(--gold-dark);
+    border-radius: 10px;
     font-size: 14px;
     width: 300px;
+    background: var(--black);
+    color: var(--gold-light);
+}
+
+.search-input::placeholder {
+    color: #666;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 15px var(--gold-glow);
 }
 
 .grupos-lista {
@@ -228,19 +306,22 @@ body {
 }
 
 .grupo-card {
-    background: var(--light-color);
-    border-radius: 8px;
+    background: var(--black);
+    border-radius: 12px;
     padding: 20px;
     margin-bottom: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     transition: all 0.3s;
+    border: 1px solid var(--black-lighter);
 }
 
 .grupo-card:hover {
-    background: #e8ecee;
-    transform: translateX(5px);
+    background: var(--black-lighter);
+    transform: translateX(10px);
+    border-color: var(--gold);
+    box-shadow: -5px 0 0 var(--gold);
 }
 
 .grupo-info {
@@ -250,7 +331,7 @@ body {
 .grupo-nome {
     font-size: 18px;
     font-weight: 600;
-    color: var(--dark-color);
+    color: var(--gold);
     margin-bottom: 8px;
 }
 
@@ -258,7 +339,7 @@ body {
     display: flex;
     gap: 20px;
     font-size: 14px;
-    color: #7f8c8d;
+    color: #999;
 }
 
 .grupo-actions {
@@ -267,22 +348,25 @@ body {
 }
 
 .btn-icon {
-    background: white;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    padding: 8px 12px;
+    background: var(--black-lighter);
+    border: 1px solid var(--gold-dark);
+    border-radius: 8px;
+    padding: 10px 14px;
     cursor: pointer;
     transition: all 0.3s;
+    font-size: 18px;
 }
 
 .btn-icon:hover {
     background: var(--gold);
-    color: #0C0C0C;
-    border-color: var(--gold);
+    color: var(--black);
+    border-color: var(--gold-light);
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px var(--gold-glow);
 }
 
 /* ============================================
-   MODAL
+   MODAL - Preto elegante
    ============================================ */
 
 .modal {
@@ -292,7 +376,8 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
     z-index: 1000;
     align-items: center;
     justify-content: center;
@@ -303,13 +388,13 @@ body {
 }
 
 .modal-content {
-    background: white;
-    border-radius: 12px;
+    background: linear-gradient(135deg, var(--black-light) 0%, var(--black) 100%);
+    border-radius: 20px;
     width: 90%;
     max-width: 600px;
     max-height: 90vh;
     overflow-y: auto;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 0 2px var(--gold);
 }
 
 .modal-header {
@@ -317,11 +402,12 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 24px;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 2px solid var(--gold-dark);
 }
 
 .modal-header h2 {
     font-size: 24px;
+    color: var(--gold);
 }
 
 .modal-close {
@@ -329,12 +415,14 @@ body {
     border: none;
     font-size: 32px;
     cursor: pointer;
-    color: #7f8c8d;
+    color: #666;
     line-height: 1;
+    transition: all 0.3s;
 }
 
 .modal-close:hover {
-    color: var(--danger-color);
+    color: var(--danger);
+    transform: rotate(90deg);
 }
 
 .modal-footer {
@@ -342,11 +430,11 @@ body {
     justify-content: flex-end;
     gap: 10px;
     padding: 24px;
-    border-top: 1px solid var(--border-color);
+    border-top: 2px solid var(--gold-dark);
 }
 
 /* ============================================
-   FORMS
+   FORMS - Campos pretos com borda gold
    ============================================ */
 
 form {
@@ -361,29 +449,40 @@ form {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
-    color: var(--dark-color);
+    color: var(--gold-light);
 }
 
 .form-group input[type="text"],
 .form-group input[type="tel"],
 .form-group textarea {
     width: 100%;
-    padding: 12px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
+    padding: 12px 16px;
+    border: 2px solid var(--gold-dark);
+    border-radius: 10px;
     font-size: 14px;
     font-family: inherit;
+    background: var(--black);
+    color: var(--gold-light);
+    transition: all 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 15px var(--gold-glow);
 }
 
 .form-group input[type="checkbox"] {
     margin-right: 8px;
+    accent-color: var(--gold);
 }
 
 .form-group small {
     display: block;
     margin-top: 4px;
     font-size: 12px;
-    color: #7f8c8d;
+    color: #999;
 }
 
 .equipe-input {
@@ -391,67 +490,72 @@ form {
 }
 
 /* ============================================
-   BUTTONS
+   BUTTONS - Dourados vibrantes
    ============================================ */
 
 .btn {
-    padding: 12px 24px;
+    padding: 14px 28px;
     border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .btn-primary {
     background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 50%, var(--gold-light) 100%);
-    color: #0C0C0C;
-    font-weight: 600;
+    color: var(--black);
+    box-shadow: 0 6px 20px rgba(238, 169, 4, 0.4);
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(238, 169, 4, 0.5);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(238, 169, 4, 0.6);
 }
 
 .btn-secondary {
-    background: var(--light-color);
-    color: var(--dark-color);
+    background: var(--black-lighter);
+    color: var(--gold-light);
+    border: 2px solid var(--gold-dark);
 }
 
 .btn-secondary:hover {
-    background: #d5dbdd;
+    background: var(--black);
+    border-color: var(--gold);
 }
 
 .btn-sm {
-    padding: 8px 16px;
-    font-size: 12px;
+    padding: 10px 20px;
+    font-size: 13px;
 }
 
 .btn:disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: not-allowed;
 }
 
 /* ============================================
-   TOAST
+   TOAST - Notificações elegantes
    ============================================ */
 
 .toast {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    background: var(--dark-color);
-    color: white;
-    padding: 16px 24px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    background: var(--black-light);
+    color: var(--gold-light);
+    padding: 18px 26px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 0 2px var(--gold);
     transform: translateY(100px);
     opacity: 0;
-    transition: all 0.3s;
+    transition: all 0.4s ease;
     z-index: 2000;
     max-width: 400px;
+    border-left: 4px solid var(--gold);
 }
 
 .toast.show {
@@ -460,37 +564,62 @@ form {
 }
 
 .toast.success {
-    background: var(--success-color);
+    border-left-color: var(--success);
+    box-shadow: 0 8px 25px rgba(46, 204, 113, 0.3), 0 0 0 2px var(--success);
 }
 
 .toast.error {
-    background: var(--danger-color);
+    border-left-color: var(--danger);
+    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3), 0 0 0 2px var(--danger);
 }
 
 /* ============================================
-   LOADING
+   LOADING & EMPTY STATES
    ============================================ */
 
 .loading {
     text-align: center;
-    padding: 40px;
-    color: #7f8c8d;
+    padding: 60px;
+    color: #999;
+    font-size: 18px;
 }
 
 .empty-state {
     text-align: center;
-    padding: 60px 20px;
+    padding: 80px 20px;
 }
 
 .empty-state-icon {
-    font-size: 64px;
-    margin-bottom: 16px;
+    font-size: 72px;
+    margin-bottom: 20px;
+    opacity: 0.5;
 }
 
 .empty-state-text {
-    font-size: 18px;
-    color: #7f8c8d;
-    margin-bottom: 24px;
+    font-size: 20px;
+    color: #999;
+    margin-bottom: 30px;
+}
+
+/* ============================================
+   SCROLLBAR - Gold personalizado
+   ============================================ */
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--black);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--gold-dark), var(--gold));
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--gold), var(--gold-light));
 }
 
 /* ============================================
@@ -500,7 +629,12 @@ form {
 @media (max-width: 768px) {
     .header-content {
         flex-direction: column;
-        gap: 16px;
+        gap: 20px;
+    }
+
+    .logo {
+        flex-direction: column;
+        text-align: center;
     }
 
     .stats-grid {
@@ -526,4 +660,34 @@ form {
         align-items: flex-start;
         gap: 16px;
     }
+
+    .logo-img {
+        height: 50px;
+    }
 }
+
+/* ============================================
+   ANIMAÇÕES EXTRAS
+   ============================================ */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stat-card,
+.action-btn,
+.grupo-card {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.stat-card:nth-child(1) { animation-delay: 0.1s; }
+.stat-card:nth-child(2) { animation-delay: 0.2s; }
+.stat-card:nth-child(3) { animation-delay: 0.3s; }
+.stat-card:nth-child(4) { animation-delay: 0.4s; }
