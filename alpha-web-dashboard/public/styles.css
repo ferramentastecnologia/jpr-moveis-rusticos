@@ -10,11 +10,11 @@
 }
 
 :root {
-    /* Cores Alpha - Gold & Black */
-    --gold: #eea904;
-    --gold-light: #ffc933;
-    --gold-dark: #d99704;
-    --gold-glow: rgba(238, 169, 4, 0.3);
+    /* Cores Alpha - Minimalista */
+    --gold: #d4a03a;
+    --gold-light: #e6b855;
+    --gold-dark: #b8892f;
+    --gold-subtle: rgba(212, 160, 58, 0.15);
 
     --black: #0C0C0C;
     --black-light: #1a1a1a;
@@ -23,8 +23,8 @@
     --success: #2ECC71;
     --danger: #E74C3C;
 
-    --shadow-gold: 0 4px 20px rgba(238, 169, 4, 0.4);
-    --shadow-black: 0 2px 15px rgba(0, 0, 0, 0.5);
+    --shadow-subtle: 0 2px 8px rgba(212, 160, 58, 0.1);
+    --shadow-black: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 body {
@@ -45,11 +45,11 @@ body {
    ============================================ */
 
 .header {
-    background: linear-gradient(135deg, var(--black) 0%, var(--black-light) 100%);
-    box-shadow: 0 4px 20px rgba(238, 169, 4, 0.2), 0 0 40px rgba(238, 169, 4, 0.1);
+    background: var(--black);
+    box-shadow: 0 1px 0 rgba(212, 160, 58, 0.2);
     padding: 20px 0;
     margin-bottom: 30px;
-    border-bottom: 2px solid var(--gold);
+    border-bottom: 1px solid var(--gold-dark);
 }
 
 .header-content {
@@ -65,17 +65,16 @@ body {
 }
 
 .logo-img {
-    height: 60px;
+    height: 50px;
     width: auto;
-    filter: drop-shadow(0 0 10px rgba(238, 169, 4, 0.5));
+    opacity: 0.9;
 }
 
 .logo-text h1 {
-    font-size: 28px;
+    font-size: 24px;
     color: var(--gold);
     margin-bottom: 5px;
-    font-weight: 700;
-    text-shadow: 0 0 20px rgba(238, 169, 4, 0.5);
+    font-weight: 600;
 }
 
 .tagline {
@@ -156,14 +155,14 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light));
+    height: 2px;
+    background: var(--gold-dark);
 }
 
 .stat-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-gold);
-    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-subtle);
+    border-color: var(--gold-dark);
 }
 
 .stat-icon {
@@ -184,12 +183,9 @@ body {
 }
 
 .stat-value {
-    font-size: 36px;
-    font-weight: 800;
-    background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--gold);
 }
 
 /* ============================================
@@ -209,9 +205,8 @@ body {
 
 .section-header h2 {
     color: var(--gold);
-    font-size: 28px;
-    font-weight: 700;
-    text-shadow: 0 0 20px var(--gold-glow);
+    font-size: 22px;
+    font-weight: 600;
 }
 
 .actions-grid {
@@ -236,29 +231,21 @@ body {
 }
 
 .action-btn:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: var(--shadow-gold);
+    transform: translateY(-2px);
     border-color: var(--gold);
     background: var(--black-lighter);
 }
 
 .action-btn-primary {
-    background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 50%, var(--gold-light) 100%);
+    background: var(--gold);
     color: var(--black);
     border: none;
-    font-weight: 700;
-    box-shadow: 0 8px 25px rgba(238, 169, 4, 0.4);
-    animation: goldPulse 3s infinite;
+    font-weight: 600;
 }
 
 .action-btn-primary:hover {
-    box-shadow: 0 12px 35px rgba(238, 169, 4, 0.6);
-    transform: translateY(-8px) scale(1.05);
-}
-
-@keyframes goldPulse {
-    0%, 100% { box-shadow: 0 8px 25px rgba(238, 169, 4, 0.4); }
-    50% { box-shadow: 0 12px 40px rgba(238, 169, 4, 0.6); }
+    background: var(--gold-light);
+    transform: translateY(-2px);
 }
 
 .action-icon {
@@ -298,7 +285,6 @@ body {
 .search-input:focus {
     outline: none;
     border-color: var(--gold);
-    box-shadow: 0 0 15px var(--gold-glow);
 }
 
 .grupos-lista {
@@ -319,9 +305,8 @@ body {
 
 .grupo-card:hover {
     background: var(--black-lighter);
-    transform: translateX(10px);
-    border-color: var(--gold);
-    box-shadow: -5px 0 0 var(--gold);
+    transform: translateX(5px);
+    border-left: 2px solid var(--gold);
 }
 
 .grupo-info {
@@ -358,11 +343,9 @@ body {
 }
 
 .btn-icon:hover {
-    background: var(--gold);
-    color: var(--black);
-    border-color: var(--gold-light);
-    transform: scale(1.1);
-    box-shadow: 0 4px 15px var(--gold-glow);
+    background: var(--gold-dark);
+    color: #fff;
+    border-color: var(--gold);
 }
 
 /* ============================================
@@ -470,7 +453,6 @@ form {
 .form-group textarea:focus {
     outline: none;
     border-color: var(--gold);
-    box-shadow: 0 0 15px var(--gold-glow);
 }
 
 .form-group input[type="checkbox"] {
@@ -506,14 +488,13 @@ form {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 50%, var(--gold-light) 100%);
+    background: var(--gold);
     color: var(--black);
-    box-shadow: 0 6px 20px rgba(238, 169, 4, 0.4);
 }
 
 .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(238, 169, 4, 0.6);
+    background: var(--gold-light);
+    transform: translateY(-1px);
 }
 
 .btn-secondary {
