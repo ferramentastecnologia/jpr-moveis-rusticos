@@ -2,7 +2,9 @@
 // ALPHA ASSESSORIA - DASHBOARD APP
 // ============================================
 
-const API_BASE = window.location.origin;
+// Configuração da API Backend
+// Em produção, este valor virá de uma variável de ambiente do Netlify
+const API_BASE = window.ALPHA_API_URL || window.location.origin;
 
 // ============================================
 // INICIALIZAÇÃO
