@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Restaurante Oca | Alpha Assessoria</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Cores Alpha - Identidade Visual Preto & Dourado */
+            --gold: #d4a03a;
+            --gold-light: #e6b855;
+            --gold-dark: #b8892f;
+            --gold-subtle: rgba(212, 160, 58, 0.15);
+
+            --black: #0C0C0C;
+            --black-light: #1a1a1a;
+            --black-lighter: #2a2a2a;
+
+            --success: #2ECC71;
+            --danger: #E74C3C;
+            --warning: #F39C12;
+
+            --shadow-gold: 0 4px 20px rgba(212, 160, 58, 0.3);
+            --shadow-black: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            background: radial-gradient(circle at top, var(--black-light) 0%, var(--black) 50%, #000000 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--black-light) 0%, var(--black) 100%);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-black);
+            margin-bottom: 25px;
+            text-align: center;
+            border: 2px solid var(--gold-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light), var(--gold), var(--gold-dark));
+        }
+
+        .header h1 {
+            color: var(--gold);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(212, 160, 58, 0.3);
+        }
+
+        .header p {
+            color: var(--gold-light);
+            font-size: 1.1em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--black-light) 0%, var(--black) 100%);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-black);
+            transition: all 0.3s ease;
+            border: 1px solid var(--black-lighter);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gold-dark);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-gold);
+            border-color: var(--gold-dark);
+        }
+
+        .stat-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #999;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            color: var(--gold);
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        .progress-container {
+            background: linear-gradient(135deg, var(--black-light) 0%, var(--black) 100%);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-black);
+            margin-bottom: 25px;
+            border: 2px solid var(--gold-dark);
+        }
+
+        .progress-title {
+            color: var(--gold);
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .progress-bar-container {
+            background: var(--black-lighter);
+            border-radius: 10px;
+            height: 30px;
+            overflow: hidden;
+            margin-bottom: 10px;
+            border: 1px solid var(--gold-dark);
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--gold-dark) 0%, var(--gold) 50%, var(--gold-light) 100%);
+            height: 100%;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--black);
+            font-weight: bold;
+            transition: width 1s ease;
+            box-shadow: 0 0 20px rgba(212, 160, 58, 0.5);
+        }
+
+        .phases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .phase-card {
+            background: linear-gradient(135deg, var(--black-light) 0%, var(--black) 100%);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-black);
+            border: 1px solid var(--black-lighter);
+            transition: all 0.3s ease;
+        }
+
+        .phase-card:hover {
+            border-color: var(--gold-dark);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .phase-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--gold-dark);
+        }
+
+        .phase-title {
+            color: var(--gold);
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .phase-status {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+
+        .status-completed {
+            background: rgba(46, 204, 113, 0.2);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .status-progress {
+            background: rgba(243, 156, 18, 0.2);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        .status-pending {
+            background: var(--black-lighter);
+            color: #999;
+            border: 1px solid #666;
+        }
+
+        .task-list {
+            list-style: none;
+        }
+
+        .task-item {
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--black-lighter);
+            border: 1px solid var(--black-lighter);
+            transition: all 0.3s ease;
+        }
+
+        .task-item:hover {
+            border-color: var(--gold-dark);
+            background: var(--black);
+        }
+
+        .task-item.completed {
+            opacity: 0.6;
+        }
+
+        .task-checkbox {
+            font-size: 1.3em;
+        }
+
+        .task-text {
+            color: var(--gold-light);
+        }
+
+        .priority-section {
+            background: linear-gradient(135deg, var(--black-light) 0%, var(--black) 100%);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-black);
+            margin-bottom: 25px;
+            border: 2px solid var(--gold-dark);
+        }
+
+        .priority-item {
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border-left: 5px solid;
+            background: var(--black-lighter);
+            transition: all 0.3s ease;
+        }
+
+        .priority-item:hover {
+            transform: translateX(5px);
+        }
+
+        .priority-high {
+            border-color: var(--danger);
+            background: rgba(231, 76, 60, 0.1);
+        }
+
+        .priority-medium {
+            border-color: var(--warning);
+            background: rgba(243, 156, 18, 0.1);
+        }
+
+        .priority-title {
+            font-weight: bold;
+            color: var(--gold);
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .priority-details {
+            color: #999;
+            font-size: 0.9em;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .priority-details strong {
+            color: var(--gold-light);
+        }
+
+        .timeline {
+            background: linear-gradient(135deg, var(--black-light) 0%, var(--black) 100%);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-black);
+            margin-bottom: 25px;
+            border: 2px solid var(--gold-dark);
+        }
+
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .timeline-week {
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid var(--black-lighter);
+            transition: all 0.3s ease;
+            background: var(--black-lighter);
+        }
+
+        .timeline-week:hover {
+            border-color: var(--gold-dark);
+        }
+
+        .timeline-week.active {
+            border-color: var(--gold);
+            background: rgba(212, 160, 58, 0.1);
+            box-shadow: 0 0 20px rgba(212, 160, 58, 0.2);
+        }
+
+        .week-title {
+            font-weight: bold;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .week-tasks {
+            list-style: none;
+            font-size: 0.9em;
+        }
+
+        .week-tasks li {
+            padding: 5px 0;
+            color: #999;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, var(--black-light) 0%, var(--black) 100%);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-black);
+            border: 1px solid var(--black-lighter);
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            border-color: var(--gold-dark);
+            box-shadow: var(--shadow-gold);
+        }
+
+        .metric-header {
+            color: var(--gold);
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .metric-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--black-lighter);
+        }
+
+        .metric-item:last-child {
+            border-bottom: none;
+        }
+
+        .metric-label {
+            color: #999;
+        }
+
+        .metric-value {
+            color: var(--gold-light);
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .phases-grid,
+            .timeline-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer {
+            background: linear-gradient(135deg, var(--black-light) 0%, var(--black) 100%);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-black);
+            text-align: center;
+            color: #999;
+            border: 2px solid var(--gold-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light), var(--gold), var(--gold-dark));
+        }
+
+        .footer strong {
+            color: var(--gold);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🍽️ Dashboard - Restaurante Oca</h1>
+            <p>Projeto: Onboarding Completo | Sistema Hubzy + Meta Ads | Alpha Assessoria</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">📅 Última atualização: 29 de Outubro de 2025</p>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">✅</div>
+                <div class="stat-label">Tarefas Concluídas</div>
+                <div class="stat-value">17</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🔄</div>
+                <div class="stat-label">Em Andamento</div>
+                <div class="stat-value">4</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⏳</div>
+                <div class="stat-label">Pendentes</div>
+                <div class="stat-value">5</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <div class="stat-label">Progresso Geral</div>
+                <div class="stat-value">70%</div>
+            </div>
+        </div>
+
+        <!-- Overall Progress -->
+        <div class="progress-container">
+            <div class="progress-title">Progresso Geral do Projeto - Onboarding Cliente</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 70%;">70% Completo</div>
+            </div>
+            <p style="color: #718096; margin-top: 10px;">17 de 26 tarefas concluídas</p>
+        </div>
+
+        <!-- Phases -->
+        <div class="phases-grid">
+            <!-- Fase 1 -->
+            <div class="phase-card">
+                <div class="phase-header">
+                    <div class="phase-title">FASE 1: Estruturação</div>
+                    <div class="phase-status status-completed">✅ Concluído</div>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 100%;">100%</div>
+                </div>
+                <ul class="task-list">
+                    <li class="task-item completed">
+                        <span class="task-checkbox">✅</span>
+                        <span class="task-text">Onboarding do Cliente</span>
+                    </li>
+                    <li class="task-item completed">
+                        <span class="task-checkbox">✅</span>
+                        <span class="task-text">Reunião de Briefing</span>
+                    </li>
+                    <li class="task-item completed">
+                        <span class="task-checkbox">✅</span>
+                        <span class="task-text">Coleta de Acessos</span>
+                    </li>
+                    <li class="task-item completed">
+                        <span class="task-checkbox">✅</span>
+                        <span class="task-text">Mapeamento de Concorrentes</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Fase 2 -->
+            <div class="phase-card">
+                <div class="phase-header">
+                    <div class="phase-title">FASE 2: Meta Business</div>
+                    <div class="phase-status status-completed">✅ Concluído</div>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 100%;">100%</div>
+                </div>
+                <ul class="task-list">
+                    <li class="task-item completed">
+                        <span class="task-checkbox">✅</span>
+                        <span class="task-text">Criação Facebook Business</span>
+                    </li>
+                    <li class="task-item completed">
+                        <span class="task-checkbox">✅</span>
+                        <span class="task-text">Configuração Página FB</span>
+                    </li>
+                    <li class="task-item completed">
+                        <span class="task-checkbox">✅</span>
+                        <span class="task-text">Conta de Anúncios</span>
+                    </li>
+                    <li class="task-item completed">
+                        <span class="task-checkbox">✅</span>
+                        <span class="task-text">Públicos Iniciais</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Fase 3 -->
+            <div class="phase-card">
+                <div class="phase-header">
+                    <div class="phase-title">FASE 3: Sistema Hubzy</div>
+                    <div class="phase-status status-progress">🔄 65%</div>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 65%;">65%</div>
+                </div>
+                <ul class="task-list">
+                    <li class="task-item completed">
+                        <span class="task-checkbox">✅</span>
+                        <span class="task-text">Análise Requisitos Hubzy</span>
+                    </li>
+                    <li class="task-item completed">
+                        <span class="task-checkbox">✅</span>
+                        <span class="task-text">Design UI/UX Cardápio</span>
+                    </li>
+                    <li class="task-item">
+                        <span class="task-checkbox">🔄</span>
+                        <span class="task-text">Desenvolvimento Hubzy</span>
+                    </li>
+                    <li class="task-item">
+                        <span class="task-checkbox">🔄</span>
+                        <span class="task-text">Integração Pixel Meta Ads</span>
+                    </li>
+                    <li class="task-item">
+                        <span class="task-checkbox">⏳</span>
+                        <span class="task-text">Testes & Validações</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Fase 4 -->
+            <div class="phase-card">
+                <div class="phase-header">
+                    <div class="phase-title">FASE 4: Produção Vídeo</div>
+                    <div class="phase-status status-progress">🔄 75%</div>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 75%;">75%</div>
+                </div>
+                <ul class="task-list">
+                    <li class="task-item completed">
+                        <span class="task-checkbox">✅</span>
+                        <span class="task-text">Gravação com Juarez</span>
+                    </li>
+                    <li class="task-item completed">
+                        <span class="task-checkbox">✅</span>
+                        <span class="task-text">Captação Materiais</span>
+                    </li>
+                    <li class="task-item completed">
+                        <span class="task-checkbox">✅</span>
+                        <span class="task-text">Vídeo 1: Editado e Postado</span>
+                    </li>
+                    <li class="task-item completed">
+                        <span class="task-checkbox">✅</span>
+                        <span class="task-text">Vídeo 2: Com Legenda/Fala</span>
+                    </li>
+                    <li class="task-item">
+                        <span class="task-checkbox">⏳</span>
+                        <span class="task-text">Material Segmento Marmitas</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Fase 5 -->
+            <div class="phase-card">
+                <div class="phase-header">
+                    <div class="phase-title">FASE 5: Campanhas Tráfego</div>
+                    <div class="phase-status status-progress">🔄 50%</div>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 50%;">50%</div>
+                </div>
+                <ul class="task-list">
+                    <li class="task-item completed">
+                        <span class="task-checkbox">✅</span>
+                        <span class="task-text">Definição de Objetivos</span>
+                    </li>
+                    <li class="task-item">
+                        <span class="task-checkbox">🔄</span>
+                        <span class="task-text">Criativos para Marmitas</span>
+                    </li>
+                    <li class="task-item">
+                        <span class="task-checkbox">⏳</span>
+                        <span class="task-text">Copywriting dos Anúncios</span>
+                    </li>
+                    <li class="task-item">
+                        <span class="task-checkbox">⏳</span>
+                        <span class="task-text">Configuração Campanhas</span>
+                    </li>
+                    <li class="task-item">
+                        <span class="task-checkbox">⏳</span>
+                        <span class="task-text">Lançamento Aquecimento</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Priority Actions -->
+        <div class="priority-section">
+            <div class="progress-title">🎯 Próximas Ações Prioritárias (7 dias)</div>
+
+            <div class="priority-item priority-high">
+                <div class="priority-title">🔴 1. Finalizar Desenvolvimento Sistema Hubzy</div>
+                <div class="priority-details">
+                    <span><strong>Responsável:</strong> Dev Team</span>
+                    <span><strong>Prazo:</strong> 3 dias</span>
+                    <span><strong>Impacto:</strong> Crítico - Cardápio Digital</span>
+                </div>
+            </div>
+
+            <div class="priority-item priority-high">
+                <div class="priority-title">🔴 2. Integração Pixel Meta Ads no Hubzy</div>
+                <div class="priority-details">
+                    <span><strong>Responsável:</strong> Dev Team</span>
+                    <span><strong>Prazo:</strong> 2 dias</span>
+                    <span><strong>Impacto:</strong> Crítico para rastreamento</span>
+                </div>
+            </div>
+
+            <div class="priority-item priority-high">
+                <div class="priority-title">🔴 3. Produzir Material para Segmento de Marmitas</div>
+                <div class="priority-details">
+                    <span><strong>Responsável:</strong> Produção + Designer</span>
+                    <span><strong>Prazo:</strong> 4 dias</span>
+                    <span><strong>Impacto:</strong> Bloqueante para tráfego</span>
+                </div>
+            </div>
+
+            <div class="priority-item priority-medium">
+                <div class="priority-title">🟡 4. Criar Copywriting para Anúncios de Marmitas</div>
+                <div class="priority-details">
+                    <span><strong>Responsável:</strong> Redator</span>
+                    <span><strong>Prazo:</strong> 3 dias</span>
+                    <span><strong>Impacto:</strong> Necessário para campanhas</span>
+                </div>
+            </div>
+
+            <div class="priority-item priority-medium">
+                <div class="priority-title">🟡 5. Configurar Campanhas de Aquecimento</div>
+                <div class="priority-details">
+                    <span><strong>Responsável:</strong> Gestor de Tráfego</span>
+                    <span><strong>Prazo:</strong> 2 dias</span>
+                    <span><strong>Impacto:</strong> Preparar conta nova</span>
+                </div>
+            </div>
+
+            <div class="priority-item priority-medium">
+                <div class="priority-title">🟡 6. Organizar Banco de Imagens para Campanhas</div>
+                <div class="priority-details">
+                    <span><strong>Responsável:</strong> Designer</span>
+                    <span><strong>Prazo:</strong> 2 dias</span>
+                    <span><strong>Impacto:</strong> Suporte aos criativos</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="timeline">
+            <div class="progress-title">📅 Timeline do Projeto (4 Semanas)</div>
+            <div class="timeline-grid">
+                <div class="timeline-week active">
+                    <div class="week-title">📍 SEMANA 2 (ATUAL)</div>
+                    <ul class="week-tasks">
+                        <li>✅ Gravação com Juarez</li>
+                        <li>✅ Vídeos Produzidos</li>
+                        <li>🔄 Finalizar Hubzy</li>
+                        <li>🔄 Material Marmitas</li>
+                    </ul>
+                </div>
+                <div class="timeline-week">
+                    <div class="week-title">SEMANA 3</div>
+                    <ul class="week-tasks">
+                        <li>⏳ Pixel Integration</li>
+                        <li>⏳ Criativos Finais</li>
+                        <li>⏳ Campanha Aquecimento</li>
+                    </ul>
+                </div>
+                <div class="timeline-week">
+                    <div class="week-title">SEMANA 4</div>
+                    <ul class="week-tasks">
+                        <li>⏳ Análise Aquecimento</li>
+                        <li>⏳ Ajustes</li>
+                        <li>⏳ Campanhas Conversão</li>
+                    </ul>
+                </div>
+                <div class="timeline-week">
+                    <div class="week-title">SEMANA 5</div>
+                    <ul class="week-tasks">
+                        <li>⏳ Otimização</li>
+                        <li>⏳ Escala</li>
+                        <li>⏳ Relatório Mensal</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Assets -->
+        <div class="priority-section">
+            <div class="progress-title">🎬 Assets de Conteúdo Produzidos</div>
+
+            <div class="priority-item" style="border-color: var(--success); background: rgba(46, 204, 113, 0.1);">
+                <div class="priority-title">✅ Produção de Vídeo com Juarez (Proprietário)</div>
+                <div class="priority-details">
+                    <span><strong>Status:</strong> Completo</span>
+                    <span><strong>Material:</strong> Gravação profissional</span>
+                    <span><strong>Uso:</strong> Redes sociais e campanhas</span>
+                </div>
+            </div>
+
+            <div class="priority-item" style="border-color: var(--success); background: rgba(46, 204, 113, 0.1);">
+                <div class="priority-title">✅ Vídeo 1: Editado e Publicado nas Redes Sociais</div>
+                <div class="priority-details">
+                    <span><strong>Status:</strong> Publicado</span>
+                    <span><strong>Formato:</strong> Feed/Reels</span>
+                    <span><strong>Performance:</strong> Monitorando</span>
+                </div>
+            </div>
+
+            <div class="priority-item" style="border-color: var(--success); background: rgba(46, 204, 113, 0.1);">
+                <div class="priority-title">✅ Vídeo 2: Versão Completa com Legenda e Narração</div>
+                <div class="priority-details">
+                    <span><strong>Status:</strong> Finalizado</span>
+                    <span><strong>Formato:</strong> Vídeo longo com acessibilidade</span>
+                    <span><strong>Uso:</strong> Pronto para campanhas</span>
+                </div>
+            </div>
+
+            <div class="priority-item" style="border-color: var(--success); background: rgba(46, 204, 113, 0.1);">
+                <div class="priority-title">✅ Banco de Imagens Disponível</div>
+                <div class="priority-details">
+                    <span><strong>Status:</strong> Disponível</span>
+                    <span><strong>Material:</strong> Fotos profissionais + Stock</span>
+                    <span><strong>Uso:</strong> Suporte aos criativos</span>
+                </div>
+            </div>
+
+            <div class="priority-item priority-medium">
+                <div class="priority-title">⏳ Material Criativo para Segmento de Marmitas</div>
+                <div class="priority-details">
+                    <span><strong>Status:</strong> Pendente</span>
+                    <span><strong>Necessário:</strong> Fotos/Vídeos de marmitas</span>
+                    <span><strong>Prazo:</strong> 4 dias</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Metrics -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-header">🎯 Metas - Aquecimento (14 dias)</div>
+                <div class="metric-item">
+                    <span class="metric-label">Alcance</span>
+                    <span class="metric-value">15.000 pessoas</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Engajamento</span>
+                    <span class="metric-value">500 interações</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">CTR</span>
+                    <span class="metric-value">&gt;1.5%</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">CPM</span>
+                    <span class="metric-value">&lt;R$ 15</span>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-header">📈 Metas - Conversão (15 dias)</div>
+                <div class="metric-item">
+                    <span class="metric-label">Cliques no Link</span>
+                    <span class="metric-value">1.000 cliques</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Views Cardápio</span>
+                    <span class="metric-value">800 views</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Pedidos Online</span>
+                    <span class="metric-value">50 pedidos</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">ROAS</span>
+                    <span class="metric-value">&gt;3x</span>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-header">💼 Informações do Cliente</div>
+                <div class="metric-item">
+                    <span class="metric-label">Empresa</span>
+                    <span class="metric-value">Restaurante Oca</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">WhatsApp</span>
+                    <span class="metric-value">(47) 99112-9891</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Instagram</span>
+                    <span class="metric-value">@oca1912</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Raio Entrega</span>
+                    <span class="metric-value">7km - R$5</span>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-header">🖥️ Sistema Hubzy</div>
+                <div class="metric-item">
+                    <span class="metric-label">Cardápio Digital</span>
+                    <span class="metric-value">Em Desenvolvimento</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Pixel Meta Ads</span>
+                    <span class="metric-value">Integrando</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Rastreamento</span>
+                    <span class="metric-value">Jornada Completa</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Deploy</span>
+                    <span class="metric-value">Previsto 5 dias</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>Alpha Assessoria</strong> - Marketing para Restaurantes</p>
+            <p style="margin-top: 5px;">Dashboard gerado em 29/10/2025</p>
+        </div>
+    </div>
+
+    <script>
+        // Animate progress bars on load
+        window.addEventListener('load', function() {
+            const progressBars = document.querySelectorAll('.progress-bar');
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>
