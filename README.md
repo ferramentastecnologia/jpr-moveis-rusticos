@@ -55,7 +55,62 @@ Repositório centralizado de propostas comerciais e projetos da Starken Tecnolog
 
 ---
 
-### 3. Proposta Jacaré Grill
+### 3. Dashboard Rosa Mexicano (Starken Tecnologia)
+**Cliente:** Rosa Mexicano
+**Tipo:** Dashboard de Planejamento Estratégico
+**Período:** 90 dias (12 semanas)
+**Investimento Total:** R$ 12.000 (assessoria + mídia)
+
+**🌐 URLs:**
+- **Site:** https://rosa-mexicano--proposta-new-service-starken.netlify.app
+- **Admin:** https://app.netlify.com/projects/proposta-new-service-starken
+- **Arquivo:** `rosa-mexicano-dashboard/index.html`
+
+**🎨 Identidade Visual:**
+- **Cores Principais:** Vermelho Mexicano (#D32F2F) + Laranja (#FF6F00)
+- **Cores Secundárias:** Verde Starken (#76ae52) + Azul (#4676b0)
+- Design responsivo e interativo
+- Sistema de tabs navegável
+
+**📊 Funcionalidades:**
+- **5 Tabs Principais:**
+  1. 📊 Visão Geral - KPIs e progresso
+  2. 📅 Timeline - Cronograma 12 semanas
+  3. 🎯 Metas - 8 indicadores de performance
+  4. ✅ Ações - Checklist interativo (25 itens)
+  5. 📈 Métricas - Marketing digital detalhado
+
+- **Cards Interativos:**
+  - Faturamento mensal
+  - Ticket médio
+  - Pedidos/dia
+  - Avaliação média
+  - Impressões, CTR, CPC
+  - Taxa engajamento
+
+- **Recursos Visuais:**
+  - Barra de progresso animada
+  - Timeline com markers coloridos (verde = completo)
+  - Checklist clicável com contagem automática
+  - Tabela de metas comparativa
+  - Cards de goal com gradientes
+
+**🎯 Metas 90 Dias:**
+- +50% pedidos delivery (30 → 67/dia)
+- +30% faturamento (R$ 65k → R$ 110k)
+- 4.8★ avaliação média
+- ROAS 5x
+- Taxa recompra 35%
+
+**🛠️ Tecnologias:**
+- HTML5 + CSS3 (Vanilla)
+- JavaScript puro (sem frameworks)
+- Design responsivo mobile-first
+- Animações CSS nativas
+
+---
+
+### 4. Proposta Jacaré Grill
 **Cliente:** Jacaré Grill (Carlos Alberto)
 **Segmento:** Restaurante/Delivery
 **Investimento:** R$ 1.000/mês + R$ 200-250/semana tráfego
