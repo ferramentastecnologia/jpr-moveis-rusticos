@@ -22,19 +22,25 @@ Repositório centralizado de propostas comerciais e projetos da Starken Tecnolog
 
 ---
 
-### 2. Proposta FNP - Frango Frito
+### 2. Proposta FNP - Frango Frito (Alpha Assessoria)
 **Cliente:** FNP - Frango Frito
 **Segmento:** Restaurante/Delivery - Frango Frito Artesanal
 **Localização:** Jaraguá do Sul (SC)
 **Investimento:** R$ 4.000/mês (R$ 2.500 assessoria + R$ 1.500 tráfego)
+**Marca:** 🟡⚫ **Alpha Assessoria** - Marketing e Tecnologia para Restaurantes
 
 **🌐 URLs:**
 - **Site:** https://fnp--proposta-new-service-starken.netlify.app
 - **Admin:** https://app.netlify.com/projects/proposta-new-service-starken
 - **Arquivo:** `public/proposta-fnp.html`
 
+**🎨 Identidade Visual:**
+- **Cores:** Preto (#1A1A1A) + Amarelo (#FFD700) - Alpha Assessoria
+- Design moderno com efeitos hover (cards mudam para preto/amarelo)
+- Shadow effects com brilho amarelo
+- Foco em restaurantes e food business
+
 **Características:**
-- Design food & appetite (cores quentes laranja/vermelho)
 - Foco em combo individual e posicionamento local
 - Estratégias: Meta Ads (60%), iFood Ads (25%), Google Local (15%)
 - Diferenciação: "Frango Artesanal de Jaraguá" vs concorrente genérico

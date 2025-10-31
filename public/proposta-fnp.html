@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proposta Comercial - FNP Frango Frito | Starken Tecnologia</title>
+    <title>Proposta Comercial - FNP Frango Frito | Alpha Assessoria</title>
     <style>
         * {
             margin: 0;
@@ -12,29 +12,31 @@
         }
 
         :root {
-            /* Brand Colors - Food & Appetite */
-            --primary-orange: #FF6B35;
-            --secondary-red: #C9302C;
-            --accent-green: #76ae52;
-            --warm-brown: #8B4513;
+            /* Alpha Assessoria Brand Colors - Preto & Amarelo */
+            --alpha-yellow: #FFD700;
+            --alpha-yellow-bright: #FFC107;
+            --alpha-yellow-dark: #F9A825;
+            --alpha-black: #1A1A1A;
+            --alpha-gray-dark: #2C2C2C;
+            --alpha-gray-medium: #424242;
 
             /* Neutrals */
-            --cream: #FFF8F0;
-            --light-gray: #F5F5F5;
-            --medium-gray: #666;
-            --dark-gray: #2C2C2C;
             --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+            --medium-gray: #757575;
+            --dark-gray: #333333;
 
             /* Shadows */
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
-            --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
-            --shadow-lg: 0 8px 32px rgba(0,0,0,0.16);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.15);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.2);
+            --shadow-yellow: 0 4px 20px rgba(255,215,0,0.3);
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: var(--cream);
-            color: var(--dark-gray);
+            background: var(--light-gray);
+            color: var(--alpha-black);
             line-height: 1.6;
         }
 
@@ -46,31 +48,50 @@
 
         /* Header */
         header {
-            background: linear-gradient(135deg, var(--primary-orange) 0%, var(--secondary-red) 100%);
+            background: linear-gradient(135deg, var(--alpha-black) 0%, var(--alpha-gray-dark) 100%);
             color: white;
             padding: 60px 20px;
             text-align: center;
             border-radius: 16px;
             margin-bottom: 40px;
             box-shadow: var(--shadow-lg);
+            border-top: 6px solid var(--alpha-yellow);
+        }
+
+        .brand-badge {
+            display: inline-block;
+            background: var(--alpha-yellow);
+            color: var(--alpha-black);
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: var(--shadow-yellow);
         }
 
         .client-badge {
             display: inline-block;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
             padding: 8px 20px;
             border-radius: 30px;
             font-size: 14px;
             font-weight: 600;
             margin-bottom: 20px;
-            border: 1px solid rgba(255,255,255,0.3);
+            border: 1px solid rgba(255,215,0,0.3);
         }
 
         header h1 {
             font-size: 2.5em;
             margin-bottom: 16px;
             font-weight: 700;
+        }
+
+        header h1 .highlight {
+            color: var(--alpha-yellow);
         }
 
         header p {
@@ -93,11 +114,17 @@
             padding: 30px;
             border-radius: 12px;
             box-shadow: var(--shadow-sm);
-            border-left: 4px solid var(--primary-orange);
+            border-left: 4px solid var(--alpha-yellow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
         }
 
         .info-card h3 {
-            color: var(--primary-orange);
+            color: var(--alpha-black);
             margin-bottom: 12px;
             font-size: 1.1em;
         }
@@ -117,11 +144,11 @@
         }
 
         section h2 {
-            color: var(--dark-gray);
+            color: var(--alpha-black);
             font-size: 2em;
             margin-bottom: 30px;
             padding-bottom: 15px;
-            border-bottom: 3px solid var(--primary-orange);
+            border-bottom: 3px solid var(--alpha-yellow);
         }
 
         /* Benefits Grid */
@@ -136,41 +163,55 @@
             background: var(--light-gray);
             padding: 25px;
             border-radius: 10px;
-            border-left: 4px solid var(--accent-green);
+            border-left: 4px solid var(--alpha-yellow);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .benefit-card:hover {
             transform: translateY(-5px);
             box-shadow: var(--shadow-md);
+            background: var(--alpha-black);
+            color: white;
+        }
+
+        .benefit-card:hover h4 {
+            color: var(--alpha-yellow);
+        }
+
+        .benefit-card:hover p {
+            color: rgba(255,255,255,0.9);
         }
 
         .benefit-card h4 {
-            color: var(--dark-gray);
+            color: var(--alpha-black);
             margin-bottom: 10px;
             font-size: 1.1em;
+            transition: color 0.3s ease;
         }
 
         .benefit-card p {
             color: var(--medium-gray);
             font-size: 0.95em;
             line-height: 1.6;
+            transition: color 0.3s ease;
         }
 
         /* Investment Box */
         .investment-box {
-            background: linear-gradient(135deg, var(--primary-orange), var(--secondary-red));
+            background: linear-gradient(135deg, var(--alpha-black), var(--alpha-gray-dark));
             color: white;
             padding: 40px;
             border-radius: 12px;
             margin: 40px 0;
             box-shadow: var(--shadow-lg);
+            border: 2px solid var(--alpha-yellow);
         }
 
         .investment-box h3 {
             font-size: 1.5em;
             margin-bottom: 25px;
             text-align: center;
+            color: var(--alpha-yellow);
         }
 
         .price-grid {
@@ -181,12 +222,20 @@
         }
 
         .price-item {
-            background: rgba(255,255,255,0.15);
+            background: rgba(255,215,0,0.1);
             backdrop-filter: blur(10px);
             padding: 20px;
             border-radius: 8px;
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,215,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .price-item:hover {
+            background: var(--alpha-yellow);
+            color: var(--alpha-black);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-yellow);
         }
 
         .price-item .label {
@@ -198,6 +247,11 @@
         .price-item .value {
             font-size: 1.8em;
             font-weight: 700;
+            color: var(--alpha-yellow);
+        }
+
+        .price-item:hover .value {
+            color: var(--alpha-black);
         }
 
         .price-item .description {
@@ -214,14 +268,14 @@
         }
 
         .strategy-card {
-            background: var(--cream);
+            background: var(--light-gray);
             padding: 30px;
             border-radius: 10px;
-            border-left: 4px solid var(--primary-orange);
+            border-left: 4px solid var(--alpha-yellow);
         }
 
         .strategy-card h4 {
-            color: var(--primary-orange);
+            color: var(--alpha-black);
             margin-bottom: 15px;
             font-size: 1.3em;
         }
@@ -235,15 +289,16 @@
             padding: 8px 0;
             padding-left: 25px;
             position: relative;
-            color: var(--medium-gray);
+            color: var(--dark-gray);
         }
 
         .strategy-card li:before {
             content: "✓";
             position: absolute;
             left: 0;
-            color: var(--accent-green);
+            color: var(--alpha-yellow);
             font-weight: bold;
+            font-size: 1.2em;
         }
 
         /* Timeline */
@@ -260,8 +315,8 @@
         .timeline-marker {
             min-width: 50px;
             height: 50px;
-            background: var(--primary-orange);
-            color: white;
+            background: var(--alpha-yellow);
+            color: var(--alpha-black);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -269,6 +324,7 @@
             font-weight: bold;
             margin-right: 20px;
             flex-shrink: 0;
+            box-shadow: var(--shadow-yellow);
         }
 
         .timeline-content {
@@ -276,7 +332,7 @@
         }
 
         .timeline-content h4 {
-            color: var(--dark-gray);
+            color: var(--alpha-black);
             margin-bottom: 8px;
         }
 
@@ -298,12 +354,18 @@
             padding: 25px;
             background: var(--light-gray);
             border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .result-card:hover {
+            background: var(--alpha-black);
+            transform: translateY(-5px);
         }
 
         .result-card .metric {
             font-size: 2.5em;
             font-weight: 700;
-            color: var(--primary-orange);
+            color: var(--alpha-yellow);
             margin-bottom: 8px;
         }
 
@@ -312,33 +374,38 @@
             font-size: 0.9em;
         }
 
+        .result-card:hover .label {
+            color: rgba(255,255,255,0.9);
+        }
+
         /* CTA Button */
         .cta-section {
             text-align: center;
             padding: 60px 20px;
-            background: linear-gradient(135deg, var(--accent-green), var(--primary-orange));
-            color: white;
+            background: linear-gradient(135deg, var(--alpha-yellow), var(--alpha-yellow-dark));
+            color: var(--alpha-black);
             border-radius: 12px;
             margin-top: 40px;
+            box-shadow: var(--shadow-lg);
         }
 
         .cta-section h2 {
             border: none;
             padding: 0;
             margin-bottom: 20px;
-            color: white;
+            color: var(--alpha-black);
         }
 
         .cta-section p {
             font-size: 1.2em;
             margin-bottom: 30px;
-            opacity: 0.95;
+            font-weight: 500;
         }
 
         .cta-button {
             display: inline-block;
-            background: white;
-            color: var(--primary-orange);
+            background: var(--alpha-black);
+            color: var(--alpha-yellow);
             padding: 18px 50px;
             border-radius: 50px;
             text-decoration: none;
@@ -346,11 +413,14 @@
             font-size: 1.1em;
             transition: all 0.3s ease;
             box-shadow: var(--shadow-md);
+            border: 2px solid var(--alpha-black);
         }
 
         .cta-button:hover {
             transform: translateY(-3px);
             box-shadow: var(--shadow-lg);
+            background: white;
+            color: var(--alpha-black);
         }
 
         /* Footer */
@@ -362,8 +432,15 @@
         }
 
         footer .brand {
-            color: var(--primary-orange);
-            font-weight: 600;
+            color: var(--alpha-yellow);
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        footer .tagline {
+            margin-top: 10px;
+            font-size: 0.85em;
+            color: var(--dark-gray);
         }
 
         /* Responsive */
@@ -387,8 +464,9 @@
 <body>
     <div class="container">
         <header>
+            <div class="brand-badge">Alpha Assessoria</div>
             <div class="client-badge">🍗 FNP - Frango Frito | Jaraguá do Sul</div>
-            <h1>Estratégia de Crescimento Digital</h1>
+            <h1>Estratégia de <span class="highlight">Crescimento Digital</span></h1>
             <p>Aumente suas vendas do combo individual com posicionamento local forte e tráfego pago estratégico</p>
         </header>
 
@@ -582,6 +660,7 @@
                         <h4>Semana 7-8: Expansão</h4>
                         <p>Ativar iFood Ads (R$ 375/semana), lançar "Desafio Frango Solo", implementar QR Code fidelização na embalagem.</p>
                     </div>
+                </div>
 
                 <div class="timeline-item">
                     <div class="timeline-marker">5</div>
@@ -635,14 +714,17 @@
         <div class="cta-section">
             <h2>Pronto para Dominar o Mercado de Combos Individuais?</h2>
             <p>Vamos transformar o FNP na referência de frango artesanal em Jaraguá do Sul</p>
-            <a href="https://wa.me/5547999999999?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20a%20proposta%20FNP" class="cta-button">
+            <a href="https://wa.me/5547999999999?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20a%20proposta%20FNP%20da%20Alpha%20Assessoria" class="cta-button">
                 Falar com Especialista
             </a>
         </div>
 
         <footer>
-            <p>Proposta desenvolvida por <span class="brand">Starken Tecnologia Ltda</span></p>
-            <p style="margin-top: 10px; font-size: 0.85em;">Soluções Digitais Avançadas para Empresas</p>
+            <p>Proposta desenvolvida por <span class="brand">Alpha Assessoria</span></p>
+            <p class="tagline">Marketing e Tecnologia para Restaurantes</p>
+            <p style="margin-top: 20px; font-size: 0.8em; color: var(--medium-gray);">
+                Powered by Starken Tecnologia Ltda
+            </p>
         </footer>
     </div>
 </body>
