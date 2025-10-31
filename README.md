@@ -22,7 +22,34 @@ Repositório centralizado de propostas comerciais e projetos da Starken Tecnolog
 
 ---
 
-### 2. Proposta Jacaré Grill
+### 2. Proposta FNP - Frango Frito
+**Cliente:** FNP - Frango Frito
+**Segmento:** Restaurante/Delivery - Frango Frito Artesanal
+**Localização:** Jaraguá do Sul (SC)
+**Investimento:** R$ 4.000/mês (R$ 2.500 assessoria + R$ 1.500 tráfego)
+
+**🌐 URLs:**
+- **Site:** https://fnp--proposta-new-service-starken.netlify.app
+- **Admin:** https://app.netlify.com/projects/proposta-new-service-starken
+- **Arquivo:** `public/proposta-fnp.html`
+
+**Características:**
+- Design food & appetite (cores quentes laranja/vermelho)
+- Foco em combo individual e posicionamento local
+- Estratégias: Meta Ads (60%), iFood Ads (25%), Google Local (15%)
+- Diferenciação: "Frango Artesanal de Jaraguá" vs concorrente genérico
+- Conteúdo sensorial ASMR + storytelling local
+- Meta 90 dias: +80% vendas, ROAS 5x, +2k seguidores
+
+**🎯 Diferenciais:**
+- Posicionamento local forte ("Feito em Jaraguá")
+- Produto herói: Combo Individual premium-acessível
+- Conteúdo sensorial (vídeos ASMR frango crocante)
+- Programa de fidelização estruturado
+
+---
+
+### 3. Proposta Jacaré Grill
 **Cliente:** Jacaré Grill (Carlos Alberto)
 **Segmento:** Restaurante/Delivery
 **Investimento:** R$ 1.000/mês + R$ 200-250/semana tráfego
