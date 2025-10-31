@@ -1,108 +1,196 @@
-# ShieldCar Blumenau - Proteção Veicular
+# 🚀 Starken Tecnologia Ltda - Propostas & Projetos
 
-Landing page para captação de leads de proteção veicular com integração HubSpot e Meta Pixel.
+Repositório centralizado de propostas comerciais e projetos da Starken Tecnologia Ltda.
 
-## 📋 Sobre o Projeto
+## 📋 PROPOSTAS COMERCIAIS ATIVAS
 
-Sistema de captação de leads para cooperativa de proteção veicular, oferecendo cotações gratuitas e personalizadas para clientes em Blumenau e região.
+### 1. Proposta New Service Sul Packaging
+**Cliente:** New Service Sul Packaging (Cris)
+**Segmento:** B2B Industrial - Embalagens & Logística Reversa
+**Investimento:** R$ 4.000/mês + R$ 1.000/semana tráfego
 
-## ✨ Funcionalidades
+**🌐 URLs:**
+- **Site:** https://proposta-new-service-starken.netlify.app
+- **Admin:** https://app.netlify.com/projects/proposta-new-service-starken
+- **Arquivo:** `public/proposta-new-service.html`
 
-- Formulário de cotação com validação em tempo real
-- Integração com HubSpot CRM para gestão de leads
-- Tracking de conversões via Meta Pixel (Facebook Ads)
-- Captura de parâmetros UTM para análise de campanhas
-- Backup local de leads (LocalStorage)
-- Design responsivo e moderno
-- Formatação automática de telefone
+**Características:**
+- Design B2B clean e minimalista
+- Identidade visual do cliente (verde #76ae52 + azul #4676b0)
+- 9 benefícios B2B específicos
+- Projeto completo: Automação + CRM HubSpot + Landing Page
 
-## 📁 Estrutura do Projeto
+---
+
+### 2. Proposta Jacaré Grill
+**Cliente:** Jacaré Grill (Carlos Alberto)
+**Segmento:** Restaurante/Delivery
+**Investimento:** R$ 1.000/mês + R$ 200-250/semana tráfego
+**Arquivo:** `public/proposta-jacare-grill.html`
+
+---
+
+## 🏗️ PROJETOS DE CLIENTES
+
+### ShieldCar Blumenau - Sistema de Captação de Leads
+
+Sistema completo de captação e notificação de leads para proteção veicular, integrando Landing Page, HubSpot CRM, n8n e WhatsApp via Evolution API.
+
+**Landing Page:** https://shieldcar-blumenau.netlify.app
+
+## 📋 Funcionalidades
+
+- ✅ Landing page responsiva com formulário de cotação
+- ✅ Integração com FIPE API para dados de veículos
+- ✅ Captura de leads no HubSpot CRM
+- ✅ Notificação automática via WhatsApp
+- ✅ Workflow automatizado com n8n
+- ✅ Tracking com Meta Pixel
+- ✅ Validação em tempo real de formulário
+- ✅ Captura de parâmetros UTM
+
+## 🏗️ Arquitetura
+
+```
+Cliente → Landing Page (Netlify)
+              ↓
+        ┌─────────┬─────────┐
+        ↓         ↓         ↓
+    HubSpot    n8n      Meta Pixel
+     (CRM)  (Workflow)  (Tracking)
+              ↓
+        Evolution API
+              ↓
+          WhatsApp
+```
+
+## 🛠️ Tecnologias
+
+- **Frontend:** HTML5, CSS3, JavaScript (Vanilla)
+- **Hosting:** Netlify
+- **CRM:** HubSpot
+- **Automation:** n8n
+- **WhatsApp:** Evolution API
+- **Database:** PostgreSQL (Neon.tech)
+- **APIs:** FIPE API, HubSpot Forms API
+
+## 📦 Estrutura do Projeto
 
 ```
 meu-repositorio/
-├── README.md          # Documentação
-├── .gitignore         # Arquivos ignorados pelo Git
-├── public/            # Arquivos públicos
-│   └── index.html     # Landing page principal
-├── assets/            # Assets do projeto
-│   ├── css/          # Estilos (futuro)
-│   └── js/           # Scripts (futuro)
-├── src/              # Código fonte
-├── docs/             # Documentação adicional
-└── tests/            # Testes
+├── public/
+│   └── index.html              # Landing page principal
+├── evolution-api/              # Evolution API (WhatsApp)
+│   ├── .env                    # Configurações
+│   └── ...
+├── docs/                       # Documentação
+│   ├── INSTALACAO.md          # Guia de instalação
+│   ├── ARQUITETURA.md         # Detalhes da arquitetura
+│   ├── API.md                 # Documentação das APIs
+│   └── MANUTENCAO.md          # Manutenção e troubleshooting
+├── hubspot-whatsapp-workflow.json  # Workflow do n8n
+├── .gitignore
+├── netlify.toml               # Configuração do Netlify
+└── README.md                  # Este arquivo
 ```
 
-## 🚀 Como Usar
+## 🚀 Quick Start
 
-### Opção 1: Abrir diretamente no navegador
-1. Abra o arquivo `public/index.html` no navegador
-2. O formulário estará pronto para uso
+### 1. Clone o repositório
 
-### Opção 2: Servidor local
 ```bash
-# Com Python 3
-cd public
-python -m http.server 8000
-
-# Com Node.js (npx)
-cd public
-npx serve
+git clone <seu-repositorio>
+cd meu-repositorio
 ```
 
-Acesse: `http://localhost:8000`
+### 2. Configure as variáveis de ambiente
 
-## 🔧 Configurações
+Veja a documentação completa em [docs/INSTALACAO.md](docs/INSTALACAO.md)
+
+### 3. Deploy
+
+```bash
+netlify deploy --prod
+```
+
+## 📖 Documentação Completa
+
+- [📥 Instalação](docs/INSTALACAO.md) - Guia passo a passo de instalação
+- [🏗️ Arquitetura](docs/ARQUITETURA.md) - Detalhes técnicos da arquitetura
+- [🔌 APIs](docs/API.md) - Documentação das integrações
+- [🔧 Manutenção](docs/MANUTENCAO.md) - Como manter o sistema rodando
+
+## 🔑 Configurações Principais
 
 ### HubSpot
-- **Portal ID**: 50536787
-- **Form ID**: 0a12dcbf-0c77-4ae3-86c8-fe7604dd4b85
+- Portal ID: `50633225`
+- Form ID: `528f0f6e-026b-424d-8c9c-ad1506083856`
+
+### n8n
+- Porta local: `5678`
+- Webhook: `/webhook/hubspot-lead`
+
+### Evolution API
+- Porta local: `8080`
+- Instância: `shieldcar`
 
 ### Meta Pixel
-- **Pixel ID**: 1581222786653125
+- Pixel ID: `1581222786653125`
 
-### Campos do Formulário
-- Nome Completo (obrigatório)
-- E-mail (obrigatório)
-- Telefone/WhatsApp (obrigatório)
-- Tipo de Veículo (obrigatório)
-- Marca do Veículo (opcional)
-- Modelo do Veículo (opcional)
-- Cidade (obrigatório)
+## 📊 Fluxo de Dados
 
-## 📊 Tracking e Analytics
+1. Cliente preenche formulário na landing page
+2. Dados são enviados para HubSpot Forms API
+3. Lead é salvo no HubSpot CRM
+4. Site envia dados para n8n webhook
+5. n8n processa os dados e formata a mensagem
+6. Evolution API envia notificação para WhatsApp
 
-O sistema captura automaticamente:
-- Parâmetros UTM (source, medium, campaign, content)
-- Evento "Lead" no Meta Pixel
-- Dados completos no HubSpot CRM
-- Backup local via LocalStorage
+## 📱 Mensagem WhatsApp
 
-## 🎨 Benefícios Destacados
+```
+🚗 *NOVO LEAD - ShieldCar*
 
-- Economia de até 50% comparado ao seguro tradicional
-- Cobertura completa para roubo, furto e colisão
-- Assistência 24 horas em todo território nacional
-- Sem análise de perfil ou pontuação
-- Proteção solidária e transparente
+👤 [Nome do Cliente]
+📧 [Email]
+📱 [Telefone]
 
-## 🛠️ Tecnologias Utilizadas
+🚙 *Veículo:*
+• [Tipo]
+• [Marca] [Modelo]
+• Ano: [Ano]
+• Placa: [Placa]
 
-- HTML5
-- CSS3 (Grid, Flexbox, Gradientes)
-- JavaScript (ES6+)
-- HubSpot Forms API
-- Meta Pixel (Facebook Ads)
-- LocalStorage API
+📍 [Cidade]/[Estado]
+```
 
-## 📝 Próximos Passos
+## 🔧 Desenvolvimento Local
 
-- [ ] Separar CSS em arquivo externo
-- [ ] Separar JavaScript em arquivo externo
-- [ ] Adicionar testes automatizados
-- [ ] Implementar Google Analytics
-- [ ] Adicionar mais páginas (Sobre, Contato)
-- [ ] Criar painel de administração
+```bash
+# Instalar n8n
+npm install -g n8n
 
-## 📄 Licença
+# Iniciar n8n
+n8n start
 
-Este projeto está sob a licença MIT.
+# Em outro terminal, iniciar Evolution API
+cd evolution-api
+npm start
+
+# Deploy do site
+cd public
+netlify dev
+```
+
+## 📝 Licença
+
+Todos os direitos reservados - ShieldCar © 2025
+
+## 👨‍💻 Desenvolvido por
+
+Claude Code + Juan Minni
+
+---
+
+**Status:** ✅ Em Produção
+**Última atualização:** Outubro 2025
