@@ -13,10 +13,10 @@ RED='\033[0;31m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-# Configurações Evolution API
-EVOLUTION_URL="http://localhost:8080"
-INSTANCE_NAME="shieldcar"  # Usar instância existente
-API_KEY="shieldcar_evolution_2024_secure_key_12345"
+# Configurações WAHA API
+WAHA_URL="http://localhost:3002"
+SESSION_NAME="default"  # WAHA Core usa sessão 'default'
+API_KEY="alpha_waha_2024_secure_key_67890_abcdef"
 
 # Time Operacional Padrão Alpha Assessoria
 # IMPORTANTE: Edite esses números com os membros reais da sua equipe
@@ -65,19 +65,19 @@ fi
 echo ""
 echo -e "${BLUE}[1/4]${NC} Criando grupo WhatsApp..."
 
-# Criar array de participantes (coordenador + equipe)
-PARTICIPANTES="[\"$COORDENADOR\""
+# Criar array de participantes (coordenador + equipe) no formato WAHA
+PARTICIPANTES="[{\"id\":\"${COORDENADOR}@c.us\"}"
 for membro in "${EQUIPE[@]}"; do
-    PARTICIPANTES+=",\"$membro\""
+    PARTICIPANTES+=",{\"id\":\"${membro}@c.us\"}"
 done
 PARTICIPANTES+="]"
 
 # Criar grupo
-CREATE_RESPONSE=$(curl -s -X POST "$EVOLUTION_URL/group/create/$INSTANCE_NAME" \
+CREATE_RESPONSE=$(curl -s -X POST "$WAHA_URL/api/$SESSION_NAME/groups" \
   -H "Content-Type: application/json" \
-  -H "apikey: $API_KEY" \
+  -H "X-Api-Key: $API_KEY" \
   -d "{
-    \"subject\": \"$GRUPO_NOME\",
+    \"name\": \"$GRUPO_NOME\",
     \"participants\": $PARTICIPANTES
   }")
 
@@ -109,11 +109,10 @@ DESCRICAO="🎯 GRUPO OPERACIONAL - $CLIENTE_NOME
 
 ⚠️ Este é um grupo profissional. Mantenha foco nas atividades do cliente."
 
-curl -s -X POST "$EVOLUTION_URL/group/updateGroupDescription/$INSTANCE_NAME" \
+curl -s -X PUT "$WAHA_URL/api/$SESSION_NAME/groups/$GROUP_ID" \
   -H "Content-Type: application/json" \
-  -H "apikey: $API_KEY" \
+  -H "X-Api-Key: $API_KEY" \
   -d "{
-    \"groupJid\": \"$GROUP_ID\",
     \"description\": \"$DESCRICAO\"
   }" > /dev/null
 
@@ -146,11 +145,11 @@ Vamos juntos aumentar o faturamento do seu restaurante através do marketing dig
 
 _Mensagem automática - Sistema Alpha_"
 
-curl -s -X POST "$EVOLUTION_URL/message/sendText/$INSTANCE_NAME" \
+curl -s -X POST "$WAHA_URL/api/$SESSION_NAME/messages/text" \
   -H "Content-Type: application/json" \
-  -H "apikey: $API_KEY" \
+  -H "X-Api-Key: $API_KEY" \
   -d "{
-    \"number\": \"${GROUP_ID%@*}\",
+    \"chatId\": \"$GROUP_ID\",
     \"text\": \"$MENSAGEM_BOAS_VINDAS\"
   }" > /dev/null
 

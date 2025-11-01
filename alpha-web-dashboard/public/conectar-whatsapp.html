@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conectar WhatsApp - Alpha Assessoria</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .status {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .status.connecting {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status.connected {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .qr-container {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            min-height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        #qrcode {
+            margin: 20px 0;
+        }
+
+        #qrcode img {
+            border: 5px solid white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .loading {
+            font-size: 3em;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .instructions {
+            text-align: left;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .instructions h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+            line-height: 2;
+        }
+
+        .instructions li {
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .instance-info {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+        }
+
+        .instance-info strong {
+            color: #667eea;
+        }
+
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .error-message {
+            color: #721c24;
+            background: #f8d7da;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="logo">🍽️</div>
+            <h1>Alpha Assessoria</h1>
+            <p class="subtitle">Conectar WhatsApp para Criação de Grupos</p>
+
+            <div class="instance-info">
+                <strong>Instância:</strong> shieldcar<br>
+                <strong>API:</strong> Evolution API v2.3.6<br>
+                <strong>Porta:</strong> 8080
+            </div>
+
+            <div id="statusMessage" class="status connecting">
+                ⏳ Carregando QR Code...
+            </div>
+
+            <div class="qr-container">
+                <div id="qrcode">
+                    <div class="loading">⏳</div>
+                    <p>Gerando QR Code...</p>
+                </div>
+            </div>
+
+            <div class="instructions">
+                <h3>📱 Como Conectar:</h3>
+                <ol>
+                    <li>Abra o <strong>WhatsApp</strong> no seu celular</li>
+                    <li>Toque em <strong>Mais opções</strong> (⋮) ou <strong>Configurações</strong></li>
+                    <li>Toque em <strong>Aparelhos conectados</strong></li>
+                    <li>Toque em <strong>Conectar um aparelho</strong></li>
+                    <li>Aponte seu celular para esta tela para escanear o código</li>
+                </ol>
+            </div>
+
+            <button class="btn" onclick="gerarQRCode()">🔄 Gerar Novo QR Code</button>
+            <button class="btn" onclick="verificarStatus()">✓ Verificar Status</button>
+
+            <div class="footer">
+                <p>Sistema de Automação de Grupos WhatsApp</p>
+                <p>Desenvolvido para Alpha Assessoria</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:8080';
+        const INSTANCE_NAME = 'shieldcar';
+        const API_KEY = 'shieldcar_evolution_2024_secure_key_12345';
+
+        let intervalId = null;
+
+        async function gerarQRCode() {
+            const statusDiv = document.getElementById('statusMessage');
+            const qrcodeDiv = document.getElementById('qrcode');
+
+            statusDiv.className = 'status connecting';
+            statusDiv.textContent = '⏳ Gerando QR Code...';
+
+            qrcodeDiv.innerHTML = '<div class="loading">⏳</div><p>Gerando QR Code...</p>';
+
+            try {
+                // Primeiro, verificar se a instância existe
+                const statusResponse = await fetch(`${API_URL}/instance/connectionState/${INSTANCE_NAME}`, {
+                    headers: {
+                        'apikey': API_KEY
+                    }
+                });
+
+                const statusData = await statusResponse.json();
+                console.log('Status da instância:', statusData);
+
+                // Se já estiver conectado
+                if (statusData.state === 'open') {
+                    statusDiv.className = 'status connected';
+                    statusDiv.innerHTML = '✅ WhatsApp já está conectado!<br>Você pode fechar esta página.';
+                    qrcodeDiv.innerHTML = `
+                        <div style="font-size: 5em; color: #28a745;">✅</div>
+                        <h3 style="color: #28a745; margin-top: 20px;">Conectado com Sucesso!</h3>
+                        <p style="color: #666; margin-top: 10px;">O WhatsApp está pronto para criar grupos.</p>
+                    `;
+                    return;
+                }
+
+                // Primeiro fazer logout para limpar sessão antiga
+                try {
+                    await fetch(`${API_URL}/instance/logout/${INSTANCE_NAME}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'apikey': API_KEY
+                        }
+                    });
+                    console.log('Logout realizado');
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                } catch (e) {
+                    console.log('Logout não necessário ou erro:', e);
+                }
+
+                // Solicitar conexão
+                const connectResponse = await fetch(`${API_URL}/instance/connect/${INSTANCE_NAME}`, {
+                    method: 'GET',
+                    headers: {
+                        'apikey': API_KEY
+                    }
+                });
+
+                const connectData = await connectResponse.json();
+                console.log('Resposta de conexão:', connectData);
+
+                // Várias formas de obter o QR code
+                let qrCodeData = null;
+
+                if (connectData.base64) {
+                    qrCodeData = connectData.base64;
+                } else if (connectData.qrcode && connectData.qrcode.base64) {
+                    qrCodeData = connectData.qrcode.base64;
+                } else if (connectData.qrcode && typeof connectData.qrcode === 'string') {
+                    qrCodeData = connectData.qrcode;
+                } else if (connectData.pairingCode) {
+                    // Se retornar pairing code em vez de QR
+                    qrcodeDiv.innerHTML = `
+                        <div style="text-align: center;">
+                            <h3>Código de Pareamento</h3>
+                            <div style="font-size: 3em; font-weight: bold; letter-spacing: 10px; margin: 20px 0;">
+                                ${connectData.pairingCode}
+                            </div>
+                            <p>Digite este código no WhatsApp do seu celular</p>
+                        </div>
+                    `;
+                    statusDiv.className = 'status connecting';
+                    statusDiv.textContent = '📱 Digite o código no WhatsApp';
+                    return;
+                }
+
+                if (qrCodeData) {
+                    // Garantir que tem o prefixo data:image
+                    if (!qrCodeData.startsWith('data:image')) {
+                        qrCodeData = 'data:image/png;base64,' + qrCodeData;
+                    }
+
+                    statusDiv.className = 'status connecting';
+                    statusDiv.textContent = '📱 Escaneie o QR Code com seu WhatsApp';
+
+                    qrcodeDiv.innerHTML = `<img src="${qrCodeData}" alt="QR Code" style="max-width: 100%; height: auto;">`;
+
+                    // Verificar status a cada 3 segundos
+                    if (intervalId) clearInterval(intervalId);
+                    intervalId = setInterval(verificarStatusAutomatico, 3000);
+
+                } else {
+                    // Se não conseguir obter QR, sugerir usar o Manager
+                    qrcodeDiv.innerHTML = `
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="font-size: 3em; margin-bottom: 20px;">⚠️</div>
+                            <h3>Use o Evolution Manager</h3>
+                            <p style="margin: 20px 0;">A API não retornou o QR Code diretamente.</p>
+                            <button onclick="window.open('http://localhost:8080/manager', '_blank')"
+                                    style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                                           color: white; border: none; padding: 15px 30px;
+                                           border-radius: 10px; font-size: 1.1em; cursor: pointer;">
+                                🌐 Abrir Evolution Manager
+                            </button>
+                            <p style="margin-top: 20px; font-size: 0.9em; color: #666;">
+                                No Manager, procure a instância "shieldcar" e clique em "Connect"
+                            </p>
+                        </div>
+                    `;
+                    statusDiv.className = 'status connecting';
+                    statusDiv.textContent = '⚠️ Use o Evolution Manager para conectar';
+                }
+
+            } catch (error) {
+                console.error('Erro ao gerar QR Code:', error);
+                statusDiv.className = 'status error';
+                statusDiv.textContent = '❌ Erro ao gerar QR Code';
+                qrcodeDiv.innerHTML = `
+                    <div class="error-message">
+                        <strong>Erro:</strong> ${error.message}<br><br>
+                        <strong>Possíveis causas:</strong><br>
+                        • Evolution API não está rodando<br>
+                        • Instância 'shieldcar' não existe<br>
+                        • API Key incorreta<br><br>
+                        <strong>Solução:</strong><br>
+                        Certifique-se que a Evolution API está rodando na porta 8080.
+                    </div>
+                `;
+            }
+        }
+
+        async function verificarStatusAutomatico() {
+            try {
+                const response = await fetch(`${API_URL}/instance/connectionState/${INSTANCE_NAME}`, {
+                    headers: {
+                        'apikey': API_KEY
+                    }
+                });
+
+                const data = await response.json();
+
+                if (data.state === 'open') {
+                    clearInterval(intervalId);
+                    const statusDiv = document.getElementById('statusMessage');
+                    const qrcodeDiv = document.getElementById('qrcode');
+
+                    statusDiv.className = 'status connected';
+                    statusDiv.innerHTML = '✅ WhatsApp conectado com sucesso!<br>Você pode fechar esta página.';
+
+                    qrcodeDiv.innerHTML = `
+                        <div style="font-size: 5em; color: #28a745;">✅</div>
+                        <h3 style="color: #28a745; margin-top: 20px;">Conectado com Sucesso!</h3>
+                        <p style="color: #666; margin-top: 10px;">O sistema está pronto para criar grupos.</p>
+                    `;
+
+                    // Tocar som de sucesso (opcional)
+                    const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSh+zPDZizcIGGS57OScTQwOUKXh8LJnHAU2jdXuzXkpBSh+zPDXijcIF2S56+OcTgwPUKjh8LJnGwU0jdXuzXkpBSh9y/HajDgIF2K56+WbTgwOUKfh8LNnHAU0jdXuzXkpBSh9y/HajDgIF2K56+WbTgwOUKfh8LJnGwU0jdXuzXkpBSh9y/HajDgIF2K56+WbTgwOUKfh8LJnGwU0jdXuzXkpBSh9y/HajDgIF2K56+WbTgwOUKfh8LJnGwU0jdXuzXkpBSh9y/HajDgIF2K56+WbTgwOUKfh8LJnGwU0jdXuzXkpBSh9y/HajDgIF2K56+WbTgwOUKfh8LJnGwU0jdXuzXkpBSh9y/HajDgIF2K56+WbTgwOUKfh8LJnGwU0jdXuzXkpBSh9y/HajDgIF2K56+WbTgwOUKfh8LJnGwU0jdXuzXkpBSh9y/HajDgIF2K56+WbTgwOUKfh8LJnGwU0jdXuzXkpBSh9y/HajDgIF2K56+WbTgwOUKfh8LJnGwU0jdXuzXkpBSh9y/HajDgIF2K56+WbTgwOUKfh8LJnGwU0jdXuzXkpBSh9y/HajDgIF2K56+WbTgwOUKfh8LJnGwU0jdXuzXkpBSh9y/HajDgIF2K56+WbTgwOUKfh8LJnGwU0jdXuzXkpBSh9y/HajDgIF2K56+WbTgwOUKfh8LJnGwU0jdXuzXkpBSh9y/HajDgIF2K56+WbTgwOUKfh8LJnGwU0jdXuzXkpBSh9y/HajDgIF2K56+WbTgwOUKfh8LJnGwU0jdXuzXkpBSh9y/HajDgIF2K56+WbTgwOUKfh8LJnGwU0jdXuzXkpBSh9y/HajDgIF2K56+WbTgwOUKfh8A==');
+                    audio.play().catch(() => {});
+                }
+
+            } catch (error) {
+                console.error('Erro ao verificar status:', error);
+            }
+        }
+
+        async function verificarStatus() {
+            const statusDiv = document.getElementById('statusMessage');
+
+            try {
+                const response = await fetch(`${API_URL}/instance/connectionState/${INSTANCE_NAME}`, {
+                    headers: {
+                        'apikey': API_KEY
+                    }
+                });
+
+                const data = await response.json();
+
+                if (data.state === 'open') {
+                    statusDiv.className = 'status connected';
+                    statusDiv.innerHTML = '✅ WhatsApp está conectado!';
+                } else if (data.state === 'close') {
+                    statusDiv.className = 'status error';
+                    statusDiv.innerHTML = '❌ WhatsApp desconectado. Gere um novo QR Code.';
+                } else {
+                    statusDiv.className = 'status connecting';
+                    statusDiv.innerHTML = `⏳ Status: ${data.state}`;
+                }
+
+            } catch (error) {
+                statusDiv.className = 'status error';
+                statusDiv.innerHTML = '❌ Erro ao verificar status: ' + error.message;
+            }
+        }
+
+        // Gerar QR Code ao carregar a página
+        window.onload = function() {
+            gerarQRCode();
+        };
+
+        // Limpar intervalo ao sair
+        window.onbeforeunload = function() {
+            if (intervalId) clearInterval(intervalId);
+        };
+    </script>
+</body>
+</html>

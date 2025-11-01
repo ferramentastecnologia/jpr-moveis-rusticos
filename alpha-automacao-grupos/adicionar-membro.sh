@@ -12,9 +12,9 @@ RED='\033[0;31m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
-EVOLUTION_URL="http://localhost:8080"
-INSTANCE_NAME="shieldcar"
-API_KEY="shieldcar_evolution_2024_secure_key_12345"
+WAHA_URL="http://localhost:3002"
+SESSION_NAME="default"
+API_KEY="alpha_waha_2024_secure_key_67890_abcdef"
 
 echo -e "${BLUE}========================================${NC}"
 echo -e "${BLUE}  ADICIONAR MEMBRO AO GRUPO${NC}"
@@ -37,19 +37,19 @@ fi
 GROUP_ID="$1"
 TELEFONES="$2"
 
-# Converter telefones em array JSON
+# Converter telefones em array JSON no formato WAHA
 if [[ $TELEFONES == *","* ]]; then
     # Múltiplos números
     IFS=',' read -ra NUMEROS <<< "$TELEFONES"
     PARTICIPANTES="["
     for num in "${NUMEROS[@]}"; do
-        PARTICIPANTES+="\"$num\","
+        PARTICIPANTES+="{\"id\":\"${num}@c.us\"},"
     done
     PARTICIPANTES="${PARTICIPANTES%,}]"
     QTDE=${#NUMEROS[@]}
 else
     # Número único
-    PARTICIPANTES="[\"$TELEFONES\"]"
+    PARTICIPANTES="[{\"id\":\"${TELEFONES}@c.us\"}]"
     QTDE=1
 fi
 
@@ -58,17 +58,15 @@ echo -e "${YELLOW}Adicionando:${NC} $QTDE membro(s)"
 echo ""
 
 # Adicionar membros
-RESPONSE=$(curl -s -X POST "$EVOLUTION_URL/group/updateParticipant/$INSTANCE_NAME" \
+RESPONSE=$(curl -s -X POST "$WAHA_URL/api/$SESSION_NAME/groups/$GROUP_ID/participants/add" \
   -H "Content-Type: application/json" \
-  -H "apikey: $API_KEY" \
+  -H "X-Api-Key: $API_KEY" \
   -d "{
-    \"groupJid\": \"$GROUP_ID\",
-    \"action\": \"add\",
     \"participants\": $PARTICIPANTES
   }")
 
 # Verificar resposta
-if echo "$RESPONSE" | grep -q "updateParticipants"; then
+if echo "$RESPONSE" | grep -q -E "\"status\":|\"participants\":|success"; then
     echo -e "${GREEN}✅ Membro(s) adicionado(s) com sucesso!${NC}"
     echo ""
 else

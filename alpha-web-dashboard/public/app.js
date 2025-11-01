@@ -161,7 +161,7 @@ async function salvarConfiguracoes(event) {
 function abrirModalCriar() {
     document.getElementById('modalCriar').classList.add('active');
     document.getElementById('formCriarGrupo').reset();
-    document.getElementById('usarTimePadrao').checked = true;
+    document.getElementById('usarTimepadrao').checked = true;
     document.getElementById('timePersonalizado').style.display = 'none';
     document.getElementById('personalizarMensagem').checked = false;
     document.getElementById('mensagemPersonalizada').style.display = 'none';
@@ -172,7 +172,7 @@ function fecharModalCriar() {
 }
 
 function toggleTimePersonalizado() {
-    const usarPadrao = document.getElementById('usarTimePadrao').checked;
+    const usarPadrao = document.getElementById('usarTimepadrao').checked;
     document.getElementById('timePersonalizado').style.display = usarPadrao ? 'none' : 'block';
 }
 
@@ -193,7 +193,7 @@ async function criarGrupo(event) {
     btnLoading.style.display = 'inline';
 
     const nomeCliente = document.getElementById('nomeCliente').value;
-    const usarTimePadrao = document.getElementById('usarTimePadrao').checked;
+    const usarTimePadrao = document.getElementById('usarTimepadrao').checked;
     const personalizarMensagem = document.getElementById('personalizarMensagem').checked;
 
     const payload = {

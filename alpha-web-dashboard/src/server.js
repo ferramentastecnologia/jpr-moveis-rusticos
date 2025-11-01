@@ -15,10 +15,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-// Configurações Evolution API
-const EVOLUTION_API_URL = process.env.EVOLUTION_API_URL;
-const EVOLUTION_INSTANCE = process.env.EVOLUTION_INSTANCE;
-const EVOLUTION_API_KEY = process.env.EVOLUTION_API_KEY;
+// Configurações WAHA API
+const WAHA_API_URL = process.env.WAHA_API_URL;
+const WAHA_SESSION = process.env.WAHA_SESSION;
+const WAHA_API_KEY = process.env.WAHA_API_KEY;
 
 // Diretório para salvar registros de grupos
 const GRUPOS_DIR = path.join(__dirname, '..', 'grupos-criados');
@@ -34,12 +34,20 @@ if (!fs.existsSync(GRUPOS_DIR)) {
 app.get('/api/status', async (req, res) => {
     try {
         const response = await axios.get(
-            `${EVOLUTION_API_URL}/instance/connectionState/${EVOLUTION_INSTANCE}`,
-            { headers: { apikey: EVOLUTION_API_KEY } }
+            `${WAHA_API_URL}/api/sessions`,
+            { headers: { 'X-Api-Key': WAHA_API_KEY } }
         );
+
+        // Procurar pela sessão "default"
+        const session = response.data.find(s => s.name === WAHA_SESSION);
+
         res.json({
             status: 'ok',
-            whatsapp: response.data
+            whatsapp: {
+                state: session?.status === 'WORKING' ? 'open' : 'close',
+                status: session?.status,
+                me: session?.me
+            }
         });
     } catch (error) {
         res.status(500).json({
@@ -107,27 +115,32 @@ app.post('/api/grupos/criar', async (req, res) => {
             ? equipe
             : (process.env.EQUIPE_PADRAO || '').split(',').filter(n => n);
 
-        // Criar array de participantes
-        const participantes = [coordenadorFinal, ...equipeFinal];
+        // Criar array de participantes no formato WAHA
+        const participantes = [coordenadorFinal, ...equipeFinal].map(num => ({
+            id: `${num}@c.us`
+        }));
 
         const grupoNome = `🍽️ Alpha | ${nomeCliente}`;
 
-        // Criar grupo via Evolution API
+        // Criar grupo via WAHA API
         const createResponse = await axios.post(
-            `${EVOLUTION_API_URL}/group/create/${EVOLUTION_INSTANCE}`,
+            `${WAHA_API_URL}/api/${WAHA_SESSION}/groups`,
             {
-                subject: grupoNome,
+                name: grupoNome,
                 participants: participantes
             },
             {
                 headers: {
                     'Content-Type': 'application/json',
-                    'apikey': EVOLUTION_API_KEY
-                }
+                    'X-Api-Key': WAHA_API_KEY
+                },
+                validateStatus: () => true // Accept all status codes
             }
         );
 
-        const grupoId = createResponse.data.id;
+        console.log('WAHA Response:', createResponse.status, createResponse.data);
+
+        const grupoId = createResponse.data.id || createResponse.data.groupId;
 
         if (!grupoId) {
             throw new Error('Erro ao criar grupo: ID não retornado');
@@ -147,16 +160,15 @@ app.post('/api/grupos/criar', async (req, res) => {
 
 ⚠️ Este é um grupo profissional. Mantenha foco nas atividades do cliente.`;
 
-        await axios.post(
-            `${EVOLUTION_API_URL}/group/updateGroupDescription/${EVOLUTION_INSTANCE}`,
+        await axios.put(
+            `${WAHA_API_URL}/api/${WAHA_SESSION}/groups/${grupoId}`,
             {
-                groupJid: grupoId,
                 description: descricao
             },
             {
                 headers: {
                     'Content-Type': 'application/json',
-                    'apikey': EVOLUTION_API_KEY
+                    'X-Api-Key': WAHA_API_KEY
                 }
             }
         );
@@ -184,15 +196,16 @@ Respostas urgentes em até 2 horas
 Vamos juntos aumentar o faturamento do seu restaurante através do marketing digital! 💪🍽️`;
 
         await axios.post(
-            `${EVOLUTION_API_URL}/message/sendText/${EVOLUTION_INSTANCE}`,
+            `${WAHA_API_URL}/api/sendText`,
             {
-                number: grupoId.replace('@g.us', ''),
+                session: WAHA_SESSION,
+                chatId: grupoId,
                 text: mensagem
             },
             {
                 headers: {
                     'Content-Type': 'application/json',
-                    'apikey': EVOLUTION_API_KEY
+                    'X-Api-Key': WAHA_API_KEY
                 }
             }
         );
@@ -268,17 +281,20 @@ app.post('/api/grupos/adicionar-membro', async (req, res) => {
             return res.status(400).json({ error: 'Grupo ID e telefones são obrigatórios' });
         }
 
+        // Converter telefones para formato WAHA
+        const participantes = telefones.map(tel => ({
+            id: `${tel}@c.us`
+        }));
+
         const response = await axios.post(
-            `${EVOLUTION_API_URL}/group/updateParticipant/${EVOLUTION_INSTANCE}`,
+            `${WAHA_API_URL}/api/${WAHA_SESSION}/groups/${grupoId}/participants/add`,
             {
-                groupJid: grupoId,
-                action: 'add',
-                participants: telefones
+                participants: participantes
             },
             {
                 headers: {
                     'Content-Type': 'application/json',
-                    'apikey': EVOLUTION_API_KEY
+                    'X-Api-Key': WAHA_API_KEY
                 }
             }
         );
@@ -345,8 +361,8 @@ app.listen(PORT, () => {
     console.log('========================================');
     console.log('');
     console.log(`✅ Servidor rodando em: http://localhost:${PORT}`);
-    console.log(`✅ Evolution API: ${EVOLUTION_API_URL}`);
-    console.log(`✅ Instância: ${EVOLUTION_INSTANCE}`);
+    console.log(`✅ WAHA API: ${WAHA_API_URL}`);
+    console.log(`✅ Sessão: ${WAHA_SESSION}`);
     console.log('');
     console.log('Acesse no navegador: http://localhost:3000');
     console.log('========================================');
