@@ -1,0 +1,29 @@
+{
+  "name": "alpha-okr-dashboard",
+  "version": "1.0.0",
+  "description": "Dashboard OKR integrado para Alpha Assessoria - baseado em 'Avalie o que Importa' de John Doerr",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "npm run dev --workspace=backend",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces",
+    "lint": "npm run lint --workspaces"
+  },
+  "keywords": [
+    "okr",
+    "performance-management",
+    "cfr",
+    "pdi"
+  ],
+  "author": "Alpha Assessoria",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

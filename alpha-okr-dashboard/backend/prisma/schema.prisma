@@ -1,0 +1,412 @@
+// Alpha OKR Dashboard - Database Schema
+// Baseado em "Avalie o que Importa" - John Doerr
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================================
+// USERS & AUTHENTICATION
+// ============================================================================
+
+enum UserRole {
+  ADMIN
+  MANAGER
+  MEMBER
+}
+
+enum Trilha {
+  OPERACIONAL
+  COMERCIAL
+  GESTAO
+}
+
+model User {
+  id                String    @id @default(uuid())
+  email             String    @unique
+  password          String
+  nome              String
+  cargo             String
+  nivel             String
+  role              UserRole  @default(MEMBER)
+  trilha            Trilha
+  departamento      String
+  gestorId          String?   @map("gestor_id")
+  gestor            User?     @relation("GestorLiderados", fields: [gestorId], references: [id], onDelete: SetNull)
+  liderados         User[]    @relation("GestorLiderados")
+
+  dataAdmissao      DateTime  @map("data_admissao")
+  tempoNoNivel      Int       @default(0) @map("tempo_no_nivel") // em meses
+  elegivelPromocao  Boolean   @default(false) @map("elegivel_promocao")
+  medalhasTotal     Int       @default(0) @map("medalhas_total")
+
+  fotoUrl           String?   @map("foto_url")
+
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  okrs              OKR[]
+  kpis              KPI[]
+  pdi               PDI?
+  conversasComoColaborador    CFRConversa[]  @relation("ConversaColaborador")
+  conversasComoGestor         CFRConversa[]  @relation("ConversaGestor")
+  feedbacksDados              CFRFeedback[]  @relation("FeedbackDe")
+  feedbacksRecebidos          CFRFeedback[]  @relation("FeedbackPara")
+  reconhecimentos             CFRReconhecimento[]
+
+  @@map("users")
+}
+
+// ============================================================================
+// OKR SYSTEM
+// ============================================================================
+
+enum TipoOKR {
+  CORPORATIVO
+  TRILHA
+  TIME
+  INDIVIDUAL
+}
+
+enum TipoObjetivo {
+  COMPROMETIDO
+  AMBICIOSO
+}
+
+enum StatusOKR {
+  EM_PROGRESSO
+  CONCLUIDO
+  CANCELADO
+}
+
+enum StatusSaudeOKR {
+  EM_DIA
+  ATENCAO
+  RISCO
+  CONCLUIDO
+}
+
+model OKR {
+  id                String          @id @default(uuid())
+  tipo              TipoOKR
+  nivel             Int             // 1-4: Corporativo, Trilha, Time, Individual
+  objetivo          String          @db.Text
+  tipoObjetivo      TipoObjetivo    @map("tipo_objetivo")
+
+  ownerId           String          @map("owner_id")
+  owner             User            @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  ciclo             String          // Ex: "Q1-2025"
+  dataInicio        DateTime        @map("data_inicio")
+  dataFim           DateTime        @map("data_fim")
+
+  status            StatusOKR       @default(EM_PROGRESSO)
+  progressoGeral    Decimal         @default(0) @map("progresso_geral") @db.Decimal(5, 2) // 0-100
+  statusSaude       StatusSaudeOKR  @default(EM_DIA) @map("status_saude")
+
+  cascataDe         String?         @map("cascata_de")
+  okrPai            OKR?            @relation("OKRCascata", fields: [cascataDe], references: [id], onDelete: SetNull)
+  okrsFilhos        OKR[]           @relation("OKRCascata")
+
+  createdAt         DateTime        @default(now()) @map("created_at")
+  updatedAt         DateTime        @updatedAt @map("updated_at")
+
+  // Relations
+  keyResults        KeyResult[]
+  feedbacks         CFRFeedback[]
+  reconhecimentos   CFRReconhecimento[]
+
+  @@index([ownerId])
+  @@index([ciclo])
+  @@index([tipo])
+  @@index([cascataDe])
+  @@map("okrs")
+}
+
+// ============================================================================
+// KEY RESULTS
+// ============================================================================
+
+enum TipoCalculo {
+  DIRETO
+  PERCENTUAL
+  QUANTIDADE
+  BINARIO
+}
+
+model KeyResult {
+  id                    String        @id @default(uuid())
+  okrId                 String        @map("okr_id")
+  okr                   OKR           @relation(fields: [okrId], references: [id], onDelete: Cascade)
+
+  krId                  String        @map("kr_id") // KR1, KR2, etc
+  descricao             String        @db.Text
+
+  metaInicial           Decimal       @map("meta_inicial") @db.Decimal(12, 2)
+  metaFinal             Decimal       @map("meta_final") @db.Decimal(12, 2)
+  valorAtual            Decimal       @default(0) @map("valor_atual") @db.Decimal(12, 2)
+
+  unidade               String        // "pontos", "percentual", "reais", "dias", etc
+  peso                  Int           // 0-100
+  progresso             Decimal       @default(0) @db.Decimal(5, 2) // 0-100
+
+  tipoCalculo           TipoCalculo   @map("tipo_calculo")
+  calculoAutomatico     Boolean       @default(false) @map("calculo_automatico")
+
+  kpisFonte             Json?         @map("kpis_fonte") // Array de KPI IDs
+  fonteDados            String?       @map("fonte_dados")
+
+  medalhasRelacionadas  Json?         @map("medalhas_relacionadas")
+  pontosPDI             Int           @default(0) @map("pontos_pdi")
+
+  ultimaAtualizacao     DateTime      @default(now()) @map("ultima_atualizacao")
+  createdAt             DateTime      @default(now()) @map("created_at")
+  updatedAt             DateTime      @updatedAt @map("updated_at")
+
+  @@index([okrId])
+  @@map("key_results")
+}
+
+// ============================================================================
+// KPIs
+// ============================================================================
+
+model KPI {
+  id                    String    @id @default(uuid())
+  colaboradorId         String    @map("colaborador_id")
+  colaborador           User      @relation(fields: [colaboradorId], references: [id], onDelete: Cascade)
+
+  kpiNome               String    @map("kpi_nome")
+  valorAtual            Decimal   @map("valor_atual") @db.Decimal(12, 2)
+  meta                  Decimal?  @db.Decimal(12, 2)
+  unidade               String
+
+  fonteDados            String    @map("fonte_dados")
+  formulaCalculo        String?   @map("formula_calculo") @db.Text
+  frequenciaAtualizacao String    @map("frequencia_atualizacao")
+
+  ultimaSync            DateTime  @default(now()) @map("ultima_sync")
+  historico             Json?     // Últimos 90 dias
+
+  createdAt             DateTime  @default(now()) @map("created_at")
+  updatedAt             DateTime  @updatedAt @map("updated_at")
+
+  @@index([colaboradorId])
+  @@index([kpiNome])
+  @@map("kpis")
+}
+
+// ============================================================================
+// CFR - CONVERSATIONS
+// ============================================================================
+
+enum TipoConversa {
+  REGULAR
+  EXTRAORDINARIO
+  TRIMESTRAL
+}
+
+enum Sentiment {
+  POSITIVO
+  NEUTRO
+  NEGATIVO
+}
+
+model CFRConversa {
+  id                    String        @id @default(uuid())
+  colaboradorId         String        @map("colaborador_id")
+  colaborador           User          @relation("ConversaColaborador", fields: [colaboradorId], references: [id], onDelete: Cascade)
+
+  gestorId              String        @map("gestor_id")
+  gestor                User          @relation("ConversaGestor", fields: [gestorId], references: [id], onDelete: Cascade)
+
+  dataReuniao           DateTime      @map("data_reuniao")
+  tipo                  TipoConversa
+
+  okrsRevisados         Json?         @map("okrs_revisados")
+  celebracoes           Json?
+  bloqueios             Json?
+  acoesAcordadas        Json?         @map("acoes_acordadas")
+  desenvolvimento       Json?
+
+  sentimentColaborador  Sentiment?    @map("sentiment_colaborador")
+  sentimentGestor       Sentiment?    @map("sentiment_gestor")
+
+  proximaReuniao        DateTime?     @map("proxima_reuniao")
+  notas                 String?       @db.Text
+
+  createdAt             DateTime      @default(now()) @map("created_at")
+  updatedAt             DateTime      @updatedAt @map("updated_at")
+
+  @@index([colaboradorId])
+  @@index([gestorId])
+  @@index([dataReuniao])
+  @@map("cfr_conversas")
+}
+
+// ============================================================================
+// CFR - FEEDBACK
+// ============================================================================
+
+enum TipoFeedback {
+  PERFORMANCE
+  DESENVOLVIMENTO
+  FEEDBACK_360
+}
+
+enum Visibilidade {
+  PRIVADO
+  TIME
+  PUBLICO
+}
+
+model CFRFeedback {
+  id                    String          @id @default(uuid())
+  deUsuarioId           String          @map("de_usuario_id")
+  deUsuario             User            @relation("FeedbackDe", fields: [deUsuarioId], references: [id], onDelete: Cascade)
+
+  paraUsuarioId         String          @map("para_usuario_id")
+  paraUsuario           User            @relation("FeedbackPara", fields: [paraUsuarioId], references: [id], onDelete: Cascade)
+
+  tipo                  TipoFeedback
+  contexto              String          @db.Text
+  comportamento         String          @db.Text
+  impacto               String          @db.Text
+  sugestao              String?         @db.Text
+  pontosFortes          Json?           @map("pontos_fortes")
+
+  relacionadoOkrId      String?         @map("relacionado_okr_id")
+  relacionadoOkr        OKR?            @relation(fields: [relacionadoOkrId], references: [id], onDelete: SetNull)
+  relacionadoKr         String?         @map("relacionado_kr")
+
+  competencias          Json?
+  visibilidade          Visibilidade    @default(PRIVADO)
+  estrelas              Int?            @db.SmallInt // 1-5
+  tags                  Json?
+
+  dataFeedback          DateTime        @map("data_feedback")
+  createdAt             DateTime        @default(now()) @map("created_at")
+  updatedAt             DateTime        @updatedAt @map("updated_at")
+
+  @@index([deUsuarioId])
+  @@index([paraUsuarioId])
+  @@index([tipo])
+  @@index([dataFeedback])
+  @@map("cfr_feedbacks")
+}
+
+// ============================================================================
+// CFR - RECOGNITION (Medalhas)
+// ============================================================================
+
+enum TipoTrigger {
+  AUTOMATICO
+  MANUAL
+}
+
+model CFRReconhecimento {
+  id                    String        @id @default(uuid())
+  colaboradorId         String        @map("colaborador_id")
+  colaborador           User          @relation(fields: [colaboradorId], references: [id], onDelete: Cascade)
+
+  medalhaId             String        @map("medalha_id") // Referência ao sistema externo
+  medalhaNome           String        @map("medalha_nome")
+
+  relacionadoOkrId      String?       @map("relacionado_okr_id")
+  relacionadoOkr        OKR?          @relation(fields: [relacionadoOkrId], references: [id], onDelete: SetNull)
+  relacionadoKr         String?       @map("relacionado_kr")
+
+  tipoTrigger           TipoTrigger   @map("tipo_trigger")
+  concedidoPorId        String?       @map("concedido_por_id")
+
+  descricaoContexto     String?       @map("descricao_contexto") @db.Text
+  pontos                Int           @default(0)
+
+  dataConquista         DateTime      @map("data_conquista")
+  createdAt             DateTime      @default(now()) @map("created_at")
+
+  @@index([colaboradorId])
+  @@index([medalhaId])
+  @@index([dataConquista])
+  @@map("cfr_reconhecimentos")
+}
+
+// ============================================================================
+// PDI - Plano de Desenvolvimento Individual
+// ============================================================================
+
+enum StatusPromocao {
+  EM_DIA
+  ATRASADO
+  ELEGIVEL
+}
+
+model PDI {
+  id                        String          @id @default(uuid())
+  colaboradorId             String          @unique @map("colaborador_id")
+  colaborador               User            @relation(fields: [colaboradorId], references: [id], onDelete: Cascade)
+
+  cargoAtual                String          @map("cargo_atual")
+  nivelAtual                String          @map("nivel_atual")
+  cargoAlvo                 String          @map("cargo_alvo")
+  nivelAlvo                 String          @map("nivel_alvo")
+
+  dataInicio                DateTime        @map("data_inicio")
+  dataPromocaoPrevista      DateTime        @map("data_promocao_prevista")
+
+  progressoGeral            Decimal         @default(0) @map("progresso_geral") @db.Decimal(5, 2) // 0-100
+  competencias              Json            // Array de competências em desenvolvimento
+  okrsRelacionados          Json?           @map("okrs_relacionados")
+
+  medalhasNecessarias       Int             @map("medalhas_necessarias")
+  medalhasAtuais            Int             @default(0) @map("medalhas_atuais")
+
+  statusPromocao            StatusPromocao  @default(EM_DIA) @map("status_promocao")
+  avaliacoes                Json?           // Histórico trimestral
+
+  createdAt                 DateTime        @default(now()) @map("created_at")
+  updatedAt                 DateTime        @updatedAt @map("updated_at")
+
+  @@index([colaboradorId])
+  @@index([dataPromocaoPrevista])
+  @@map("pdi")
+}
+
+// ============================================================================
+// CYCLES
+// ============================================================================
+
+enum StatusCiclo {
+  PLANEJAMENTO
+  ATIVO
+  REVISAO
+  ENCERRADO
+}
+
+model Ciclo {
+  id                    String        @id @default(uuid())
+  nome                  String        @unique // "Q1-2025"
+  ano                   Int
+  trimestre             Int           @db.SmallInt // 1-4
+
+  dataInicio            DateTime      @map("data_inicio")
+  dataFim               DateTime      @map("data_fim")
+
+  status                StatusCiclo   @default(PLANEJAMENTO)
+  tema                  String?       // Tema opcional do trimestre
+
+  metricasConsolidadas  Json?         @map("metricas_consolidadas")
+
+  createdAt             DateTime      @default(now()) @map("created_at")
+  updatedAt             DateTime      @updatedAt @map("updated_at")
+
+  @@index([nome])
+  @@index([status])
+  @@map("ciclos")
+}
