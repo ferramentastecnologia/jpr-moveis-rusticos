@@ -1,0 +1,4 @@
+[build]
+  publish = "."
+
+# Redirects agora estão no arquivo _redirects
