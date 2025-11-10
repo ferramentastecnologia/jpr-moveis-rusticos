@@ -1,6 +1,34 @@
 // Dados dos produtos - JPR Móveis Rústicos (Atualizado com informações reais)
 const produtos = [
     {
+        id: 'mesa-012',
+        imagem: './Imagem das mesas/mesa-glamour.png',
+        nome: 'Mesa Glamour',
+        slug: 'mesa-glamour',
+        preco: 3400,
+        precoFormatado: 'R$ 3.400,00',
+        categoria: 'Premium',
+        descricao: 'Glamour sofisticado com acabamento excepcional',
+        descricaoLonga: 'A Mesa Glamour oferece versatilidade em cores, com opções de acabamento brilhante ou acetinado. Oferecemos verniz automotivo ou verniz P.U. acetinado, além de modelos com bordas rústicas ou bordas retas. Acompanha 2 bancos grandes.',
+        dimensoes: {
+            comprimento: '2,0m / 2,5m / 3,0m',
+            largura: 'Sob consulta',
+            altura: 'Padrão',
+            espessura: 'Padrão'
+        },
+        caracteristicas: [
+            'Diversas cores disponíveis',
+            'Acabamento brilhante ou acetinado',
+            'Verniz automotivo ou P.U. acetinado',
+            'Bordas rústicas ou retas',
+            '2 bancos grandes inclusos'
+        ],
+        disponibilidade: 'Em estoque',
+        prazoEntrega: '10-25 dias úteis',
+        sobMedida: true,
+        badge: '⭐ CAMPEÃ DE VENDAS'
+    },
+    {
         id: 'mesa-001',
         nome: 'Mesa Sublime',
         slug: 'mesa-sublime',
@@ -290,34 +318,6 @@ const produtos = [
         categoria: 'Premium',
         descricao: 'Glamour com tons melados e sofisticados',
         descricaoLonga: 'A Mesa Glamour Mel oferece versatilidade em cores, com opções de acabamento brilhante ou acetinado. Oferecemos verniz automotivo ou verniz P.U. acetinado, além de modelos com bordas rústicas ou bordas retas. Acompanha 2 bancos grandes.',
-        dimensoes: {
-            comprimento: '2,0m / 2,5m / 3,0m',
-            largura: 'Sob consulta',
-            altura: 'Padrão',
-            espessura: 'Padrão'
-        },
-        caracteristicas: [
-            'Diversas cores disponíveis',
-            'Acabamento brilhante ou acetinado',
-            'Verniz automotivo ou P.U. acetinado',
-            'Bordas rústicas ou retas',
-            '2 bancos grandes inclusos'
-        ],
-        disponibilidade: 'Em estoque',
-        prazoEntrega: '10-25 dias úteis',
-        sobMedida: true,
-        badge: 'PERSONALIZAÇÃO'
-    },
-    {
-        id: 'mesa-012',
-        imagem: './Imagem das mesas/mesa-glamour.png',
-        nome: 'Mesa Glamour',
-        slug: 'mesa-glamour',
-        preco: 3400,
-        precoFormatado: 'R$ 3.400,00',
-        categoria: 'Premium',
-        descricao: 'Glamour sofisticado com acabamento excepcional',
-        descricaoLonga: 'A Mesa Glamour oferece versatilidade em cores, com opções de acabamento brilhante ou acetinado. Oferecemos verniz automotivo ou verniz P.U. acetinado, além de modelos com bordas rústicas ou bordas retas. Acompanha 2 bancos grandes.',
         dimensoes: {
             comprimento: '2,0m / 2,5m / 3,0m',
             largura: 'Sob consulta',
