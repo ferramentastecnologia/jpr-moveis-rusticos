@@ -307,14 +307,32 @@ function renderizarProdutos(filtro = 'todas', termoBusca = '') {
                         <span class="stock">✅ ${produto.disponibilidade}</span>
                         <span class="delivery">📦 ${produto.prazoEntrega}</span>
                     </div>
-                    <div class="product-price">${produto.precoFormatado}</div>
+
+                    <!-- SELETOR DE TAMANHO -->
+                    <div class="product-sizes-section">
+                        <label class="sizes-label">Tamanhos:</label>
+                        <div class="product-sizes">
+                            ${produto.tamanhos ? produto.tamanhos.map((t, idx) => `
+                                <button class="size-option ${idx === 0 ? 'active' : ''}" onclick="selecionarTamanhoCard(event, '${produto.id}', '${t.tamanho}', ${t.preco}, '${t.precoFormatado}')">
+                                    <span class="size-label">${t.tamanho}</span>
+                                    <span class="size-price">${t.precoFormatado}</span>
+                                </button>
+                            `).join('') : '<span class="price-range">A partir de</span>'}
+                        </div>
+                    </div>
+
+                    <!-- PREÇO DINÂMICO -->
+                    <div class="product-price-display" data-product-id="${produto.id}">
+                        <span class="price-label">Preço:</span>
+                        <span class="product-price" data-price="${produto.preco}">${produto.precoFormatado}</span>
+                    </div>
                 </div>
                 <div class="product-footer">
-                    <button class="btn-adicionar" onclick="adicionarAoCarrinho('${produto.id}')">
+                    <button class="btn-adicionar" onclick="adicionarAoCarrinhoRapido('${produto.id}', event)">
                         🛒 Adicionar
                     </button>
                     <button class="btn-detalhes" onclick="abrirModalProduto('${produto.id}')">
-                        📋 Detalhes
+                        📋 Mais detalhes
                     </button>
                 </div>
             </div>
@@ -588,6 +606,57 @@ function selecionarVariante(btn, variante) {
     buttons.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     mostrarNotificacao(`Acabamento "${variante}" selecionado!`);
+}
+
+// Selecionar tamanho direto no card
+function selecionarTamanhoCard(event, produtoId, tamanho, preco, precoFormatado) {
+    event.preventDefault();
+
+    // Remover ativo de todos os botões de tamanho deste produto
+    const card = event.target.closest('.product-card');
+    const buttons = card.querySelectorAll('.size-option');
+    buttons.forEach(btn => btn.classList.remove('active'));
+
+    // Adicionar ativo ao selecionado
+    event.target.closest('.size-option').classList.add('active');
+
+    // Atualizar preço dinâmico
+    const priceDisplay = card.querySelector('.product-price');
+    priceDisplay.textContent = precoFormatado;
+    priceDisplay.dataset.price = preco;
+
+    // Armazenar tamanho selecionado no card
+    card.dataset.selectedSize = tamanho;
+    card.dataset.selectedPrice = preco;
+
+    mostrarNotificacao(`${tamanho} selecionado - ${precoFormatado}`);
+}
+
+// Adicionar ao carrinho com tamanho pré-selecionado
+function adicionarAoCarrinhoRapido(produtoId, event) {
+    const card = event.target.closest('.product-card');
+    const selectedSize = card.dataset.selectedSize || (card.querySelector('.size-option.active') ?
+        card.querySelector('.size-option.active').querySelector('.size-label').textContent : null);
+
+    const produto = produtos.find(p => p.id === produtoId);
+    if (!produto) return;
+
+    const itemExistente = carrinho.find(item => item.id === produtoId && item.tamanhoSelecionado === selectedSize);
+
+    if (itemExistente) {
+        itemExistente.quantidade += 1;
+    } else {
+        carrinho.push({
+            ...produto,
+            tamanhoSelecionado: selectedSize,
+            quantidade: 1,
+            precoSelecionado: card.dataset.selectedPrice || produto.preco
+        });
+    }
+
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    atualizarCarrinho();
+    mostrarNotificacao(`${produto.nome} (${selectedSize || 'Padrão'}) adicionado ao carrinho! ✅`);
 }
 
 function toggleWishlistModal(btn) {
