@@ -741,25 +741,26 @@ section {
 }
 
 .product-footer {
-    padding: 0 var(--spacing-lg) var(--spacing-lg);
+    padding: var(--spacing-md) var(--spacing-lg) var(--spacing-lg);
     display: flex;
-    gap: var(--spacing-md);
+    gap: 10px;
 }
 
 .btn-adicionar,
 .btn-detalhes {
     flex: 1;
-    padding: 14px var(--spacing-md);
+    padding: 12px var(--spacing-md);
     border: none;
     border-radius: var(--radius-lg);
     font-weight: 700;
     cursor: pointer;
     transition: var(--transition);
-    font-size: 14px;
+    font-size: 13px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
     position: relative;
     overflow: hidden;
+    white-space: nowrap;
 }
 
 .btn-adicionar {
