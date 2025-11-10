@@ -7,7 +7,7 @@ const produtos = [
         preco: 3400,
         precoFormatado: 'R$ 3.400,00',
         categoria: 'Premium',
-        imagem: 'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?w=400&h=300&fit=crop',
+        imagem: './Imagem das mesas/Mesa-Sublime-2.png',
         descricao: 'Disponível em diversas cores com acabamento brilhante ou acetinado',
         descricaoLonga: 'A Mesa Sublime oferece versatilidade em cores, com opções de acabamento brilhante ou acetinado. Oferecemos verniz automotivo ou verniz P.U. acetinado, além de modelos com bordas rústicas ou bordas retas. Acompanha 2 bancos grandes.',
         dimensoes: {
@@ -30,7 +30,7 @@ const produtos = [
     },
     {
         id: 'mesa-002',
-        imagem: 'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?w=400&h=300&fit=crop',
+        imagem: './Imagem das mesas/Mesa-Paris-1.png',
         nome: 'Mesa Paris',
         slug: 'mesa-paris',
         preco: 3400,
@@ -58,7 +58,7 @@ const produtos = [
     },
     {
         id: 'mesa-003',
-        imagem: 'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?w=400&h=300&fit=crop',
+        imagem: './Imagem das mesas/Mesa-Requinte.png',
         nome: 'Mesa Requinte',
         slug: 'mesa-requinte',
         preco: 3400,
@@ -86,7 +86,7 @@ const produtos = [
     },
     {
         id: 'mesa-004',
-        imagem: 'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?w=400&h=300&fit=crop',
+        imagem: './Imagem das mesas/Mesa-Luxuria-1.png',
         nome: 'Mesa Luxúria',
         slug: 'mesa-luxuria',
         preco: 4500,
@@ -114,7 +114,7 @@ const produtos = [
     },
     {
         id: 'mesa-005',
-        imagem: 'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?w=400&h=300&fit=crop',
+        imagem: './Imagem das mesas/Mesa-Imperatriz-2.png',
         nome: 'Mesa Imperatriz',
         slug: 'mesa-imperatriz',
         preco: 3400,
@@ -142,7 +142,7 @@ const produtos = [
     },
     {
         id: 'mesa-006',
-        imagem: 'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?w=400&h=300&fit=crop',
+        imagem: './Imagem das mesas/Mesa-Charme.png',
         nome: 'Mesa Charme',
         slug: 'mesa-charme',
         preco: 3400,
@@ -170,7 +170,7 @@ const produtos = [
     },
     {
         id: 'mesa-007',
-        imagem: 'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?w=400&h=300&fit=crop',
+        imagem: './Imagem das mesas/Mesa-Imperio-2.png',
         nome: 'Mesa Império',
         slug: 'mesa-imperio',
         preco: 3400,
@@ -198,7 +198,7 @@ const produtos = [
     },
     {
         id: 'mesa-008',
-        imagem: 'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?w=400&h=300&fit=crop',
+        imagem: './Imagem das mesas/Mesa-Requinte-Nobre-2.png',
         nome: 'Mesa Requinte Nobre',
         slug: 'mesa-requinte-nobre',
         preco: 3400,
@@ -226,7 +226,7 @@ const produtos = [
     },
     {
         id: 'mesa-009',
-        imagem: 'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?w=400&h=300&fit=crop',
+        imagem: './Imagem das mesas/Mesa-Nobreza-1.png',
         nome: 'Mesa Nobreza',
         slug: 'mesa-nobreza',
         preco: 4200,
@@ -254,6 +254,7 @@ const produtos = [
     },
     {
         id: 'mesa-010',
+        imagem: './Imagem das mesas/Mesa-Encanto-2.png',
         nome: 'Mesa Encanto',
         slug: 'mesa-encanto',
         preco: 3400,
@@ -281,6 +282,7 @@ const produtos = [
     },
     {
         id: 'mesa-011',
+        imagem: './Imagem das mesas/Mesa-Glamour-Mel.png',
         nome: 'Mesa Glamour Mel',
         slug: 'mesa-glamour-mel',
         preco: 3400,
@@ -308,6 +310,7 @@ const produtos = [
     },
     {
         id: 'mesa-012',
+        imagem: './Imagem das mesas/mesa-glamour.png',
         nome: 'Mesa Glamour',
         slug: 'mesa-glamour',
         preco: 3400,
@@ -335,6 +338,7 @@ const produtos = [
     },
     {
         id: 'mesa-013',
+        imagem: './Imagem das mesas/Mesa-Imperatriz-Natural-2.png',
         nome: 'Mesa Imperatriz Natural',
         slug: 'mesa-imperatriz-natural',
         preco: 3400,
