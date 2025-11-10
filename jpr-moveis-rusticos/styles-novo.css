@@ -755,7 +755,7 @@ section {
     font-weight: 700;
     cursor: pointer;
     transition: var(--transition);
-    font-size: 15px;
+    font-size: 14px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     position: relative;
@@ -766,8 +766,8 @@ section {
     background: linear-gradient(135deg, #ff6913 0%, #e04c16 100%);
     color: var(--white);
     box-shadow: 0 4px 15px rgba(255, 105, 19, 0.3);
-    font-size: 16px;
-    font-weight: 800;
+    font-size: 14px;
+    font-weight: 700;
 }
 
 .btn-adicionar:hover {
