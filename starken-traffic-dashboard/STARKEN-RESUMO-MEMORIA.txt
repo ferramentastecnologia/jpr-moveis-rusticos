@@ -1,0 +1,250 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                STARKEN TRAFFIC DASHBOARD - RESUMO EXECUTIVO                 ║
+║                           Salvo em Memória                                  ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+📅 DATA: 9 de Novembro de 2025
+👤 USUARIO: Juan Minni - Starken Tecnologia Ltda
+📍 LOCAL: rosa-mexicano-dashboard/ (armazenado temporariamente)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 OBJETIVO DO PROJETO
+
+Criar um dashboard centralizado e profissional para gerenciar campanhas de 
+Facebook Ads de múltiplas contas e Business Managers (Starken Tecnologia Ltda 
+e Alpha Assessoria) em um único sistema integrado.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🏢 ESTRUTURA DE EMPRESAS
+
+✅ Starken Tecnologia Ltda (PRINCIPAL)
+   - Business Manager: Starken Tecnologia Ltda
+   - Clientes próprios
+   - Admin do sistema
+
+✅ Alpha Assessoria (SUB-EMPRESA)
+   - Business Manager: Alpha Assessoria
+   - Clientes da matriz de franquia
+   - Acesso isolado
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 FUNCIONALIDADES PRINCIPAIS
+
+1. DASHBOARD EXECUTIVO
+   - KPIs consolidados de ambas as BMs
+   - Gastos totais, ROI geral, CTR médio, CPC médio
+   - Top 10 campanhas por performance
+   - Filtros por empresa, cliente, período
+
+2. GESTÃO DE CLIENTES
+   - Cadastro de clientes por empresa
+   - Associação com tokens Meta
+   - Permissões granulares
+   - Histórico de campanhas
+
+3. ANALYTICS EM TEMPO REAL
+   - Sincronização horária com Meta
+   - Gráficos interativos (Recharts)
+   - Comparativos período a período
+   - Alertas de anomalias
+
+4. RELATÓRIOS AUTOMÁTICOS
+   - Geração de PDF e Excel
+   - Agendamento (diário, semanal, mensal)
+   - Envio por email automático
+   - Backup em S3
+   - Histórico de 12+ meses
+
+5. AUTOMAÇÕES INTELIGENTES
+   - Pausar campanhas com ROI < 1.5
+   - Aumentar orçamento em top performers
+   - Regras customizáveis
+   - Alertas por email/SMS
+
+6. SINCRONIZAÇÃO AUTOMÁTICA
+   - Cron job a cada 1 hora
+   - Cache local de métricas
+   - Rate limiting implementado
+   - Fallback em caso de falha
+
+7. ANOMALY DETECTION
+   - CPC aumentado > 50%
+   - CTR caiu > 30%
+   - ROI negativo
+   - Campanhas pausadas inesperadamente
+   - Notificações em tempo real
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🏗️ STACK TÉCNICO
+
+BACKEND
+├─ Runtime: Node.js 18+
+├─ Framework: Express.js
+├─ Database: PostgreSQL 14+
+├─ Autenticação: JWT + bcrypt
+├─ Integração: Facebook Ads MCP
+├─ Jobs: node-cron
+└─ Documentação: Swagger/OpenAPI
+
+FRONTEND
+├─ Framework: React 18+
+├─ Build: Vite
+├─ UI: Material-UI ou Tailwind CSS
+├─ Charts: Recharts
+├─ State: Redux ou Zustand
+└─ HTTP: Axios
+
+INFRASTRUCTURE
+├─ Deploy: Railway
+├─ Database: PostgreSQL (Railway)
+├─ Storage: AWS S3
+├─ Monitoring: Sentry
+└─ SSL: Automático (Railway)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔐 ARQUITETURA MULTI-TENANT
+
+Schema PostgreSQL:
+├─ empresas (Starken + Alpha)
+├─ usuarios (com RBAC)
+├─ business_managers (tokens criptografados)
+├─ clientes (por empresa)
+├─ campanhas_cache (sincronizadas)
+├─ metricas_historico (12+ meses)
+└─ alertas (anomalias detectadas)
+
+Autenticação:
+├─ JWT com empresa_id
+├─ Expiração: 24h
+├─ Refresh: 7 dias
+└─ RBAC: Admin > Gestor > Analista > Cliente
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 DECISÕES ARQUITETURAIS
+
+✅ NOVO PROJETO SEPARADO
+   - Não integrado ao Rosa Mexicano Dashboard
+   - Repositório Git independente
+   - Escalabilidade dedicada
+
+✅ MULTI-TENANT (Starken + Alpha)
+   - Schema separado por empresa_id
+   - Isolamento total de dados
+   - Permissões por usuário
+
+✅ INTEGRAÇÃO FACEBOOK ADS MCP
+   - Via claude-code-templates
+   - Sincronização automática
+   - Caching inteligente
+
+✅ POSTGRESQL
+   - Robusto e profissional
+   - Indices otimizados
+   - Backup automático
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📝 DOCUMENTAÇÃO CRIADA
+
+1. STARKEN-TRAFFIC-DASHBOARD-PLAN.md (30KB)
+   └─ Plano completo, arquitetura, schema SQL, funcionalidades
+
+2. STARKEN-TRAFFIC-DASHBOARD-TECHNICAL-GUIDE.md (25KB)
+   └─ Guia técnico, endpoints, variáveis, jobs, deployment
+
+3. STARKEN-TRAFFIC-CHECKLIST.md (20KB)
+   └─ Checklist de preparação, critérios de aceição, timeline
+
+4. STARKEN-RESUMO-MEMORIA.txt (este arquivo)
+   └─ Resumo executivo para referência rápida
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔑 CREDENCIAIS NECESSÁRIAS (PRÓXIMAS ETAPAS)
+
+Business Manager Starken Tecnologia Ltda:
+├─ Access Token: [A FORNECER]
+├─ Business Account ID: [A FORNECER]
+├─ App ID: [A FORNECER]
+└─ App Secret: [A FORNECER]
+
+Business Manager Alpha Assessoria:
+├─ Access Token: [A FORNECER]
+├─ Business Account ID: [A FORNECER]
+├─ App ID: [Mesmo acima]
+└─ App Secret: [Mesmo acima]
+
+PostgreSQL:
+├─ Host: [A CONFIGURAR]
+├─ Usuario: [A CRIAR]
+├─ Senha: [A CRIAR]
+└─ Database: starken_traffic
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⏱️ ESTIMATIVA DE TIMELINE
+
+Setup Inicial ...................... 2 dias
+Autenticação ....................... 3 dias
+Empresas/Clientes .................. 3 dias
+Integração Meta .................... 4 dias
+API Métricas ....................... 3 dias
+Relatórios ......................... 3 dias
+Frontend Dashboard ................. 4 dias
+Frontend Funcionalidades ........... 4 dias
+Testes ............................ 4 dias
+Deploy ............................ 5 dias
+                                    ─────
+TOTAL: ~35 dias (5 semanas)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 PRÓXIMAS AÇÕES
+
+1. ✅ [FEITO] Planejamento completo
+2. ✅ [FEITO] Documentação criada
+3. ⏳ [PRÓXIMO] Fornecer credenciais Meta (tokens, IDs)
+4. ⏳ Configurar repositório GitHub
+5. ⏳ Iniciar Fase 1 (Setup + Database)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 NOTAS IMPORTANTES
+
+• Sistema totalmente novo e independente
+• Segurança em first-class (criptografia, validação, RBAC)
+• Performance otimizada desde o início (índices, cache, async)
+• Documentação completa para onboarding
+• Arquitetura escalável para crescimento futuro
+• Pronto para integração com Google Ads/TikTok Ads no futuro
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📌 ARQUIVOS SALVOS
+
+Localização: /Users/juanminni/meu-repositorio/rosa-mexicano-dashboard/
+
+├─ STARKEN-TRAFFIC-DASHBOARD-PLAN.md
+├─ STARKEN-TRAFFIC-DASHBOARD-TECHNICAL-GUIDE.md
+├─ STARKEN-TRAFFIC-CHECKLIST.md
+└─ STARKEN-RESUMO-MEMORIA.txt (este arquivo)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎉 PLANO COMPLETO! PRONTO PARA COMEÇAR!
+
+Quando você estiver pronto para iniciar a implementação:
+1. Junte os tokens Meta
+2. Me chame novamente
+3. Criamos o repositório GitHub
+4. Começamos com a Fase 1
+
+Até lá, revise a documentação e esclareça qualquer dúvida!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
