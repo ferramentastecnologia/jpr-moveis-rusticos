@@ -289,7 +289,7 @@ function renderizarProdutos(filtro = 'todas', termoBusca = '') {
                     ${produto.badge ? `<span class="product-badge ${badgeClass}">${produto.badge}</span>` : ''}
                 </div>
                 <div class="product-image-container">
-                    <div class="product-image">${emoji}</div>
+                    <img src="${produto.imagem}" alt="${produto.nome}" class="product-image">
                     <div class="quick-actions">
                         <button class="btn-wishlist" onclick="toggleWishlist(event)">❤️</button>
                         <button class="btn-compare" onclick="compareProducts(event)">⚖️</button>
@@ -345,7 +345,7 @@ function abrirModalProduto(produtoId) {
             <!-- Galeria de Imagens -->
             <div class="modal-gallery-section">
                 <div class="modal-main-image">
-                    <div class="product-emoji-large">${emoji}</div>
+                    <img src="${produto.imagem}" alt="${produto.nome}" class="modal-image-large">
                 </div>
                 <div class="modal-thumbnails">
                     ${galeria.map((img, idx) => `
