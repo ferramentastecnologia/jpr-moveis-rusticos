@@ -341,150 +341,191 @@ function abrirModalProduto(produtoId) {
     ];
 
     const conteudo = `
-        <div class="modal-product-content">
-            <!-- Galeria de Imagens -->
-            <div class="modal-gallery-section">
-                <div class="modal-main-image">
+        <div class="modal-product-modern">
+            <!-- SEÇÃO ESQUERDA: Galeria -->
+            <div class="modal-left-section">
+                <div class="modal-main-image-modern">
                     <img src="${produto.imagem}" alt="${produto.nome}" class="modal-image-large">
+                    ${produto.badge ? `<div class="product-badge-large">${produto.badge}</div>` : ''}
                 </div>
-                <div class="modal-thumbnails">
+                <div class="modal-thumbnails-modern">
                     ${galeria.map((img, idx) => `
-                        <div class="modal-thumbnail active" onclick="selecionarImagemModal(${idx})">
-                            <div class="thumbnail-emoji">${img}</div>
+                        <div class="modal-thumbnail-modern ${idx === 0 ? 'active' : ''}" onclick="selecionarImagemModal(${idx})">
+                            <img src="${produto.imagem}" alt="Variação ${idx + 1}" class="thumb-img">
                         </div>
                     `).join('')}
                 </div>
             </div>
 
-            <div class="modal-product-info">
-                <!-- Header do Produto -->
-                <div class="modal-header">
+            <!-- SEÇÃO DIREITA: Informações com Tabs -->
+            <div class="modal-right-section">
+                <!-- Header Superior -->
+                <div class="modal-header-modern">
                     <div>
-                        <h2>${produto.nome}</h2>
-                        <span class="modal-category">${produto.categoria}</span>
+                        <h2 class="product-title-modal">${produto.nome}</h2>
+                        <span class="modal-category-modern">${produto.categoria}</span>
                     </div>
-                    <div class="modal-rating">
+                    <div class="modal-rating-modern">
                         <span class="stars">⭐⭐⭐⭐⭐</span>
-                        <span class="rating-text">(${reviews.length} avaliações)</span>
+                        <span class="rating-count">${reviews.length} avaliações</span>
                     </div>
                 </div>
 
-                <!-- Preço e Disponibilidade -->
-                <div class="modal-price-section">
-                    <div class="product-price">${produto.precoFormatado}</div>
-                    <div class="availability-badge">
-                        <span class="badge-icon">✅</span>
-                        <span>${produto.disponibilidade}</span>
+                <!-- Preço em Destaque -->
+                <div class="price-highlight-section">
+                    <div class="price-main">${produto.precoFormatado}</div>
+                    <div class="availability-badge-modern">
+                        <span class="badge-dot"></span>
+                        ${produto.disponibilidade}
                     </div>
                 </div>
 
-                <!-- Descrição -->
-                <p class="modal-description">
-                    ${produto.descricaoLonga}
-                </p>
-
-                <!-- Seletor de Variantes -->
-                <div class="modal-specs">
-                    <h4>Escolha o Acabamento</h4>
-                    <div class="variants-selector">
-                        ${variantes.map((variante, idx) => `
-                            <button class="variant-btn ${idx === 0 ? 'active' : ''}" onclick="selecionarVariante(this, '${variante}')">
-                                ${variante}
-                            </button>
-                        `).join('')}
-                    </div>
+                <!-- Tabs de Navegação -->
+                <div class="modal-tabs-container">
+                    <button class="modal-tab-btn active" onclick="mudarAbaModal(this, 'descricao')">
+                        📝 Descrição
+                    </button>
+                    <button class="modal-tab-btn" onclick="mudarAbaModal(this, 'especificacoes')">
+                        📐 Especificações
+                    </button>
+                    <button class="modal-tab-btn" onclick="mudarAbaModal(this, 'entrega')">
+                        🚚 Entrega
+                    </button>
+                    <button class="modal-tab-btn" onclick="mudarAbaModal(this, 'avaliacoes')">
+                        ⭐ Avaliações
+                    </button>
                 </div>
 
-                <!-- Dimensões -->
-                <div class="modal-specs">
-                    <h4>Dimensões</h4>
-                    <div class="specs-grid">
-                        <div class="spec-item">
-                            <span class="spec-label">Comprimento</span>
-                            <span class="spec-value">${produto.dimensoes.comprimento}</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-label">Largura</span>
-                            <span class="spec-value">${produto.dimensoes.largura}</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-label">Altura</span>
-                            <span class="spec-value">${produto.dimensoes.altura}</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-label">Espessura</span>
-                            <span class="spec-value">${produto.dimensoes.espessura}</span>
-                        </div>
-                    </div>
-                </div>
+                <!-- Conteúdo das Abas -->
+                <div class="modal-tabs-content">
+                    <!-- ABA 1: Descrição -->
+                    <div class="modal-tab-pane active" id="descricao">
+                        <p class="description-text">${produto.descricaoLonga}</p>
 
-                <!-- Características -->
-                <div class="modal-specs">
-                    <h4>Características</h4>
-                    <div class="characteristics-list">
-                        ${produto.caracteristicas.map(car => `
-                            <div class="characteristic-item">
-                                <span class="check-icon">✓</span>
-                                <span>${car}</span>
+                        <!-- Seletor de Acabamento -->
+                        <div class="finish-selector-modern">
+                            <h4>Escolha o Acabamento</h4>
+                            <div class="finish-options">
+                                ${variantes.map((variante, idx) => `
+                                    <button class="finish-btn ${idx === 0 ? 'active' : ''}" onclick="selecionarVariante(this, '${variante}')">
+                                        <span class="finish-name">${variante}</span>
+                                    </button>
+                                `).join('')}
                             </div>
-                        `).join('')}
-                    </div>
-                </div>
+                        </div>
 
-                <!-- Informações de Entrega e Garantia -->
-                <div class="modal-specs">
-                    <h4>Entrega e Garantia</h4>
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <span class="info-label">📦 Prazo de Entrega</span>
-                            <span class="info-value">${produto.prazoEntrega}</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">🛡️ Garantia</span>
-                            <span class="info-value">2 Anos</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">🚚 Frete</span>
-                            <span class="info-value">Cálculo na compra</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">🔒 Seguro</span>
-                            <span class="info-value">Incluído</span>
+                        <!-- Características -->
+                        <div class="characteristics-modern">
+                            <h4>Características Principais</h4>
+                            <ul class="char-list">
+                                ${produto.caracteristicas.map(car => `
+                                    <li class="char-item">
+                                        <span class="char-icon">✓</span>
+                                        <span>${car}</span>
+                                    </li>
+                                `).join('')}
+                            </ul>
                         </div>
                     </div>
-                </div>
 
-                <!-- Avaliações de Clientes -->
-                <div class="modal-specs">
-                    <h4>Avaliações de Clientes</h4>
-                    <div class="reviews-list">
-                        ${reviews.map(review => `
-                            <div class="review-item">
-                                <div class="review-header">
-                                    <span class="review-author">${review.nome}</span>
-                                    <span class="review-stars">${'⭐'.repeat(review.estrelas)}</span>
+                    <!-- ABA 2: Especificações -->
+                    <div class="modal-tab-pane" id="especificacoes">
+                        <div class="specs-modern">
+                            <div class="spec-row">
+                                <div class="spec-card">
+                                    <span class="spec-icon">📏</span>
+                                    <span class="spec-label">Comprimento</span>
+                                    <span class="spec-value">${produto.dimensoes.comprimento}</span>
                                 </div>
-                                <p class="review-text">${review.texto}</p>
+                                <div class="spec-card">
+                                    <span class="spec-icon">↔️</span>
+                                    <span class="spec-label">Largura</span>
+                                    <span class="spec-value">${produto.dimensoes.largura}</span>
+                                </div>
                             </div>
-                        `).join('')}
+                            <div class="spec-row">
+                                <div class="spec-card">
+                                    <span class="spec-icon">↕️</span>
+                                    <span class="spec-label">Altura</span>
+                                    <span class="spec-value">${produto.dimensoes.altura}</span>
+                                </div>
+                                <div class="spec-card">
+                                    <span class="spec-icon">⬚</span>
+                                    <span class="spec-label">Espessura</span>
+                                    <span class="spec-value">${produto.dimensoes.espessura}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ABA 3: Entrega -->
+                    <div class="modal-tab-pane" id="entrega">
+                        <div class="delivery-info-modern">
+                            <div class="delivery-card">
+                                <span class="delivery-icon">📦</span>
+                                <span class="delivery-label">Prazo de Entrega</span>
+                                <span class="delivery-value">${produto.prazoEntrega}</span>
+                            </div>
+                            <div class="delivery-card">
+                                <span class="delivery-icon">🛡️</span>
+                                <span class="delivery-label">Garantia</span>
+                                <span class="delivery-value">2 Anos</span>
+                            </div>
+                            <div class="delivery-card">
+                                <span class="delivery-icon">🚚</span>
+                                <span class="delivery-label">Frete</span>
+                                <span class="delivery-value">Cálculo na compra</span>
+                            </div>
+                            <div class="delivery-card">
+                                <span class="delivery-icon">🔒</span>
+                                <span class="delivery-label">Seguro</span>
+                                <span class="delivery-value">Incluído</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ABA 4: Avaliações -->
+                    <div class="modal-tab-pane" id="avaliacoes">
+                        <div class="reviews-modern">
+                            ${reviews.map(review => `
+                                <div class="review-card">
+                                    <div class="review-top">
+                                        <span class="review-author">${review.nome}</span>
+                                        <span class="review-stars">${'⭐'.repeat(review.estrelas)}</span>
+                                    </div>
+                                    <p class="review-text">${review.texto}</p>
+                                </div>
+                            `).join('')}
+                        </div>
                     </div>
                 </div>
 
                 <!-- Botões de Ação -->
-                <div class="modal-actions">
-                    <button class="btn-primary" onclick="adicionarAoCarrinho('${produto.id}'); fecharModalProduto();">
-                        🛒 Adicionar ao Carrinho
+                <div class="modal-actions-modern">
+                    <button class="btn-primary-modal" onclick="adicionarAoCarrinho('${produto.id}'); fecharModalProduto();">
+                        <span class="btn-icon">🛒</span>
+                        <span>Adicionar ao Carrinho</span>
                     </button>
-                    <button class="btn-secondary" onclick="toggleWishlistModal(this)">
-                        ❤️ Salvar para Depois
+                    <button class="btn-secondary-modal" onclick="toggleWishlistModal(this)">
+                        <span class="btn-icon">❤️</span>
+                        <span>Salvar para Depois</span>
                     </button>
                 </div>
 
                 <!-- Trust Badges -->
-                <div class="trust-badges">
-                    <span class="badge">🔐 Compra 100% Segura</span>
-                    <span class="badge">📱 Suporte por WhatsApp</span>
-                    <span class="badge">✓ Entrega Verificada</span>
+                <div class="trust-badges-modern">
+                    <div class="trust-badge">
+                        <span>🔐</span>
+                        <small>Compra 100% Segura</small>
+                    </div>
+                    <div class="trust-badge">
+                        <span>📱</span>
+                        <small>Suporte WhatsApp</small>
+                    </div>
+                    <div class="trust-badge">
+                        <span>✓</span>
+                        <small>Entrega Verificada</small>
+                    </div>
                 </div>
             </div>
         </div>
@@ -496,14 +537,34 @@ function abrirModalProduto(produtoId) {
 
 // Funções auxiliares para o modal
 function selecionarImagemModal(indice) {
-    const thumbnails = document.querySelectorAll('.modal-thumbnail');
+    const thumbnails = document.querySelectorAll('.modal-thumbnail-modern');
     thumbnails.forEach((t, idx) => {
         t.classList.toggle('active', idx === indice);
     });
 }
 
+// Função para mudar abas no modal
+function mudarAbaModal(botao, abaId) {
+    // Remover ativo de todos os botões
+    document.querySelectorAll('.modal-tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    botao.classList.add('active');
+
+    // Remover ativo de todos os painéis
+    document.querySelectorAll('.modal-tab-pane').forEach(pane => {
+        pane.classList.remove('active');
+    });
+
+    // Adicionar ativo ao painel correto
+    const painel = document.getElementById(abaId);
+    if (painel) {
+        painel.classList.add('active');
+    }
+}
+
 function selecionarVariante(btn, variante) {
-    const buttons = btn.parentElement.querySelectorAll('.variant-btn');
+    const buttons = btn.parentElement.querySelectorAll('.finish-btn, .variant-btn');
     buttons.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     mostrarNotificacao(`Acabamento "${variante}" selecionado!`);
