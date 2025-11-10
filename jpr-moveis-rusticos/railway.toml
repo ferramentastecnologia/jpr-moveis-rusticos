@@ -10,4 +10,4 @@ healthcheckTimeout = 5
 name = "api"
 type = "web"
 port = 3001
-domains = ["jpr-moveis-api.railway.app"]
+domains = ["jpr-moveis-rusticos-production.up.railway.app"]

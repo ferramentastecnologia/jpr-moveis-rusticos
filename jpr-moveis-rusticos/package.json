@@ -1,41 +1,26 @@
 {
-  "name": "jpr-moveis-vouchers",
+  "name": "jpr-moveis-rusticos",
   "version": "1.0.0",
-  "description": "Sistema de Venda e Gestão de Vouchers para JPR Móveis Rústicos - Blumenau",
-  "main": "backend-vouchers.js",
+  "description": "JPR Móveis Rústicos - Sistema Completo com Frontend, Backend Express, PostgreSQL e Asaas",
+  "main": "backend/src/server.js",
+  "type": "commonjs",
   "scripts": {
-    "start": "node server-vouchers.js",
-    "dev": "nodemon server-vouchers.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "agent": "node scripts/claude-agent-runner.js",
-    "agent:frontend": "node scripts/claude-agent-runner.js frontend-developer",
-    "agent:fullstack": "node scripts/claude-agent-runner.js fullstack-developer",
-    "agent:ux": "node scripts/claude-agent-runner.js ui-ux-designer"
+    "start": "cd backend && npm run start",
+    "dev": "cd backend && npm run dev",
+    "test": "cd backend && npm run test",
+    "install": "npm install && cd backend && npm install"
   },
   "keywords": [
-    "vouchers",
-    "restaurante",
-    "mercadopago",
-    "whatsapp",
-    "email"
+    "ecommerce",
+    "moveis",
+    "rusticos",
+    "express",
+    "postgresql",
+    "asaas"
   ],
-  "author": "Starken Tecnologia",
-  "license": "MIT",
-  "dependencies": {
-    "axios": "^1.6.2",
-    "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "mercadopago": "^1.5.17",
-    "nodemailer": "^6.9.7",
-    "pdfkit": "^0.13.0",
-    "pg": "^8.16.3",
-    "qrcode": "^1.5.3",
-    "sqlite3": "^5.1.7"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.2"
-  },
-  "optionalDependencies": {
-    "@anthropic-ai/sdk": "^0.22.0"
+  "author": "JPR Móveis Rústicos",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
