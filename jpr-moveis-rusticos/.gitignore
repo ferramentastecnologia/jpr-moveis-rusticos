@@ -1,0 +1,9 @@
+node_modules/
+.env
+vouchers/
+*.log
+.DS_Store
+vouchers.db
+
+# Local Netlify folder
+.netlify
