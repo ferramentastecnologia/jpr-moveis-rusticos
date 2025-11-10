@@ -348,13 +348,6 @@ function abrirModalProduto(produtoId) {
                     <img src="${produto.imagem}" alt="${produto.nome}" class="modal-image-large">
                     ${produto.badge ? `<div class="product-badge-large">${produto.badge}</div>` : ''}
                 </div>
-                <div class="modal-thumbnails-modern">
-                    ${galeria.map((img, idx) => `
-                        <div class="modal-thumbnail-modern ${idx === 0 ? 'active' : ''}" onclick="selecionarImagemModal(${idx})">
-                            <img src="${produto.imagem}" alt="Variação ${idx + 1}" class="thumb-img">
-                        </div>
-                    `).join('')}
-                </div>
             </div>
 
             <!-- SEÇÃO DIREITA: Informações com Tabs -->
