@@ -10,6 +10,11 @@ const produtos = [
         categoria: 'Premium',
         descricao: 'Glamour sofisticado com acabamento excepcional',
         descricaoLonga: 'A Mesa Glamour oferece versatilidade em cores, com opções de acabamento brilhante ou acetinado. Oferecemos verniz automotivo ou verniz P.U. acetinado, além de modelos com bordas rústicas ou bordas retas. Acompanha 2 bancos grandes.',
+        tamanhos: [
+            { tamanho: '2,0m', preco: 3400, precoFormatado: 'R$ 3.400,00' },
+            { tamanho: '2,5m', preco: 3500, precoFormatado: 'R$ 3.500,00' },
+            { tamanho: '3,0m', preco: 3600, precoFormatado: 'R$ 3.600,00' }
+        ],
         dimensoes: {
             comprimento: '2,0m / 2,5m / 3,0m',
             largura: 'Sob consulta',
@@ -26,7 +31,8 @@ const produtos = [
         disponibilidade: 'Em estoque',
         prazoEntrega: '10-25 dias úteis',
         sobMedida: true,
-        badge: '⭐ CAMPEÃ DE VENDAS'
+        badge: '⭐ CAMPEÃ DE VENDAS',
+        notas: 'Banquinho de cabeceira adicional: R$ 150,00 cada'
     },
     {
         id: 'mesa-001',
@@ -38,6 +44,11 @@ const produtos = [
         imagem: './Imagem das mesas/Mesa-Sublime-2.png',
         descricao: 'Disponível em diversas cores com acabamento brilhante ou acetinado',
         descricaoLonga: 'A Mesa Sublime oferece versatilidade em cores, com opções de acabamento brilhante ou acetinado. Oferecemos verniz automotivo ou verniz P.U. acetinado, além de modelos com bordas rústicas ou bordas retas. Acompanha 2 bancos grandes.',
+        tamanhos: [
+            { tamanho: '2,0m', preco: 3400, precoFormatado: 'R$ 3.400,00' },
+            { tamanho: '2,5m', preco: 3500, precoFormatado: 'R$ 3.500,00' },
+            { tamanho: '3,0m', preco: 3600, precoFormatado: 'R$ 3.600,00' }
+        ],
         dimensoes: {
             comprimento: '2,0m / 2,5m / 3,0m',
             largura: 'Sob consulta',
@@ -54,7 +65,8 @@ const produtos = [
         disponibilidade: 'Em estoque',
         prazoEntrega: '10-25 dias úteis',
         sobMedida: true,
-        badge: 'PERSONALIZAÇÃO'
+        badge: 'PERSONALIZAÇÃO',
+        notas: 'Banquinho de cabeceira adicional: R$ 150,00 cada'
     },
     {
         id: 'mesa-002',
@@ -66,6 +78,11 @@ const produtos = [
         categoria: 'Premium',
         descricao: 'Design clássico com versatilidade de acabamentos',
         descricaoLonga: 'A Mesa Paris oferece versatilidade em cores, com opções de acabamento brilhante ou acetinado. Oferecemos verniz automotivo ou verniz P.U. acetinado, além de modelos com bordas rústicas ou bordas retas. Acompanha 2 bancos grandes.',
+        tamanhos: [
+            { tamanho: '2,0m', preco: 3400, precoFormatado: 'R$ 3.400,00' },
+            { tamanho: '2,5m', preco: 3500, precoFormatado: 'R$ 3.500,00' },
+            { tamanho: '3,0m', preco: 3600, precoFormatado: 'R$ 3.600,00' }
+        ],
         dimensoes: {
             comprimento: '2,0m / 2,5m / 3,0m',
             largura: 'Sob consulta',
@@ -82,7 +99,8 @@ const produtos = [
         disponibilidade: 'Em estoque',
         prazoEntrega: '10-25 dias úteis',
         sobMedida: true,
-        badge: 'PERSONALIZAÇÃO'
+        badge: 'PERSONALIZAÇÃO',
+        notas: 'Banquinho de cabeceira adicional: R$ 150,00 cada'
     },
     {
         id: 'mesa-003',
@@ -94,6 +112,11 @@ const produtos = [
         categoria: 'Premium',
         descricao: 'Elegância rústica com opções de acabamento premium',
         descricaoLonga: 'A Mesa Requinte oferece versatilidade em cores, com opções de acabamento brilhante ou acetinado. Oferecemos verniz automotivo ou verniz P.U. acetinado, além de modelos com bordas rústicas ou bordas retas. Acompanha 2 bancos grandes.',
+        tamanhos: [
+            { tamanho: '2,0m', preco: 3400, precoFormatado: 'R$ 3.400,00' },
+            { tamanho: '2,5m', preco: 3500, precoFormatado: 'R$ 3.500,00' },
+            { tamanho: '3,0m', preco: 3600, precoFormatado: 'R$ 3.600,00' }
+        ],
         dimensoes: {
             comprimento: '2,0m / 2,5m / 3,0m',
             largura: 'Sob consulta',
@@ -110,7 +133,8 @@ const produtos = [
         disponibilidade: 'Em estoque',
         prazoEntrega: '10-25 dias úteis',
         sobMedida: true,
-        badge: 'PERSONALIZAÇÃO'
+        badge: 'PERSONALIZAÇÃO',
+        notas: 'Banquinho de cabeceira adicional: R$ 150,00 cada'
     },
     {
         id: 'mesa-004',
@@ -122,6 +146,11 @@ const produtos = [
         categoria: 'Top Premium',
         descricao: 'Exclusiva com banquetas artesanais incluídas',
         descricaoLonga: 'A Mesa Luxúria é o topo da linha JPR, oferecendo versatilidade em cores com opções de acabamento brilhante ou acetinado. Inclui banquetas artesanais: 8 na medida 2,0m, 10 na medida 2,5m e 12 na medida 3,0m.',
+        tamanhos: [
+            { tamanho: '2,0m', preco: 4500, precoFormatado: 'R$ 4.500,00', banquetas: 8 },
+            { tamanho: '2,5m', preco: 5000, precoFormatado: 'R$ 5.000,00', banquetas: 10 },
+            { tamanho: '3,0m', preco: 5600, precoFormatado: 'R$ 5.600,00', banquetas: 12 }
+        ],
         dimensoes: {
             comprimento: '2,0m / 2,5m / 3,0m',
             largura: 'Sob consulta',
@@ -138,7 +167,8 @@ const produtos = [
         disponibilidade: 'Em estoque',
         prazoEntrega: '10-25 dias úteis',
         sobMedida: true,
-        badge: 'TOP PREMIUM'
+        badge: 'TOP PREMIUM',
+        notas: 'Banquetas artesanais variam conforme o tamanho: 8 (2,0m), 10 (2,5m), 12 (3,0m)'
     },
     {
         id: 'mesa-005',
@@ -150,6 +180,11 @@ const produtos = [
         categoria: 'Premium',
         descricao: 'Sofisticação clássica com acabamentos personalizáveis',
         descricaoLonga: 'A Mesa Imperatriz oferece versatilidade em cores, com opções de acabamento brilhante ou acetinado. Oferecemos verniz automotivo ou verniz P.U. acetinado, além de modelos com bordas rústicas ou bordas retas. Acompanha 2 bancos grandes.',
+        tamanhos: [
+            { tamanho: '2,0m', preco: 3400, precoFormatado: 'R$ 3.400,00' },
+            { tamanho: '2,5m', preco: 3500, precoFormatado: 'R$ 3.500,00' },
+            { tamanho: '3,0m', preco: 3600, precoFormatado: 'R$ 3.600,00' }
+        ],
         dimensoes: {
             comprimento: '2,0m / 2,5m / 3,0m',
             largura: 'Sob consulta',
@@ -166,13 +201,19 @@ const produtos = [
         disponibilidade: 'Em estoque',
         prazoEntrega: '10-25 dias úteis',
         sobMedida: true,
-        badge: 'PERSONALIZAÇÃO'
+        badge: 'PERSONALIZAÇÃO',
+        notas: 'Banquinho de cabeceira adicional: R$ 150,00 cada'
     },
     {
         id: 'mesa-006',
         imagem: './Imagem das mesas/Mesa-Charme.png',
         nome: 'Mesa Charme',
         slug: 'mesa-charme',
+        tamanhos: [
+            { tamanho: '2,0m', preco: 3400, precoFormatado: 'R$ 3.400,00' },
+            { tamanho: '2,5m', preco: 3500, precoFormatado: 'R$ 3.500,00' },
+            { tamanho: '3,0m', preco: 3600, precoFormatado: 'R$ 3.600,00' }
+        ],
         preco: 3400,
         precoFormatado: 'R$ 3.400,00',
         categoria: 'Premium',
@@ -194,7 +235,8 @@ const produtos = [
         disponibilidade: 'Em estoque',
         prazoEntrega: '10-25 dias úteis',
         sobMedida: true,
-        badge: 'PERSONALIZAÇÃO'
+        badge: 'PERSONALIZAÇÃO',
+        notas: 'Banquinho de cabeceira adicional: R$ 150,00 cada'
     },
     {
         id: 'mesa-007',
@@ -206,6 +248,11 @@ const produtos = [
         categoria: 'Premium',
         descricao: 'Elegância imperial com opções de customização completa',
         descricaoLonga: 'A Mesa Império oferece versatilidade em cores, com opções de acabamento brilhante ou acetinado. Oferecemos verniz automotivo ou verniz P.U. acetinado, além de modelos com bordas rústicas ou bordas retas. Acompanha 2 bancos grandes.',
+        tamanhos: [
+            { tamanho: '2,0m', preco: 3400, precoFormatado: 'R$ 3.400,00' },
+            { tamanho: '2,5m', preco: 3500, precoFormatado: 'R$ 3.500,00' },
+            { tamanho: '3,0m', preco: 3600, precoFormatado: 'R$ 3.600,00' }
+        ],
         dimensoes: {
             comprimento: '2,0m / 2,5m / 3,0m',
             largura: 'Sob consulta',
@@ -222,7 +269,8 @@ const produtos = [
         disponibilidade: 'Em estoque',
         prazoEntrega: '10-25 dias úteis',
         sobMedida: true,
-        badge: 'PERSONALIZAÇÃO'
+        badge: 'PERSONALIZAÇÃO',
+        notas: 'Banquinho de cabeceira adicional: R$ 150,00 cada'
     },
     {
         id: 'mesa-008',
@@ -234,6 +282,11 @@ const produtos = [
         categoria: 'Premium Plus',
         descricao: 'Refinamento nobre com acabamento excepcional',
         descricaoLonga: 'A Mesa Requinte Nobre oferece versatilidade em cores, com opções de acabamento brilhante ou acetinado. Oferecemos verniz automotivo ou verniz P.U. acetinado, além de modelos com bordas rústicas ou bordas retas. Acompanha 2 bancos grandes.',
+        tamanhos: [
+            { tamanho: '2,0m', preco: 3400, precoFormatado: 'R$ 3.400,00' },
+            { tamanho: '2,5m', preco: 3500, precoFormatado: 'R$ 3.500,00' },
+            { tamanho: '3,0m', preco: 3600, precoFormatado: 'R$ 3.600,00' }
+        ],
         dimensoes: {
             comprimento: '2,0m / 2,5m / 3,0m',
             largura: 'Sob consulta',
@@ -250,7 +303,8 @@ const produtos = [
         disponibilidade: 'Em estoque',
         prazoEntrega: '10-25 dias úteis',
         sobMedida: true,
-        badge: 'PREMIUM PLUS'
+        badge: 'PREMIUM PLUS',
+        notas: 'Banquinho de cabeceira adicional: R$ 150,00 cada'
     },
     {
         id: 'mesa-009',
@@ -262,6 +316,11 @@ const produtos = [
         categoria: 'Premium',
         descricao: 'Nobreza rústica em suas formas e acabamentos',
         descricaoLonga: 'A Mesa Nobreza oferece versatilidade em cores, com opções de acabamento brilhante ou acetinado. Oferecemos verniz automotivo ou verniz P.U. acetinado, além de modelos com bordas rústicas ou bordas retas. Acompanha 2 bancos grandes.',
+        tamanhos: [
+            { tamanho: '2,0m', preco: 4200, precoFormatado: 'R$ 4.200,00' },
+            { tamanho: '2,5m', preco: 4400, precoFormatado: 'R$ 4.400,00' },
+            { tamanho: '3,0m', preco: 4600, precoFormatado: 'R$ 4.600,00' }
+        ],
         dimensoes: {
             comprimento: '2,0m / 2,5m / 3,0m',
             largura: 'Sob consulta',
@@ -278,7 +337,8 @@ const produtos = [
         disponibilidade: 'Em estoque',
         prazoEntrega: '10-25 dias úteis',
         sobMedida: true,
-        badge: 'PERSONALIZAÇÃO'
+        badge: 'PERSONALIZAÇÃO',
+        notas: 'Banquinho de cabeceira adicional: R$ 150,00 cada'
     },
     {
         id: 'mesa-010',
@@ -290,6 +350,11 @@ const produtos = [
         categoria: 'Premium',
         descricao: 'Encanto rústico que seduz à primeira vista',
         descricaoLonga: 'A Mesa Encanto oferece versatilidade em cores, com opções de acabamento brilhante ou acetinado. Oferecemos verniz automotivo ou verniz P.U. acetinado, além de modelos com bordas rústicas ou bordas retas. Acompanha 2 bancos grandes.',
+        tamanhos: [
+            { tamanho: '2,0m', preco: 3400, precoFormatado: 'R$ 3.400,00' },
+            { tamanho: '2,5m', preco: 3500, precoFormatado: 'R$ 3.500,00' },
+            { tamanho: '3,0m', preco: 3600, precoFormatado: 'R$ 3.600,00' }
+        ],
         dimensoes: {
             comprimento: '2,0m / 2,5m / 3,0m',
             largura: 'Sob consulta',
@@ -306,7 +371,8 @@ const produtos = [
         disponibilidade: 'Em estoque',
         prazoEntrega: '10-25 dias úteis',
         sobMedida: true,
-        badge: 'PERSONALIZAÇÃO'
+        badge: 'PERSONALIZAÇÃO',
+        notas: 'Banquinho de cabeceira adicional: R$ 150,00 cada'
     },
     {
         id: 'mesa-011',
@@ -318,6 +384,11 @@ const produtos = [
         categoria: 'Premium',
         descricao: 'Glamour com tons melados e sofisticados',
         descricaoLonga: 'A Mesa Glamour Mel oferece versatilidade em cores, com opções de acabamento brilhante ou acetinado. Oferecemos verniz automotivo ou verniz P.U. acetinado, além de modelos com bordas rústicas ou bordas retas. Acompanha 2 bancos grandes.',
+        tamanhos: [
+            { tamanho: '2,0m', preco: 3400, precoFormatado: 'R$ 3.400,00' },
+            { tamanho: '2,5m', preco: 3500, precoFormatado: 'R$ 3.500,00' },
+            { tamanho: '3,0m', preco: 3600, precoFormatado: 'R$ 3.600,00' }
+        ],
         dimensoes: {
             comprimento: '2,0m / 2,5m / 3,0m',
             largura: 'Sob consulta',
@@ -334,7 +405,8 @@ const produtos = [
         disponibilidade: 'Em estoque',
         prazoEntrega: '10-25 dias úteis',
         sobMedida: true,
-        badge: 'PERSONALIZAÇÃO'
+        badge: 'PERSONALIZAÇÃO',
+        notas: 'Banquinho de cabeceira adicional: R$ 150,00 cada'
     },
     {
         id: 'mesa-013',
@@ -346,6 +418,11 @@ const produtos = [
         categoria: 'Premium',
         descricao: 'Acabamento natural que realça a beleza da madeira',
         descricaoLonga: 'A Mesa Imperatriz Natural oferece versatilidade em cores, com opções de acabamento brilhante ou acetinado. Oferecemos verniz automotivo ou verniz P.U. acetinado, além de modelos com bordas rústicas ou bordas retas. Acompanha 2 bancos grandes.',
+        tamanhos: [
+            { tamanho: '2,0m', preco: 3400, precoFormatado: 'R$ 3.400,00' },
+            { tamanho: '2,5m', preco: 3500, precoFormatado: 'R$ 3.500,00' },
+            { tamanho: '3,0m', preco: 3600, precoFormatado: 'R$ 3.600,00' }
+        ],
         dimensoes: {
             comprimento: '2,0m / 2,5m / 3,0m',
             largura: 'Sob consulta',
@@ -362,7 +439,8 @@ const produtos = [
         disponibilidade: 'Em estoque',
         prazoEntrega: '10-25 dias úteis',
         sobMedida: true,
-        badge: 'NATURAL'
+        badge: 'NATURAL',
+        notas: 'Banquinho de cabeceira adicional: R$ 150,00 cada'
     }
 ];
 

@@ -402,6 +402,19 @@ function abrirModalProduto(produtoId) {
                     <div class="modal-tab-pane active" id="descricao">
                         <p class="description-text">${produto.descricaoLonga}</p>
 
+                        <!-- Seletor de Tamanho -->
+                        <div class="size-selector-modern">
+                            <h4>Escolha o Tamanho</h4>
+                            <div class="size-options">
+                                ${produto.tamanhos ? produto.tamanhos.map((tamanho, idx) => `
+                                    <button class="size-btn ${idx === 0 ? 'active' : ''}" onclick="selecionarTamanho(this, ${tamanho.preco}, '${tamanho.precoFormatado}')">
+                                        <span class="size-text">${tamanho.tamanho}</span>
+                                        <span class="size-price">${tamanho.precoFormatado}</span>
+                                    </button>
+                                `).join('') : '<p>Sob consulta</p>'}
+                            </div>
+                        </div>
+
                         <!-- Seletor de Acabamento -->
                         <div class="finish-selector-modern">
                             <h4>Escolha o Acabamento</h4>
@@ -561,6 +574,20 @@ function mudarAbaModal(botao, abaId) {
     if (painel) {
         painel.classList.add('active');
     }
+}
+
+function selecionarTamanho(btn, preco, precoFormatado) {
+    const buttons = btn.parentElement.querySelectorAll('.size-btn');
+    buttons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // Atualizar preço na seção de preço
+    const priceSection = document.querySelector('.price-main');
+    if (priceSection) {
+        priceSection.textContent = precoFormatado;
+    }
+
+    mostrarNotificacao(`Tamanho selecionado: ${btn.querySelector('.size-text').textContent}`);
 }
 
 function selecionarVariante(btn, variante) {

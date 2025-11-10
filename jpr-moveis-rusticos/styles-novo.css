@@ -2311,6 +2311,67 @@ section {
     font-size: 15px;
 }
 
+/* SELETOR DE TAMANHO */
+.size-selector-modern {
+    margin-bottom: var(--spacing-xl);
+}
+
+.size-selector-modern h4 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    color: var(--text);
+}
+
+.size-options {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.size-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border: 2px solid var(--gray-medium);
+    background: white;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    color: var(--text);
+    font-size: 14px;
+    min-width: 110px;
+}
+
+.size-text {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: var(--spacing-xs);
+}
+
+.size-price {
+    display: block;
+    font-size: 12px;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.size-btn.active,
+.size-btn:hover {
+    border-color: var(--accent);
+    background: rgba(27, 135, 104, 0.08);
+    color: var(--accent);
+}
+
+.size-btn.active .size-price {
+    color: var(--accent);
+}
+
+/* SELETOR DE ACABAMENTO */
 .finish-selector-modern {
     margin-bottom: var(--spacing-xl);
 }
