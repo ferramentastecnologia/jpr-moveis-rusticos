@@ -889,7 +889,7 @@
     <script>
     // Configuration
     const CONFIG = {
-        hubspotPortalId: '50536787',
+        hubspotPortalId: '50633225',
         hubspotFormId: '528f0f6e-026b-424d-8c9c-ad1506083856',
         metaPixelId: '1581222786653125'
     };
@@ -994,6 +994,46 @@
         } catch (error) {
             console.error('Erro ao enviar:', error);
             throw error;
+        }
+    }
+
+    // n8n Webhook Integration
+    async function enviarParaN8n(formData) {
+        const webhookUrl = 'https://tall-years-yell.loca.lt/webhook/hubspot-lead';
+
+        const n8nData = {
+            firstname: formData.nome.split(' ')[0],
+            lastname: formData.nome.split(' ').slice(1).join(' ') || formData.nome.split(' ')[0],
+            email: formData.email,
+            phone: formData.telefone,
+            city: formData.cidade,
+            state: formData.estado,
+            placa_veiculo: formData.placa,
+            tipo_veiculo: formData.veiculo,
+            marca_veiculo: formData.marca,
+            modelo_veiculo: formData.modelo,
+            ano_veiculo: formData.ano,
+            veiculo_trabalho: formData.veiculoTrabalho ? 'Sim' : 'Não',
+            observacoes: formData.observacoes || ''
+        };
+
+        try {
+            const response = await fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'bypass-tunnel-reminder': 'true'
+                },
+                body: JSON.stringify(n8nData)
+            });
+
+            if (!response.ok) {
+                console.warn('n8n webhook falhou:', response.status);
+            } else {
+                console.log('✓ Lead enviado para n8n com sucesso');
+            }
+        } catch (error) {
+            console.warn('Erro ao enviar para n8n (não crítico):', error);
         }
     }
 
@@ -1383,6 +1423,9 @@
                 salvarLeadLocal(formData);
                 await enviarParaHubSpot(formData);
                 console.log('✓ Lead enviado para HubSpot com sucesso');
+
+                // Enviar também para n8n (não bloqueante)
+                enviarParaN8n(formData);
 
                 trackMetaConversion(formData);
 

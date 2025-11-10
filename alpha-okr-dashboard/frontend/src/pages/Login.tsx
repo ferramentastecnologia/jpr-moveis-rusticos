@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import StarkenLogo from '../components/StarkenLogo';
+import logoAlpha from '../assets/logo-alpha.png';
 
 interface LoginProps {
   onLogin: (email: string, password: string) => void;
@@ -16,7 +18,7 @@ export default function Login({ onLogin, onSignup, error }: LoginProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-600 via-purple-600 to-pink-500 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 flex items-center justify-center p-4">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{
@@ -28,11 +30,15 @@ export default function Login({ onLogin, onSignup, error }: LoginProps) {
       <div className="relative w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-white rounded-3xl shadow-2xl mb-4 transform hover:scale-110 transition-transform">
-            <span className="text-5xl">🎯</span>
+          <div className="inline-flex items-center justify-center gap-6 mb-6 transform hover:scale-105 transition-transform">
+            <StarkenLogo size="xl" className="drop-shadow-2xl" />
+            <div className="h-20 w-px bg-white/30"></div>
+            <img src={logoAlpha} alt="Alpha Logo" className="h-20 w-auto drop-shadow-2xl" />
           </div>
-          <h1 className="text-4xl font-bold text-white mb-2">Alpha OKR</h1>
-          <p className="text-primary-100 text-lg">Gestão de Performance & Desenvolvimento</p>
+          <h1 className="text-3xl font-bold text-white mb-3 drop-shadow-lg">Starken Tecnologia Ltda</h1>
+          <h2 className="text-2xl font-semibold text-white/95 mb-4 drop-shadow-lg">Assessoria Alpha</h2>
+          <p className="text-white/90 text-lg font-medium">Gestão de OKRs</p>
+          <p className="text-white/80 text-base mt-2">Sistema completo para definição e acompanhamento de Objetivos e Resultados-Chave</p>
         </div>
 
         {/* Card */}
@@ -97,29 +103,29 @@ export default function Login({ onLogin, onSignup, error }: LoginProps) {
             </div>
 
             <div className="flex items-center justify-between">
-              <label className="flex items-center">
-                <input type="checkbox" className="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500" />
-                <span className="ml-2 text-sm text-gray-600">Lembrar de mim</span>
+              <label className="flex items-center cursor-pointer">
+                <input type="checkbox" className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+                <span className="ml-2 text-sm text-gray-700 font-medium">Lembrar de mim</span>
               </label>
-              <a href="#" className="text-sm font-semibold text-primary-600 hover:text-primary-700">
+              <a href="#" className="text-sm font-semibold text-blue-700 hover:text-blue-800 underline">
                 Esqueceu a senha?
               </a>
             </div>
 
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-primary-600 to-purple-600 text-white py-4 rounded-xl font-bold text-lg hover:from-primary-700 hover:to-purple-700 transform hover:scale-[1.02] transition-all shadow-lg hover:shadow-xl"
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-4 rounded-xl font-bold text-lg hover:from-blue-700 hover:to-blue-800 transform hover:scale-[1.02] transition-all shadow-lg hover:shadow-xl"
             >
               Entrar
             </button>
           </form>
 
           <div className="mt-8 text-center">
-            <p className="text-gray-600">
+            <p className="text-gray-700 font-medium">
               Ainda não tem uma conta?{' '}
               <button
                 onClick={onSignup}
-                className="font-bold text-primary-600 hover:text-primary-700"
+                className="font-bold text-blue-700 hover:text-blue-800 underline"
               >
                 Criar conta
               </button>
@@ -128,8 +134,9 @@ export default function Login({ onLogin, onSignup, error }: LoginProps) {
         </div>
 
         {/* Footer */}
-        <div className="mt-8 text-center text-primary-100 text-sm">
-          <p>© 2025 Alpha Assessoria. Todos os direitos reservados.</p>
+        <div className="mt-8 text-center text-white/90 text-sm">
+          <p className="font-medium">© 2025 Starken Tecnologia Ltda - Assessoria Alpha</p>
+          <p className="text-white/70 mt-1">Todos os direitos reservados.</p>
         </div>
       </div>
     </div>
