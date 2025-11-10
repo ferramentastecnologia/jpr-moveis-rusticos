@@ -637,10 +637,10 @@ section {
 }
 
 .product-price {
-    font-size: 24px;
-    font-weight: 700;
+    font-size: 28px;
+    font-weight: 800;
     color: var(--secondary);
-    margin-top: auto;
+    letter-spacing: -0.5px;
 }
 
 /* SELETOR DE TAMANHO NO CARD */
@@ -653,16 +653,17 @@ section {
 
 .sizes-label {
     display: block;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text-secondary);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text);
     text-transform: uppercase;
-    margin-bottom: var(--spacing-sm);
+    letter-spacing: 0.5px;
+    margin-bottom: var(--spacing-md);
 }
 
 .product-sizes {
     display: flex;
-    gap: 8px;
+    gap: 10px;
     justify-content: center;
     flex-wrap: wrap;
 }
@@ -672,40 +673,51 @@ section {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 8px 12px;
-    min-width: 70px;
+    padding: 12px 16px;
+    min-width: 85px;
     border: 2px solid var(--gray-medium);
-    background: white;
-    border-radius: 8px;
+    background: var(--white);
+    border-radius: 10px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-weight: 600;
 }
 
 .size-label {
     display: block;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     color: var(--text);
+    line-height: 1.2;
 }
 
 .size-price {
     display: block;
-    font-size: 11px;
-    color: var(--primary);
-    font-weight: 600;
-    margin-top: 2px;
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-top: 4px;
 }
 
 .size-option.active {
     border-color: var(--accent);
-    background: rgba(27, 135, 104, 0.08);
-    box-shadow: 0 2px 8px rgba(27, 135, 104, 0.15);
+    background: var(--accent);
+    color: var(--white);
+    box-shadow: 0 4px 12px rgba(27, 135, 104, 0.25);
+}
+
+.size-option.active .size-label {
+    color: var(--white);
+}
+
+.size-option.active .size-price {
+    color: var(--white);
 }
 
 .size-option:hover {
     border-color: var(--accent);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(27, 135, 104, 0.15);
 }
 
 /* PREÇO DINÂMICO NO CARD */
@@ -713,14 +725,19 @@ section {
     display: flex;
     justify-content: center;
     align-items: baseline;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-sm) 0;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg) 0;
+    background: var(--gray-light);
+    border-radius: 8px;
+    margin: var(--spacing-md) 0;
 }
 
 .price-label {
     font-size: 12px;
-    color: var(--text-secondary);
+    color: var(--text);
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .product-footer {
