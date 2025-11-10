@@ -6,7 +6,11 @@
   "scripts": {
     "start": "node server-vouchers.js",
     "dev": "nodemon server-vouchers.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "agent": "node scripts/claude-agent-runner.js",
+    "agent:frontend": "node scripts/claude-agent-runner.js frontend-developer",
+    "agent:fullstack": "node scripts/claude-agent-runner.js fullstack-developer",
+    "agent:ux": "node scripts/claude-agent-runner.js ui-ux-designer"
   },
   "keywords": [
     "vouchers",
@@ -30,5 +34,8 @@
   },
   "devDependencies": {
     "nodemon": "^3.0.2"
+  },
+  "optionalDependencies": {
+    "@anthropic-ai/sdk": "^0.22.0"
   }
 }

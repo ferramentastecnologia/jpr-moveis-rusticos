@@ -22,16 +22,12 @@
       "args": [
         "-y",
         "@modelcontextprotocol/server-filesystem",
-        "/path/to/allowed/files"
+        "/Users/juanminni/meu-repositorio/jpr-moveis-rusticos"
       ]
     },
-    "fb-ads-mcp-server": {
-      "command": "python",
-      "args": [
-        "/path/to/your/fb-ads-mcp-server/server.py",
-        "--fb-token",
-        "YOUR_META_ACCESS_TOKEN"
-      ]
+    
+    "Figma Dev Mode MCP": {
+      "url": "http://127.0.0.1:3845/mcp"
     }
   }
 }
