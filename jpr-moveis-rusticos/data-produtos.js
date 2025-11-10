@@ -7,7 +7,7 @@ const produtos = [
         preco: 3400,
         precoFormatado: 'R$ 3.400,00',
         categoria: 'Premium',
-        imagem: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=300&fit=crop',
+        imagem: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%23A0826D%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2224%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3EMesa Requinte%3C/text%3E%3C/svg%3E',
         descricao: 'Disponível em diversas cores com acabamento brilhante ou acetinado',
         descricaoLonga: 'A Mesa Sublime oferece versatilidade em cores, com opções de acabamento brilhante ou acetinado. Oferecemos verniz automotivo ou verniz P.U. acetinado, além de modelos com bordas rústicas ou bordas retas. Acompanha 2 bancos grandes.',
         dimensoes: {
@@ -30,7 +30,7 @@ const produtos = [
     },
     {
         id: 'mesa-002',
-        imagem: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop',
+        imagem: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%239B8B7E%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2224%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3EMesa Paris%3C/text%3E%3C/svg%3E',
         nome: 'Mesa Paris',
         slug: 'mesa-paris',
         preco: 3400,
@@ -58,7 +58,7 @@ const produtos = [
     },
     {
         id: 'mesa-003',
-        imagem: 'https://images.unsplash.com/photo-1577140917170-285929fb55b7?w=400&h=300&fit=crop',
+        imagem: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%239B8B7E%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2224%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3EMesa Paris%3C/text%3E%3C/svg%3E',
         nome: 'Mesa Requinte',
         slug: 'mesa-requinte',
         preco: 3400,
@@ -86,7 +86,7 @@ const produtos = [
     },
     {
         id: 'mesa-004',
-        imagem: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=300&fit=crop',
+        imagem: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%239B8B7E%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2224%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3EMesa Paris%3C/text%3E%3C/svg%3E',
         nome: 'Mesa Luxúria',
         slug: 'mesa-luxuria',
         preco: 4500,
@@ -114,7 +114,7 @@ const produtos = [
     },
     {
         id: 'mesa-005',
-        imagem: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop',
+        imagem: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%238B6F47%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2224%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3EMesa Sublime%3C/text%3E%3C/svg%3E',
         nome: 'Mesa Imperatriz',
         slug: 'mesa-imperatriz',
         preco: 3400,
@@ -142,7 +142,7 @@ const produtos = [
     },
     {
         id: 'mesa-006',
-        imagem: 'https://images.unsplash.com/photo-1577140917170-285929fb55b7?w=400&h=300&fit=crop',
+        imagem: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%239B8B7E%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2224%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3EMesa Paris%3C/text%3E%3C/svg%3E',
         nome: 'Mesa Charme',
         slug: 'mesa-charme',
         preco: 3400,
@@ -170,7 +170,7 @@ const produtos = [
     },
     {
         id: 'mesa-007',
-        imagem: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=300&fit=crop',
+        imagem: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%238B6F47%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2224%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3EMesa Sublime%3C/text%3E%3C/svg%3E',
         nome: 'Mesa Império',
         slug: 'mesa-imperio',
         preco: 3400,
@@ -198,7 +198,7 @@ const produtos = [
     },
     {
         id: 'mesa-008',
-        imagem: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop',
+        imagem: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%238B6F47%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2224%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3EMesa Sublime%3C/text%3E%3C/svg%3E',
         nome: 'Mesa Requinte Nobre',
         slug: 'mesa-requinte-nobre',
         preco: 3400,
@@ -226,7 +226,7 @@ const produtos = [
     },
     {
         id: 'mesa-009',
-        imagem: 'https://images.unsplash.com/photo-1577140917170-285929fb55b7?w=400&h=300&fit=crop',
+        imagem: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%239B8B7E%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2224%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3EMesa Paris%3C/text%3E%3C/svg%3E',
         nome: 'Mesa Nobreza',
         slug: 'mesa-nobreza',
         preco: 4200,
