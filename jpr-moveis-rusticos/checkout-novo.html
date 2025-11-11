@@ -409,18 +409,23 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="cep">CEP *</label>
-                            <input type="text" id="cep" placeholder="88000-000" required>
+                            <input type="text" id="cep" placeholder="88000-000" maxlength="9" required onblur="validarCEPe calcularFrete()">
+                            <small id="cep-error" style="color: #d32f2f; display: none;">CEP inválido. Use o formato: 12345-678</small>
                         </div>
                         <div class="form-group">
                             <label for="estado">Estado *</label>
-                            <select id="estado" required>
-                                <option value="">Selecione</option>
+                            <select id="estado" required onchange="calcularFrete()">
+                                <option value="">Selecione o estado</option>
                                 <option value="SC">Santa Catarina</option>
                                 <option value="PR">Paraná</option>
                                 <option value="RS">Rio Grande do Sul</option>
                                 <option value="SP">São Paulo</option>
                             </select>
                         </div>
+                    </div>
+
+                    <div id="frete-info" style="display: none; background: #E8F5E9; padding: 12px; border-radius: var(--radius-md); margin: 16px 0; border-left: 4px solid var(--accent);">
+                        <strong>📦 Valor do Frete:</strong> <span id="frete-value">R$ 0,00</span>
                     </div>
 
                     <div class="form-group">
@@ -536,7 +541,17 @@
                     <!-- Items carregados via JavaScript -->
                 </div>
 
-                <div class="summary-total">
+                <div class="summary-item" style="border-top: 1px solid var(--gray-light); padding-top: 12px; margin-top: 12px;">
+                    <div class="summary-item-name">Subtotal</div>
+                    <div class="summary-item-price" id="subtotal-price">R$ 0,00</div>
+                </div>
+
+                <div class="summary-item" id="frete-summary" style="display: none;">
+                    <div class="summary-item-name">Frete</div>
+                    <div class="summary-item-price" id="frete-summary-price">R$ 0,00</div>
+                </div>
+
+                <div class="summary-total" style="background: linear-gradient(135deg, #ff6913 0%, #e04c16 100%); color: white; padding: 16px; border-radius: var(--radius-md);">
                     <span>Total:</span>
                     <span id="total-price">R$ 0,00</span>
                 </div>
@@ -556,14 +571,67 @@
         // Carregar carrinho
         let carrinho = JSON.parse(localStorage.getItem('carrinhoCheckout')) || [];
 
+        // Variável para armazenar o frete
+        let freteAtual = 0;
+
+        // Tabela de fretes por estado
+        const fretesPorEstado = {
+            'SC': 150,    // Santa Catarina: R$ 150
+            'PR': 250,    // Paraná: R$ 250
+            'RS': 200,    // Rio Grande do Sul: R$ 200 (estimado)
+            'SP': 300     // São Paulo: R$ 300 (estimado)
+        };
+
+        // Calcular frete baseado no estado
+        function calcularFrete() {
+            const estadoSelect = document.getElementById('estado');
+            const cepInput = document.getElementById('cep');
+            const estado = estadoSelect.value;
+            const cep = cepInput.value;
+
+            // Validar CEP
+            if (!cep || cep.length < 8) {
+                document.getElementById('frete-info').style.display = 'none';
+                document.getElementById('frete-summary').style.display = 'none';
+                return;
+            }
+
+            if (!estado) {
+                document.getElementById('frete-info').style.display = 'none';
+                document.getElementById('frete-summary').style.display = 'none';
+                return;
+            }
+
+            // Obter frete do estado
+            freteAtual = fretesPorEstado[estado] || 0;
+
+            if (freteAtual > 0) {
+                // Mostrar frete
+                document.getElementById('frete-info').style.display = 'block';
+                document.getElementById('frete-value').textContent = freteAtual.toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                });
+
+                // Atualizar resumo
+                document.getElementById('frete-summary').style.display = 'flex';
+                document.getElementById('frete-summary-price').textContent = freteAtual.toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                });
+
+                atualizarTotalComFrete();
+            }
+        }
+
         // Renderizar resumo
         function renderizarResumo() {
             const summaryItems = document.getElementById('summary-items');
-            let total = 0;
+            let subtotal = 0;
 
             summaryItems.innerHTML = carrinho.map(item => {
-                const subtotal = item.preco * item.quantidade;
-                total += subtotal;
+                const itemSubtotal = item.preco * item.quantidade;
+                subtotal += itemSubtotal;
 
                 return `
                     <div class="summary-item">
@@ -572,16 +640,36 @@
                             <small style="opacity: 0.7;">x${item.quantidade}</small>
                         </div>
                         <div class="summary-item-price">
-                            ${subtotal.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}
+                            ${itemSubtotal.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}
                         </div>
                     </div>
                 `;
             }).join('');
 
+            // Atualizar subtotal
+            document.getElementById('subtotal-price').textContent = subtotal.toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            });
+
+            atualizarTotalComFrete();
+        }
+
+        // Atualizar total com frete
+        function atualizarTotalComFrete() {
+            const subtotal = carrinho.reduce((sum, item) => sum + (item.preco * item.quantidade), 0);
+            const total = subtotal + freteAtual;
+
             document.getElementById('total-price').textContent = total.toLocaleString('pt-BR', {
                 style: 'currency',
                 currency: 'BRL'
             });
+        }
+
+        // Validar CEP
+        function validarCEPe(cep) {
+            const regex = /^\d{5}-?\d{3}$/;
+            return regex.test(cep);
         }
 
         // Selecionar método de pagamento
@@ -609,12 +697,36 @@
             const nome = document.getElementById('nome').value.trim();
             const email = document.getElementById('email').value.trim();
             const telefone = document.getElementById('telefone').value.trim();
+            const cep = document.getElementById('cep').value.trim();
+            const estado = document.getElementById('estado').value;
+            const cidade = document.getElementById('cidade').value.trim();
+            const rua = document.getElementById('rua').value.trim();
+            const numero = document.getElementById('numero').value.trim();
+            const bairro = document.getElementById('bairro').value.trim();
             const pagamento = document.querySelector('input[name="pagamento"]:checked');
 
-            if (!nome || !email || !telefone || !pagamento) {
+            // Validação completa
+            if (!nome || !email || !telefone || !cep || !estado || !cidade || !rua || !numero || !bairro || !pagamento) {
                 alert('Por favor, preencha todos os campos obrigatórios!');
                 return;
             }
+
+            // Validar formato do CEP
+            if (!validarCEP(cep)) {
+                alert('CEP inválido! Use o formato: 12345-678');
+                return;
+            }
+
+            // Validar email
+            if (!validarEmail(email)) {
+                alert('Email inválido!');
+                return;
+            }
+
+            // Calcular totais
+            const subtotal = carrinho.reduce((sum, item) => sum + (item.preco * item.quantidade), 0);
+            const frete = fretesPorEstado[estado] || 0;
+            const total = subtotal + frete;
 
             // Coletar dados do pedido
             const pedido = {
@@ -623,26 +735,36 @@
                     email,
                     telefone,
                     endereco: {
-                        cep: document.getElementById('cep').value,
-                        estado: document.getElementById('estado').value,
-                        cidade: document.getElementById('cidade').value,
-                        rua: document.getElementById('rua').value,
-                        numero: document.getElementById('numero').value,
+                        cep,
+                        estado,
+                        cidade,
+                        rua,
+                        numero,
                         complemento: document.getElementById('complemento').value,
-                        bairro: document.getElementById('bairro').value
+                        bairro
                     }
                 },
                 pagamento: pagamento.value,
                 itens: carrinho,
-                data: new Date().toISOString(),
-                total: carrinho.reduce((sum, item) => sum + (item.preco * item.quantidade), 0)
+                subtotal,
+                frete,
+                total,
+                data: new Date().toISOString()
             };
+
+            // Validar carrinho não vazio
+            if (carrinho.length === 0) {
+                alert('Seu carrinho está vazio!');
+                return;
+            }
 
             // Salvar pedido no localStorage
             localStorage.setItem('pedidoAtual', JSON.stringify(pedido));
+            localStorage.removeItem('carrinhoCheckout');
 
             // Aqui você integraria com a API do backend
             // Por enquanto, redirecionar para página de sucesso
+            alert('Pedido realizado com sucesso!');
             window.location.href = 'sucesso-compra.html';
         }
 
