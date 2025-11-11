@@ -1,3 +1,4 @@
-# Redeploy trigger - Mobile responsive filters
-# Updated: dom 10 nov 2025 23:00:00 -03
-# Commit: e6e5ec7 - Hide search and filters on mobile devices
+# Redeploy trigger - Optimized checkout with shipping calculation
+# Updated: dom 10 nov 2025 23:15:00 -03
+# Commit: 6325971 - Optimize checkout for high-conversion shipping system
+# Features: SC R$150, PR R$250 shipping, CEP validation, real-time calculation
